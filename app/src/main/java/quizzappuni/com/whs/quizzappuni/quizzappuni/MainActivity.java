@@ -1,4 +1,4 @@
-package quizzappuni.com.example.marc.quizzappuni;
+package quizzappuni.com.whs.quizzappuni.quizzappuni;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
