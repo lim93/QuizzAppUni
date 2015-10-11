@@ -1,4 +1,4 @@
-package quizzappuni.com.whs.quizzappuni.quizzappuni;
+package quizzappuni.com.whs.quizzappuni;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

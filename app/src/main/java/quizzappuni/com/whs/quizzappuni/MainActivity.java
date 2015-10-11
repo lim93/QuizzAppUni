@@ -1,9 +1,11 @@
-package quizzappuni.com.whs.quizzappuni.quizzappuni;
+package quizzappuni.com.whs.quizzappuni;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 
 public class MainActivity extends ActionBarActivity {
 
