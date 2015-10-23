@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="quizzappuni.com.whs.quizzappuni.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,8 +18,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="quizzappuni.com.whs.quizzappuni.LernenMultipleChoice"
-            android:label="@string/title_activity_lernen_multiple_choice" >
+            android:name="quizzappuni.com.whs.quizzappuni.LearnMultiplechoice"
+            android:label="@string/title_activity_learn_multiplechoice" >
         </activity>
     </application>
 

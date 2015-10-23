@@ -4,26 +4,41 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="quizzappuni.com.whs.quizzappuni.MainActivity"
     android:background="@color/lightgreen">
 
-    <TextView android:text="@string/app_name" android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/app_name"
         android:id="@+id/textView"
+        android:textColor="@color/lightwhite"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="40dp"
-        android:textIsSelectable="false"
-        android:textColor="@color/lightwhite" />
+        android:layout_centerHorizontal="true" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_marginTop="56dp"
-        android:src="@mipmap/kappehome"
+        android:src="@drawable/kappehome"
+        android:layout_marginTop="61dp"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
-</RelativeLayout>
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_play_arrow_black_24dp"
+        android:background="@drawable/circle"
+        android:id="@+id/imageButton"
+        android:layout_gravity="right|bottom"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="63dp" />
 
+
+</RelativeLayout>

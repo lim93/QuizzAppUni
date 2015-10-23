@@ -1,18 +1,30 @@
 package quizzappuni.com.whs.quizzappuni;
 
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.content.Intent;
+import android.app.Activity;
+import android.view.View;
+import android.widget.ImageButton;
 
 import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
+
+    ImageButton FAB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FAB = (ImageButton) findViewById(R.id.imageButton);
+        FAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(MainActivity.this, LearnMultiplechoice.class);
+                startActivity(i);
+            }
+        });
     }
-    
 }

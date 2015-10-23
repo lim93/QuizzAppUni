@@ -2,4 +2,8 @@
     <string name="app_name">eVoc</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_lernen_multiple_choice">LernenMultipleChoice</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_learn_multiplechoice">LearnMultiplechoice</string>
+
+    <string name="baustelle">Hallo Besucher, hier entsteht eine App. Die App wird gerade vervollständigt. Bald ist diese App ein Augenschmaus mit tollen Funktionen. Bitte gedulden Sie sich noch ein wenig..</string>
 </resources>
