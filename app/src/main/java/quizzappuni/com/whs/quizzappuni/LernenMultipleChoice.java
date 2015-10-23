@@ -7,12 +7,12 @@ import android.view.MenuItem;
 
 import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 
-public class MainActivity extends ActionBarActivity {
+public class LernenMultipleChoice extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_lernen_multiple_choice);
     }
-    
+
 }

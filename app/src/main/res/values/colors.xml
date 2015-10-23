@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lightgreen">#76b236</color>
+    <color name="darkgreen">#59901f</color>
+
+    <color name="lightwhite">#fcfcfc</color>
+    <color name="darkwhite">#e4e4e4</color>
+
+    <color name="tealA700">#00bfa5</color>
+</resources>
