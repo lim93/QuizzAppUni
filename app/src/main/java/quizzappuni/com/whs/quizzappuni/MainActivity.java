@@ -11,6 +11,7 @@ import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 public class MainActivity extends Activity {
 
     ImageButton FAB;
+    ImageButton dbButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,16 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
 
                 Intent i = new Intent(MainActivity.this, LearnMultiplechoice.class);
+                startActivity(i);
+            }
+        });
+
+        dbButton = (ImageButton) findViewById(R.id.dbButton);
+        dbButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(MainActivity.this, DB.class);
                 startActivity(i);
             }
         });

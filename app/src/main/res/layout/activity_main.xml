@@ -40,5 +40,18 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="63dp" />
 
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_play_arrow_black_24dp"
+        android:background="@drawable/circle"
+        android:id="@+id/dbButton"
+        android:layout_gravity="right|bottom"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp" />
+
 
 </RelativeLayout>
