@@ -34,21 +34,16 @@
         android:layout_gravity="end|bottom"
         android:src="@drawable/ic_play_arrow_black_24dp"
         android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="52dp" />
+        android:layout_centerHorizontal="true" />
 
-    <ImageButton
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/ic_play_arrow_black_24dp"
-        android:background="@drawable/circle"
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/dbButton"
-        android:layout_gravity="right|bottom"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp" />
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_play_arrow_black_24dp"
+        android:layout_below="@+id/fab"
+        android:layout_alignStart="@+id/fab"
+        android:layout_marginTop="32dp" />
 
 </RelativeLayout>

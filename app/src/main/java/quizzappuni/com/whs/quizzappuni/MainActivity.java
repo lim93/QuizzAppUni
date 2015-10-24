@@ -13,8 +13,7 @@ import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 public class MainActivity extends Activity {
 
     FloatingActionButton fab;
-    ImageButton FAB;
-    ImageButton dbButton;
+    FloatingActionButton dbButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +30,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        dbButton = (ImageButton) findViewById(R.id.dbButton);
+        dbButton = (FloatingActionButton) findViewById(R.id.dbButton);
         dbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

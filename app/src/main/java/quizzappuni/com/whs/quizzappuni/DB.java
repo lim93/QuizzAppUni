@@ -3,8 +3,8 @@ package quizzappuni.com.whs.quizzappuni;
 import android.app.Activity;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -13,7 +13,7 @@ import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 
 public class DB extends Activity implements View.OnClickListener {
 
-    ImageButton dbButton;
+    FloatingActionButton dbButton;
     TextView dbCreate;
     TextView dbOpen;
     TextView dbResult;
@@ -25,7 +25,7 @@ public class DB extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_db);
 
-        dbButton = (ImageButton) findViewById(R.id.dbButton);
+        dbButton = (FloatingActionButton) findViewById(R.id.dbButton);
         dbButton.setOnClickListener(this);
     }
 
