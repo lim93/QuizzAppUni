@@ -4,21 +4,21 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.app.Activity;
 import android.view.View;
-import android.widget.ImageButton;
+import android.support.design.widget.FloatingActionButton;
 
 import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 
 public class MainActivity extends Activity {
 
-    ImageButton FAB;
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FAB = (ImageButton) findViewById(R.id.imageButton);
-        FAB.setOnClickListener(new View.OnClickListener() {
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

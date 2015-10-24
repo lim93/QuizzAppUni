@@ -1,7 +1,8 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
+    <!-- <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar"> -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:colorPrimary">@color/lightgreen</item>
         <item name="android:colorPrimaryDark">@color/darkgreen</item>
         <item name="android:colorAccent">@color/tealA700</item>

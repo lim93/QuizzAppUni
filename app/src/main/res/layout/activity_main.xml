@@ -27,18 +27,15 @@
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
-    <ImageButton
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
         android:src="@drawable/ic_play_arrow_black_24dp"
-        android:background="@drawable/circle"
-        android:id="@+id/imageButton"
-        android:layout_gravity="right|bottom"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
         android:layout_below="@+id/imageView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="63dp" />
+        android:layout_marginTop="52dp" />
 
 
 </RelativeLayout>
