@@ -1,4 +1,4 @@
-package quizzappuni.com.whs.quizzappuni;
+package quizzappuni.com.whs.quizzappuni.Activities;
 
 import android.app.Activity;
 import android.database.SQLException;
@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import java.io.IOException;
 
+import quizzappuni.com.whs.quizzappuni.Model.Question;
+import quizzappuni.com.whs.quizzappuni.Model.QuestionAnswer;
+import quizzappuni.com.whs.quizzappuni.Utils.DBHelper;
 import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 
 public class DB extends Activity implements View.OnClickListener {
@@ -17,7 +20,6 @@ public class DB extends Activity implements View.OnClickListener {
     TextView dbCreate;
     TextView dbOpen;
     TextView dbResult;
-
 
 
     @Override
@@ -49,15 +51,24 @@ public class DB extends Activity implements View.OnClickListener {
 
         try {
             dbHelper.openDataBase();
-        }catch(SQLException sqle){
+        } catch (SQLException sqle) {
             throw sqle;
         }
 
         dbOpen.setText("DB opened!");
 
-        String question = dbHelper.loadQuestion();
+        Question question = dbHelper.loadQuestionById(2);
 
-        dbResult.setText("Frage: " + question);
+        QuestionAnswer[] questionAnswers = question.getAnswers();
+        StringBuilder sb = new StringBuilder();
+
+        for(QuestionAnswer qa : questionAnswers) {
+            sb.append(qa.getAnswerText());
+            sb.append(", ");
+        }
+
+        dbResult.setText("Question: " + question.getQuestionText() +
+                " Answers: " + sb.toString());
 
     }
 }

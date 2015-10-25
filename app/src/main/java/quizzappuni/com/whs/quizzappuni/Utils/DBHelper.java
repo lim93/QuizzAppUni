@@ -1,4 +1,4 @@
-package quizzappuni.com.whs.quizzappuni;
+package quizzappuni.com.whs.quizzappuni.Utils;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -11,6 +11,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import quizzappuni.com.whs.quizzappuni.Model.MultipleChoice;
+import quizzappuni.com.whs.quizzappuni.Model.Question;
+import quizzappuni.com.whs.quizzappuni.Model.QuestionAnswer;
+import quizzappuni.com.whs.quizzappuni.Model.TrueFalse;
 
 /**
  * Created by krispin on 24.10.15.
@@ -19,9 +26,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private static String DB_PATH = "/data/data/quizzappuni.com.whs.quizzappuni/databases/";
     private static String DB_NAME = "quizzdb.sqlite";
-
-    private SQLiteDatabase quizzdb;
     private final Context context;
+    private SQLiteDatabase quizzdb;
 
     /**
      * Konstruktor - Bekommt eine Referenz auf den Context um auf den assets-Ordner zugreifen zu können
@@ -39,7 +45,8 @@ public class DBHelper extends SQLiteOpenHelper {
      */
     public void createDataBase() throws IOException {
 
-        boolean dbExist = checkDataBase();
+        boolean dbExist = false;
+        //checkDataBase();
 
         if (dbExist) {
             //nichts zu tun
@@ -119,7 +126,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public String loadQuestion(){
+    public String loadQuestion() {
 
         Cursor resultSet = quizzdb.rawQuery("Select * from question", null);
         resultSet.moveToFirst();
@@ -128,6 +135,76 @@ public class DBHelper extends SQLiteOpenHelper {
         return question;
 
     }
+
+    public Question loadQuestionById(int questionId) {
+
+        Question question;
+
+        Cursor resultSet = quizzdb.rawQuery("Select * from question where _id = " + questionId + ";", null);
+        resultSet.moveToFirst();
+
+        int qId = resultSet.getInt(0);
+        String questionText = resultSet.getString(1);
+        int questionType = resultSet.getInt(2);
+        //TODO: Definition und Category
+
+        QuestionAnswer[] questionAnswers = loadQuestionAnswersById(qId);
+
+        switch (questionType) {
+            case 1:
+                question = new MultipleChoice(questionAnswers);
+                break;
+            case 2:
+                question = new TrueFalse(questionAnswers);
+                break;
+            default:
+                throw new IllegalStateException("Illegal Question Type.");
+        }
+
+        question.setId(qId);
+        question.setQuestionText(questionText);
+
+        resultSet.close();
+        return question;
+
+    }
+
+    private QuestionAnswer[] loadQuestionAnswersById(int questionId) {
+
+        Cursor resultSet = quizzdb.rawQuery("Select qa.answer_id, qa.question_id, a.answer_text, " +
+                "qa.correct_answer from question_answer qa join answer a on qa.answer_id = a._id " +
+                "where qa.question_id = " + questionId + ";", null);
+
+        List<QuestionAnswer> questionAnswers = new ArrayList<QuestionAnswer>();
+
+
+        resultSet.moveToFirst();
+
+        while (!resultSet.isAfterLast()) {
+
+            int id = resultSet.getInt(0);
+            int qId = resultSet.getInt(1);
+            String answerText = resultSet.getString(2);
+
+            Boolean correctAnswer = false;
+            if (resultSet.getInt(3) == 1) {
+                correctAnswer = true;
+            }
+
+            QuestionAnswer questionAnswer = new QuestionAnswer(id, qId, answerText, correctAnswer);
+            questionAnswers.add(questionAnswer);
+            resultSet.moveToNext();
+
+        }
+
+        resultSet.close();
+
+        QuestionAnswer[] qaArray = new QuestionAnswer[questionAnswers.size()];
+        qaArray = questionAnswers.toArray(qaArray);
+        return qaArray;
+
+    }
+
 
     @Override
     public synchronized void close() {
