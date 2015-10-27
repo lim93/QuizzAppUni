@@ -1,4 +1,4 @@
-package quizzappuni.com.whs.quizzappuni;
+package quizzappuni.com.whs.quizzappuni.Activities;
 
 import android.os.Bundle;
 import android.app.Activity;
