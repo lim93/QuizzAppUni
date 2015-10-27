@@ -17,4 +17,56 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:textColor="@color/lightwhite" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Antwort1"
+        android:id="@+id/Antwort1"
+        android:background="@color/lightwhite"
+        android:layout_above="@+id/Antwort2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="18dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Antwort2"
+        android:id="@+id/Antwort2"
+        android:background="@color/lightwhite"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Antwort3"
+        android:id="@+id/Antwort3"
+        android:background="@color/lightwhite"
+        android:layout_below="@+id/Antwort2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:layout_alignRight="@+id/Antwort2"
+        android:layout_alignEnd="@+id/Antwort2" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Antwort4"
+        android:id="@+id/Antwort4"
+        android:background="@color/lightwhite"
+        android:layout_below="@+id/Antwort3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="18dp"
+        android:layout_alignRight="@+id/Antwort3"
+        android:layout_alignEnd="@+id/Antwort3" />
+
 </RelativeLayout>

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
