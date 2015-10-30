@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="quizzappuni.com.whs.quizzappuni.Activities.Start"
+    android:background="@color/lightgreen">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/app_name"
+        android:id="@+id/textView"
+        android:textColor="@color/lightwhite"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <View
+        android:layout_width="150dp"
+        android:layout_height="2dp"
+        android:background="@color/darkgreen"
+        android:id="@+id/line"
+        android:layout_marginTop="9dp"
+        android:layout_below="@+id/textView"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="212dp"
+        android:id="@+id/doktorhut"
+        android:src="@drawable/kappehome"
+        android:layout_below="@+id/line"
+        android:layout_centerHorizontal="true"
+        android:baselineAlignBottom="false"
+        android:contentDescription="@string/doktorhutContentDescription" />
+
+    <android.support.design.widget.FloatingActionButton
+        xmlns:app="http://schemas.android.com/apk/res-auto?"
+        app:borderWidth="0dp"
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_play_arrow_black_24dp"
+        android:layout_below="@+id/doktorhut"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+
+    <android.support.design.widget.FloatingActionButton
+        xmlns:app="http://schemas.android.com/apk/res-auto?"
+        app:borderWidth="0dp"
+        android:id="@+id/dbButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_play_arrow_black_24dp"
+        android:layout_marginTop="38dp"
+        android:layout_below="@+id/fab"
+        android:layout_alignLeft="@+id/fab"
+        android:layout_alignStart="@+id/fab" />
+
+</RelativeLayout>

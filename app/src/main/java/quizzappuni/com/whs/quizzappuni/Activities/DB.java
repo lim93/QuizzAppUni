@@ -1,6 +1,7 @@
 package quizzappuni.com.whs.quizzappuni.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -71,5 +72,13 @@ public class DB extends Activity implements View.OnClickListener {
         dbResult.setText("Question: " + question.getQuestionText() +
                 " Answers: " + sb.toString());
 
+    }
+
+    public void onBackPressed() {
+        // Call the MainActivity, if the back-button is pressed.
+        setResult(RESULT_CANCELED);
+        finish();
+        //Intent i = new Intent(DB.this, MainActivity.class);
+        //startActivity(i);
     }
 }
