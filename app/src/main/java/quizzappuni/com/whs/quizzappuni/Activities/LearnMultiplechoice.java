@@ -14,19 +14,27 @@ public class LearnMultiplechoice extends Activity {
     private Button Antwort2;
     private Button Antwort3;
     private Button Antwort4;
+    String antwortmoeglichkeit1;
+    String roundResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_multiplechoice);
 
+        //Übergebene Fragen und Antworten entgegennehmen
+        Intent start = getIntent();
+        antwortmoeglichkeit1 = start.getExtras().getString("Antwort1");
+
         Antwort1 = (Button)findViewById(R.id.Antwort1);
-        Antwort1.setText("1.Antwort");
+        Antwort1.setText(antwortmoeglichkeit1);
         Antwort1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(LearnMultiplechoice.this, MainActivity.class);
-                startActivity(i);
+                Intent data = new Intent();
+                data.putExtra("result", roundResult);
+                setResult(RESULT_OK, data);
+                finish();
             }
         });
 
@@ -39,6 +47,12 @@ public class LearnMultiplechoice extends Activity {
         Antwort4 = (Button)findViewById(R.id.Antwort4);
         Antwort4.setText("4.Antwort");
 
+    }
+
+    public void onBackPressed() {
+        // Call the MainActivity, if the back-button is pressed.
+        Intent i = new Intent(LearnMultiplechoice.this, MainActivity.class);
+        startActivity(i);
     }
 
 }
