@@ -1,11 +1,8 @@
 package quizzappuni.com.whs.quizzappuni.Activities;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.database.SQLException;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
@@ -13,7 +10,10 @@ import java.io.IOException;
 
 import quizzappuni.com.whs.quizzappuni.Model.Question;
 import quizzappuni.com.whs.quizzappuni.Model.QuestionAnswer;
-import quizzappuni.com.whs.quizzappuni.Utils.DBHelper;
+import quizzappuni.com.whs.quizzappuni.Model.Round;
+import quizzappuni.com.whs.quizzappuni.Model.RoundQuestion;
+import quizzappuni.com.whs.quizzappuni.Utils.QuizzDBHelper;
+import quizzappuni.com.whs.quizzappuni.Utils.UserDBHelper;
 import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 
 public class DB extends Activity implements View.OnClickListener {
@@ -21,7 +21,8 @@ public class DB extends Activity implements View.OnClickListener {
     FloatingActionButton dbButton;
     TextView dbCreate;
     TextView dbOpen;
-    TextView dbResult;
+    TextView quizzdbResult;
+    TextView userdbResult;
 
 
     @Override
@@ -38,41 +39,72 @@ public class DB extends Activity implements View.OnClickListener {
 
         dbCreate = (TextView) findViewById(R.id.dbCreate);
         dbOpen = (TextView) findViewById(R.id.dbOpen);
-        dbResult = (TextView) findViewById(R.id.dbResult);
+        quizzdbResult = (TextView) findViewById(R.id.quizzdbResult);
+        userdbResult = (TextView) findViewById(R.id.userdbResult);
 
-        DBHelper dbHelper = new DBHelper(this);
+        QuizzDBHelper qHelper = new QuizzDBHelper(this.getApplicationContext());
+        UserDBHelper uHelper = new UserDBHelper(this.getApplicationContext());
 
-        //Todo: In activity_main ausführen?
+        //Todo: In activity_main ausführen
         try {
-            dbHelper.createDataBase();
+            qHelper.createAndOpenDatabase();
         } catch (IOException ioe) {
-            throw new Error("Unable to create database");
+            throw new Error("Unable to create QuizzDB");
         }
 
-        dbCreate.setText("DB created!");
+        dbCreate.setText("QuizzDB created and opened");
 
         try {
-            dbHelper.openDataBase();
-        } catch (SQLException sqle) {
-            throw sqle;
+            uHelper.createAndOpenDatabase();
+        } catch (IOException ioe) {
+            throw new Error("Unable to create UserDB");
         }
 
-        dbOpen.setText("DB opened!");
+        dbOpen.setText("UserDB created and opened");
 
-        Question question = dbHelper.loadQuestionById(2);
+
+        Question question = qHelper.loadQuestionById(2);
 
         QuestionAnswer[] questionAnswers = question.getAnswers();
         StringBuilder sb = new StringBuilder();
 
-        for(QuestionAnswer qa : questionAnswers) {
+        for (QuestionAnswer qa : questionAnswers) {
             sb.append(qa.getAnswerText());
             sb.append(", ");
         }
 
-        dbResult.setText("Question: " + question.getQuestionText() +
+        quizzdbResult.setText("Question: " + question.getQuestionText() +
                 " Answers: " + sb.toString());
 
+
+        Round round = uHelper.loadRoundById(1);
+
+        sb = new StringBuilder();
+        sb.append("Runde: ");
+        sb.append(round.getId());
+        sb.append(", Dauer:");
+        sb.append(round.getDurationSeconds() + "Sekunden");
+        sb.append(", Fragen:");
+
+        for (RoundQuestion rq : round.getRoundQuestions()) {
+            sb.append(rq.getQuestionId());
+            sb.append(",");
+
+            if (rq.isCorrect()) {
+                sb.append("Richtig beantwortet");
+            } else {
+                sb.append(" Falsch beantwortet");
+            }
+            sb.append("; ");
+
+        }
+
+        sb.append("Punkte: " + round.getScore());
+
+        userdbResult.setText(sb.toString());
+
     }
+
 
     public void onBackPressed() {
         // Call the MainActivity, if the back-button is pressed.
@@ -81,4 +113,6 @@ public class DB extends Activity implements View.OnClickListener {
         //Intent i = new Intent(DB.this, MainActivity.class);
         //startActivity(i);
     }
+
+
 }
