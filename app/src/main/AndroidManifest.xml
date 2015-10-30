@@ -21,12 +21,14 @@
 
         <activity
             android:name="quizzappuni.com.whs.quizzappuni.Activities.LearnMultiplechoice"
-            android:label="@string/title_activity_learn_multiplechoice" >
+            android:label="@string/title_activity_learn_multiplechoice"
+            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity">
         </activity>
 
         <activity
             android:name="quizzappuni.com.whs.quizzappuni.Activities.DB"
-            android:label="@string/title_activity_db" >
+            android:label="@string/title_activity_db"
+            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity">
         </activity>
 
     </application>

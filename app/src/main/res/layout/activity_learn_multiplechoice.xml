@@ -1,72 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="quizzappuni.com.whs.quizzappuni.Activities.LearnMultiplechoice"
-    android:background="@color/lightgreen">
 
-    <TextView
-        android:layout_width="wrap_content"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey300"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/main.appbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/baustelle"
-        android:id="@+id/baustelle"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:textColor="@color/lightwhite" />
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:fitsSystemWindows="true"
+        >
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Antwort1"
-        android:id="@+id/Antwort1"
-        android:background="@color/lightwhite"
-        android:layout_above="@+id/Antwort2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="18dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Antwort2"
-        android:id="@+id/Antwort2"
-        android:background="@color/lightwhite"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/main.toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Antwort3"
-        android:id="@+id/Antwort3"
-        android:background="@color/lightwhite"
-        android:layout_below="@+id/Antwort2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:layout_alignRight="@+id/Antwort2"
-        android:layout_alignEnd="@+id/Antwort2" />
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Antwort4"
-        android:id="@+id/Antwort4"
-        android:background="@color/lightwhite"
-        android:layout_below="@+id/Antwort3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="18dp"
-        android:layout_alignRight="@+id/Antwort3"
-        android:layout_alignEnd="@+id/Antwort3" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/baustelle"
+                android:id="@+id/baustelle"
+                android:paddingLeft="60dp"
+                android:layout_marginTop="-44dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/lightwhite" />
 
-</RelativeLayout>
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ToggleButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Antwort 1"
+                android:textOn="Antwort 1"
+                android:textOff="Antwort 1"
+                android:id="@+id/Antwort1"
+                android:background="@drawable/multiple_choice_toggle_colors"
+                android:textColor="@color/multiple_choice_toggle_text_colors"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"/>
+
+            <ToggleButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Antwort 2"
+                android:textOn="Antwort 2"
+                android:textOff="Antwort 2"
+                android:id="@+id/Antwort2"
+                android:background="@drawable/multiple_choice_toggle_colors"
+                android:textColor="@color/multiple_choice_toggle_text_colors"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_below="@+id/Antwort1"/>
+
+            <ToggleButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Antwort 3"
+                android:textOn="Antwort 3"
+                android:textOff="Antwort 3"
+                android:id="@+id/Antwort3"
+                android:background="@drawable/multiple_choice_toggle_colors"
+                android:textColor="@color/multiple_choice_toggle_text_colors"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_below="@+id/Antwort2"/>
+
+            <ToggleButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Antwort 4"
+                android:textOn="Antwort 4"
+                android:textOff="Antwort 4"
+                android:id="@+id/Antwort4"
+                android:background="@drawable/multiple_choice_toggle_colors"
+                android:textColor="@color/multiple_choice_toggle_text_colors"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_below="@+id/Antwort3"/>
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>
+

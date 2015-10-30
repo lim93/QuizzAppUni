@@ -6,5 +6,6 @@
     <color name="lightwhite">#fcfcfc</color>
     <color name="darkwhite">#e4e4e4</color>
 
+    <color name="grey300">#EAEAEA</color>
     <color name="tealA700">#00bfa5</color>
 </resources>
