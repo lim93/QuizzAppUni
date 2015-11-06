@@ -21,6 +21,8 @@ public class LearnmodePresenter {
     //QuizzDBHelper qHelper = new QuizzDBHelper(view.getApplicationContext());
     //UserDBHelper uHelper = new UserDBHelper(view.getApplicationContext());
 
+    QuizzDBHelper qHelper;
+
 
     public LearnmodePresenter(){
     }
@@ -32,6 +34,12 @@ public class LearnmodePresenter {
     /**public void openDb(){
 
      */
+    public void openDB(){
+        qHelper = new QuizzDBHelper(view.getApplicationContext());
+        qHelper.openDataBase();
+    }
+
+
 
     public void check(){
 
