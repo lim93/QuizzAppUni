@@ -52,6 +52,7 @@ public class DB extends Activity implements View.OnClickListener {
             throw new Error("Unable to create QuizzDB");
         }
 
+
         dbCreate.setText("QuizzDB created and opened");
 
         try {

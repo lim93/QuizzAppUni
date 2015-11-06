@@ -127,7 +127,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    protected void openDataBase() throws SQLException {
+    public void openDataBase() throws SQLException {
 
         String myPath = DB_PATH + dbName;
         db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
