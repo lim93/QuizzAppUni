@@ -25,6 +25,9 @@ public class MainActivity extends Activity {
             presenter = new MainPresenter();
         presenter.onTakeView(this);
 
+        //Datenbank erstellen
+        presenter.createDB();
+
         //fab-Button initialisieren
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
