@@ -7,11 +7,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.List;
 
 import quizzappuni.com.whs.quizzappuni.Model.Question;
 import quizzappuni.com.whs.quizzappuni.Model.QuestionAnswer;
-import quizzappuni.com.whs.quizzappuni.Model.Round;
-import quizzappuni.com.whs.quizzappuni.Model.RoundQuestion;
 import quizzappuni.com.whs.quizzappuni.Utils.QuizzDBHelper;
 import quizzappuni.com.whs.quizzappuni.Utils.UserDBHelper;
 import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
@@ -24,6 +23,9 @@ public class DB extends Activity implements View.OnClickListener {
     TextView quizzdbResult;
     TextView userdbResult;
 
+    QuizzDBHelper qHelper;
+    UserDBHelper uHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,18 +34,12 @@ public class DB extends Activity implements View.OnClickListener {
 
         dbButton = (FloatingActionButton) findViewById(R.id.dbButton);
         dbButton.setOnClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
 
         dbCreate = (TextView) findViewById(R.id.dbCreate);
         dbOpen = (TextView) findViewById(R.id.dbOpen);
-        quizzdbResult = (TextView) findViewById(R.id.quizzdbResult);
-        userdbResult = (TextView) findViewById(R.id.userdbResult);
 
-        QuizzDBHelper qHelper = new QuizzDBHelper(this.getApplicationContext());
-        UserDBHelper uHelper = new UserDBHelper(this.getApplicationContext());
+        qHelper = new QuizzDBHelper(this.getApplicationContext());
+        uHelper = new UserDBHelper(this.getApplicationContext());
 
         //Todo: In activity_main ausführen
         try {
@@ -51,6 +47,7 @@ public class DB extends Activity implements View.OnClickListener {
         } catch (IOException ioe) {
             throw new Error("Unable to create QuizzDB");
         }
+
 
         dbCreate.setText("QuizzDB created and opened");
 
@@ -62,22 +59,36 @@ public class DB extends Activity implements View.OnClickListener {
 
         dbOpen.setText("UserDB created and opened");
 
+    }
 
-        Question question = qHelper.loadQuestionById(2);
+    @Override
+    public void onClick(View v) {
 
-        QuestionAnswer[] questionAnswers = question.getAnswers();
+
+        quizzdbResult = (TextView) findViewById(R.id.quizzdbResult);
+        userdbResult = (TextView) findViewById(R.id.userdbResult);
+
+
+        List<Question> randomQuestions = qHelper.getRandomQuestions(3);
         StringBuilder sb = new StringBuilder();
 
-        for (QuestionAnswer qa : questionAnswers) {
-            sb.append(qa.getAnswerText());
-            sb.append(", ");
+        for (Question question : randomQuestions) {
+
+            sb.append("Question: " + question.getQuestionText() +
+                    " Answers: ");
+
+            QuestionAnswer[] questionAnswers = question.getAnswers();
+
+            for (QuestionAnswer qa : questionAnswers) {
+                sb.append(qa.getAnswerText());
+                sb.append(", ");
+            }
         }
 
-        quizzdbResult.setText("Question: " + question.getQuestionText() +
-                " Answers: " + sb.toString());
+        quizzdbResult.setText(sb.toString());
 
 
-        Round round = uHelper.loadRoundById(1);
+       /* Round round = uHelper.loadRoundById(1);
 
         sb = new StringBuilder();
         sb.append("Runde: ");
@@ -101,7 +112,7 @@ public class DB extends Activity implements View.OnClickListener {
 
         sb.append("Punkte: " + round.getScore());
 
-        userdbResult.setText(sb.toString());
+        userdbResult.setText(sb.toString());*/
 
     }
 
