@@ -27,11 +27,6 @@
             android:label="@string/title_activity_db"
             android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity">
         </activity>
-        <activity
-            android:name="quizzappuni.com.whs.quizzappuni.Activities.Start"
-            android:label="@string/title_activity_start"
-            android:theme="@style/AppTheme" >
-        </activity>
     </application>
 
 </manifest>

@@ -16,34 +16,21 @@ public class LearnMultiplechoice extends AppCompatActivity {
     private Button Antwort2;
     private Button Antwort3;
     private Button Antwort4;
-    String antwortmoeglichkeit1;
-    String roundResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_multiplechoice);
 
-        //Übergebene Fragen und Antworten entgegennehmen
+        //Ãœbergebene Fragen und Antworten entgegennehmen
         Intent start = getIntent();
-        antwortmoeglichkeit1 = start.getExtras().getString("Antwort1");
 
         Antwort1 = (Button)findViewById(R.id.Antwort1);
-        Antwort1.setText(antwortmoeglichkeit1);
-        Antwort1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent data = new Intent();
-                data.putExtra("result", roundResult);
-                setResult(RESULT_OK, data);
-                finish();
-            }
-        });
-        
+
         // Erstellen der Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
-        
+
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -57,14 +44,16 @@ public class LearnMultiplechoice extends AppCompatActivity {
 //
         Antwort4 = (ToggleButton) findViewById(R.id.Antwort4);
 //        Antwort4.setText("4.Antwort");
-        
+
 
     }
 
-    public void onBackPressed() {
-        // Call the MainActivity, if the back-button is pressed.
-        Intent i = new Intent(LearnMultiplechoice.this, MainActivity.class);
-        startActivity(i);
-    }
+    /**
+     public void onBackPressed() {
+     // Call the MainActivity, if the back-button is pressed.
+     Intent i = new Intent(LearnMultiplechoice.this, MainActivity.class);
+     startActivity(i);
+     }
+     */
 
 }
