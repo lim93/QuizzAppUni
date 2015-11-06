@@ -105,6 +105,17 @@
                 android:layout_marginRight="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_below="@+id/Antwort3"/>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fabSend"
+                app:borderWidth="0dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|right"
+                android:layout_alignParentRight="true"
+                android:layout_below="@id/Antwort4"
+                android:layout_margin="16dp"
+                android:src="@drawable/ic_check_white_24dp" />
         </RelativeLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>
