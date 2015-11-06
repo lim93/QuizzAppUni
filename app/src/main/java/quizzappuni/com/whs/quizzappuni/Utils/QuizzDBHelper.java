@@ -5,7 +5,10 @@ import android.database.Cursor;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 import quizzappuni.com.whs.quizzappuni.Model.MultipleChoice;
 import quizzappuni.com.whs.quizzappuni.Model.Question;
@@ -28,7 +31,6 @@ public class QuizzDBHelper extends DBHelper {
         forceCreateDataBase();
         openDataBase();
     }
-
 
 
     public Question loadQuestionById(int questionId) {
@@ -100,6 +102,47 @@ public class QuizzDBHelper extends DBHelper {
 
     }
 
+    public List<Question> getRandomQuestions(int count) {
+
+        List<Integer> questionIds = new ArrayList<Integer>();
+        Set<Integer> randomQuestionIDs = new HashSet<Integer>();
+        List<Question> returnQuestions = new ArrayList<Question>();
+
+        Cursor resultSet = db.rawQuery("Select _id from question;", null);
+
+        resultSet.moveToFirst();
+
+        while (!resultSet.isAfterLast()) {
+
+            int id = resultSet.getInt(0);
+            questionIds.add(id);
+            resultSet.moveToNext();
+
+        }
+
+        resultSet.close();
+
+        if (questionIds.size() < count) {
+            throw new IllegalArgumentException("In der DB existieren nicht genug Fragen: " +
+                    "Vorhanden " + questionIds.size() +
+                    ", Abgefragt " + count);
+        }
+
+        while (randomQuestionIDs.size() < count) {
+
+            int id = ThreadLocalRandom.current().nextInt(1, questionIds.size() + 1);
+            randomQuestionIDs.add(id);
+
+        }
+
+        for (Integer id : randomQuestionIDs) {
+            returnQuestions.add(loadQuestionById(id));
+        }
+
+        return returnQuestions;
+
+
+    }
 
 
 }
