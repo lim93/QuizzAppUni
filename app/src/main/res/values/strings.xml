@@ -8,5 +8,6 @@
     <string name="doktorhutContentDescription">Symbol Doktorhut</string>
 
     <string name="baustelle">Hallo Besucher, hier entsteht eine App. Die App wird gerade vervollständigt. Bald ist diese App ein Augenschmaus mit tollen Funktionen. Bitte gedulden Sie sich noch ein wenig..</string>
+    <string name="question">Question</string>
     <string name="title_activity_start">StartActivity</string>
 </resources>

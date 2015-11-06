@@ -1,31 +1,36 @@
 package quizzappuni.com.whs.quizzappuni.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import quizzappuni.com.whs.quizzappuni.Presenter.LearnmodePresenter;
 import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 
 public class LearnMultiplechoice extends AppCompatActivity {
 
+    private LearnmodePresenter presenter;
     public FloatingActionButton fabSend;
-    private ToggleButton Antwort1;
-    private ToggleButton Antwort2;
-    private ToggleButton Antwort3;
-    private ToggleButton Antwort4;
+    public ToggleButton Antwort1;
+    public ToggleButton Antwort2;
+    public ToggleButton Antwort3;
+    public ToggleButton Antwort4;
+    public TextView question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn_multiplechoice);
 
-        //Ãœbergebene Fragen und Antworten entgegennehmen
-        Intent start = getIntent();
+        //Sicherstellen, dass ein Presenter existiert
+        if (presenter == null)
+            presenter = new LearnmodePresenter();
+        presenter.onTakeView(this);
 
         // Erstellen der Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
@@ -36,17 +41,14 @@ public class LearnMultiplechoice extends AppCompatActivity {
         fabSend = (FloatingActionButton) findViewById(R.id.fabSend);
         fabSend.setVisibility(View.GONE);
 
+        //Antwort-Buttons initialisieren
         Antwort1 = (ToggleButton) findViewById(R.id.Antwort1);
-//        Antwort1.setTextOn("1.Antwort");
-
         Antwort2 = (ToggleButton) findViewById(R.id.Antwort2);
-//        Antwort2.setText("2.Antwort");
-//
         Antwort3 = (ToggleButton) findViewById(R.id.Antwort3);
-//        Antwort3.setText("3.Antwort");
-//
         Antwort4 = (ToggleButton) findViewById(R.id.Antwort4);
-//        Antwort4.setText("4.Antwort");
+        question = (TextView) findViewById(R.id.question);
+
+        presenter.starteRunde();
 
 //        Listener für Button Änderung.
         Antwort1.setOnCheckedChangeListener(changeChecker);

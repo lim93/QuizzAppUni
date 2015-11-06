@@ -1,5 +1,6 @@
 package quizzappuni.com.whs.quizzappuni.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,6 +12,12 @@ public class Round {
     private int durationSeconds;
     private int score;
     private List<RoundQuestion> roundQuestions;
+
+    public Round() {
+        this.score=0;
+        this.durationSeconds = 0;
+        this.roundQuestions = new ArrayList<RoundQuestion>();
+    }
 
     public Round(int id, int durationSeconds, int score, List<RoundQuestion> roundQuestions) {
         this.id = id;

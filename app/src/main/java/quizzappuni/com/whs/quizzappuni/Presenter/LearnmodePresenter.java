@@ -1,6 +1,11 @@
 package quizzappuni.com.whs.quizzappuni.Presenter;
 
+import android.widget.TextView;
+import android.widget.ToggleButton;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import quizzappuni.com.whs.quizzappuni.Model.Question;
 import quizzappuni.com.whs.quizzappuni.Model.QuestionAnswer;
@@ -37,6 +42,41 @@ public class LearnmodePresenter {
     public void openDB(){
         qHelper = new QuizzDBHelper(view.getApplicationContext());
         qHelper.openDataBase();
+    }
+
+    public void starteRunde(){
+        openDB();
+        Round round = new Round();
+        List<Question> randomQuestions = qHelper.getRandomQuestions(1);
+
+        List<ToggleButton> buttons = new ArrayList<ToggleButton>();
+        buttons.add(view.Antwort1);
+        buttons.add(view.Antwort2);
+        buttons.add(view.Antwort3);
+        buttons.add(view.Antwort4);
+
+        for (Question question:randomQuestions){
+            view.question.setText(question.getQuestionText());
+            QuestionAnswer[] questionAnswers = question.getAnswers();
+
+            for (int i = 0; i<questionAnswers.length;i++) {
+                QuestionAnswer answer = questionAnswers[i];
+
+                buttons.get(i).setText(answer.getAnswerText());
+                buttons.get(i).setTextOn(answer.getAnswerText());
+                buttons.get(i).setTextOff(answer.getAnswerText());
+
+            }
+
+            //TODO: Auf UserInput warten und Antwort auswerten + in Runde setzen
+        }
+
+        //TODO: In DB schreiben
+
+
+
+
+
     }
 
 
