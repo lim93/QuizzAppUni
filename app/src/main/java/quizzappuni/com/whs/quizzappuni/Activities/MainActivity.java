@@ -25,8 +25,22 @@ public class MainActivity extends Activity {
             presenter = new MainPresenter();
         presenter.onTakeView(this);
 
-        //Buttons setzen
-        presenter.setLearnFab();
-        presenter.setDBFab();
+        //fab-Button initialisieren
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.learnmodeStarten();
+            }
+        });
+
+        //db-Button initialisieren
+        dbButton = (FloatingActionButton) findViewById(R.id.dbButton);
+        dbButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.dBmodeStarten();
+            }
+        });
     }
 }
