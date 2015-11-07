@@ -1,18 +1,18 @@
 package quizzappuni.com.whs.quizzappuni.Activities;
 
-import android.os.Bundle;
-import android.content.Intent;
 import android.app.Activity;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 
-import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 import quizzappuni.com.whs.quizzappuni.Presenter.MainPresenter;
+import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 
 public class MainActivity extends Activity {
 
     public FloatingActionButton fab;
     public FloatingActionButton dbButton;
+    public FloatingActionButton definitionButton;
     private MainPresenter presenter;
 
     @Override
@@ -45,5 +45,17 @@ public class MainActivity extends Activity {
                 presenter.dBmodeStarten();
             }
         });
+
+        //definition-Button initialisieren
+        definitionButton = (FloatingActionButton) findViewById(R.id.definitionButton);
+        definitionButton.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    presenter.definitionListStarten();
+                                                }
+                                            }
+
+
+        );
     }
 }

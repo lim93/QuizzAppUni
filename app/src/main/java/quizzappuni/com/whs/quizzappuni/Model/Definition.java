@@ -9,6 +9,15 @@ public class Definition {
     private String term;
     private String definitionText;
     private Category category;
+    private String source;
+
+    public Definition(int id, String term, String definitionText, Category category, String source) {
+        this.id = id;
+        this.term = term;
+        this.definitionText = definitionText;
+        this.category = category;
+        this.source = source;
+    }
 
     public int getId() {
         return id;
@@ -40,5 +49,13 @@ public class Definition {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
     }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
+import quizzappuni.com.whs.quizzappuni.Model.Definition;
 import quizzappuni.com.whs.quizzappuni.Model.MultipleChoice;
 import quizzappuni.com.whs.quizzappuni.Model.Question;
 import quizzappuni.com.whs.quizzappuni.Model.QuestionAnswer;
@@ -140,6 +141,58 @@ public class QuizzDBHelper extends DBHelper {
         }
 
         return returnQuestions;
+
+
+    }
+
+
+    public Definition loadDefinitionById(int id) {
+
+        Cursor resultSet = db.rawQuery("Select * from definition where _id =  " + id + ";", null);
+        resultSet.moveToFirst();
+
+        int definitionId = resultSet.getInt(0);
+        String term = resultSet.getString(1);
+        String definition_text = resultSet.getString(2);
+        int category_id = resultSet.getInt(3);
+        String source = resultSet.getString(4);
+        //TODO: Category
+
+        Definition definition = new Definition(definitionId, term, definition_text, null, source);
+
+
+        return definition;
+
+
+    }
+
+    public List<Definition> loadDefinitionList() {
+
+
+        List<Definition> definitionList = new ArrayList<Definition>();
+
+        Cursor resultSet = db.rawQuery("Select * from definition;", null);
+        resultSet.moveToFirst();
+
+
+        while (!resultSet.isAfterLast()) {
+
+            int definitionId = resultSet.getInt(0);
+            String term = resultSet.getString(1);
+            String definition_text = resultSet.getString(2);
+            int category_id = resultSet.getInt(3);
+            String source = resultSet.getString(4);
+            //TODO: Category
+
+            definitionList.add(new Definition(definitionId, term, definition_text, null, source));
+
+            resultSet.moveToNext();
+
+        }
+
+        resultSet.close();
+
+        return definitionList;
 
 
     }

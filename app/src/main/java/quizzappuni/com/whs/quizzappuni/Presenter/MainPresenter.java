@@ -1,17 +1,15 @@
 package quizzappuni.com.whs.quizzappuni.Presenter;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.widget.TextView;
 
 import java.io.IOException;
 
-import quizzappuni.com.whs.quizzappuni.Activities.LearnMultiplechoice;
 import quizzappuni.com.whs.quizzappuni.Activities.DB;
+import quizzappuni.com.whs.quizzappuni.Activities.DefinitionListActivity;
+import quizzappuni.com.whs.quizzappuni.Activities.LearnMultiplechoice;
 import quizzappuni.com.whs.quizzappuni.Activities.MainActivity;
 import quizzappuni.com.whs.quizzappuni.Utils.QuizzDBHelper;
 import quizzappuni.com.whs.quizzappuni.Utils.UserDBHelper;
-import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 
 /**
  * Created by M on 31.10.2015.
@@ -57,6 +55,12 @@ public class MainPresenter {
         Intent db = new Intent(view, DB.class);
         view.startActivity(db);
     }
+
+    public void definitionListStarten(){
+        Intent definitionList = new Intent(view, DefinitionListActivity.class);
+        view.startActivity(definitionList);
+    }
+
 
     public void onTakeView(MainActivity view) {
         this.view = view;
