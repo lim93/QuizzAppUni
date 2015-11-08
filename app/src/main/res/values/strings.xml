@@ -11,4 +11,9 @@
     <string name="question">Question</string>
     <string name="definitionListTitle">Vokabelheft</string>
     <string name="title_activity_start">StartActivity</string>
+
+    <string name="Antwort1dummy">Antwort 1</string>
+    <string name="Antwort2dummy">Antwort 2</string>
+    <string name="Antwort3dummy">Antwort 3</string>
+    <string name="Antwort4dummy">Antwort 4</string>
 </resources>

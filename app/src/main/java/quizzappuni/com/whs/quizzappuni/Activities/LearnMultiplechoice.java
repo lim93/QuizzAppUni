@@ -32,14 +32,18 @@ public class LearnMultiplechoice extends AppCompatActivity {
             presenter = new LearnmodePresenter();
         presenter.onTakeView(this);
 
+        this.loadElements();
+        presenter.loadQuestion();
+
+    }
+
+    public void loadElements(){
+
         // Erstellen der Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        fabSend = (FloatingActionButton) findViewById(R.id.fabSend);
-        fabSend.setVisibility(View.GONE);
 
         //Antwort-Buttons initialisieren
         Antwort1 = (ToggleButton) findViewById(R.id.Antwort1);
@@ -48,19 +52,26 @@ public class LearnMultiplechoice extends AppCompatActivity {
         Antwort4 = (ToggleButton) findViewById(R.id.Antwort4);
         question = (TextView) findViewById(R.id.question);
 
-        presenter.starteRunde();
-
-//        Listener für Button Änderung.
+//        Listener fÃ¼r Button Ã„nderung.
         Antwort1.setOnCheckedChangeListener(changeChecker);
         Antwort2.setOnCheckedChangeListener(changeChecker);
         Antwort3.setOnCheckedChangeListener(changeChecker);
         Antwort4.setOnCheckedChangeListener(changeChecker);
 
+        fabSend = (FloatingActionButton) findViewById(R.id.fabSend);
+        fabSend.setVisibility(View.GONE);
+        fabSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.confirmChoice();
+            }
+        });
+
     }
 
     CompoundButton.OnCheckedChangeListener changeChecker = new CompoundButton.OnCheckedChangeListener() {
 
-//      Nur ein Button kann selected sein.
+        //      Nur ein Button kann selected sein.
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             if (isChecked){
