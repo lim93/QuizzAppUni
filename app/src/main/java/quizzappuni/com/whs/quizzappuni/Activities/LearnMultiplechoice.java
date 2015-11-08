@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -16,6 +17,7 @@ public class LearnMultiplechoice extends AppCompatActivity {
 
     private LearnmodePresenter presenter;
     public FloatingActionButton fabSend;
+    public ProgressBar progressBar;
     public ToggleButton Antwort1;
     public ToggleButton Antwort2;
     public ToggleButton Antwort3;
@@ -66,6 +68,10 @@ public class LearnMultiplechoice extends AppCompatActivity {
             }
         });
         fabSend.hide();
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(10);
+        progressBar.setProgress(2);
     }
 
     CompoundButton.OnCheckedChangeListener changeChecker = new CompoundButton.OnCheckedChangeListener() {
