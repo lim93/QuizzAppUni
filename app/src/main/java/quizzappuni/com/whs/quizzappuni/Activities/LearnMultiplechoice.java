@@ -52,21 +52,20 @@ public class LearnMultiplechoice extends AppCompatActivity {
         Antwort4 = (ToggleButton) findViewById(R.id.Antwort4);
         question = (TextView) findViewById(R.id.question);
 
-//        Listener fÃ¼r Button Ã„nderung.
+//        Listener fuer Button Aenderung.
         Antwort1.setOnCheckedChangeListener(changeChecker);
         Antwort2.setOnCheckedChangeListener(changeChecker);
         Antwort3.setOnCheckedChangeListener(changeChecker);
         Antwort4.setOnCheckedChangeListener(changeChecker);
 
         fabSend = (FloatingActionButton) findViewById(R.id.fabSend);
-        fabSend.setVisibility(View.GONE);
         fabSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.confirmChoice();
             }
         });
-
+        fabSend.hide();
     }
 
     CompoundButton.OnCheckedChangeListener changeChecker = new CompoundButton.OnCheckedChangeListener() {
@@ -97,11 +96,16 @@ public class LearnMultiplechoice extends AppCompatActivity {
                 }
 
 //                FAB an
-                fabSend.setVisibility(View.VISIBLE);
-
+                fabSend.show();
             }   else {
+
 //                FAB aus
-                fabSend.setVisibility(View.GONE);
+                if(!Antwort1.isChecked()
+                        && !Antwort2.isChecked()
+                        && !Antwort3.isChecked()
+                        && !Antwort4.isChecked()) {
+                    fabSend.hide();
+                }
             }
         }
     };

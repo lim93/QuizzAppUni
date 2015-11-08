@@ -1,7 +1,8 @@
 package quizzappuni.com.whs.quizzappuni.Activities;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,7 +18,7 @@ import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 /**
  * Created by krispin on 07.11.15.
  */
-public class DefinitionListActivity extends Activity {
+public class DefinitionListActivity extends AppCompatActivity {
 
     ListView definitionListView;
     QuizzDBHelper quizzDBHelper;
@@ -28,6 +29,12 @@ public class DefinitionListActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_definition);
+
+        // Erstellen der Toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         definitionListView = (ListView) findViewById(R.id.definitionList);
 
