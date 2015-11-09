@@ -8,4 +8,8 @@
 
     <color name="grey300">#EAEAEA</color>
     <color name="tealA700">#00bfa5</color>
+
+    <color name="rightAnswer">#76b236</color>
+    <color name="wrongAnswer">#E8352B</color>
+    <color name="wrongAnswerDefinitionButton">#FFD300</color>
 </resources>
