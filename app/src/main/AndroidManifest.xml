@@ -9,7 +9,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="quizzappuni.com.whs.quizzappuni.Activities.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -17,16 +18,19 @@
         </activity>
         <activity
             android:name="quizzappuni.com.whs.quizzappuni.Activities.LearnMultiplechoice"
-            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity">
+            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="quizzappuni.com.whs.quizzappuni.Activities.DB"
             android:label="@string/title_activity_db"
-            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity">
+            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="quizzappuni.com.whs.quizzappuni.Activities.DefinitionListActivity"
-            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity">
+            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

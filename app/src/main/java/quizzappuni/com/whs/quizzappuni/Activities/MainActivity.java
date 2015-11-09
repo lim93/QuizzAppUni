@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
+import android.widget.ImageButton;
 
 import quizzappuni.com.whs.quizzappuni.Presenter.MainPresenter;
 import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
@@ -11,8 +12,8 @@ import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 public class MainActivity extends Activity {
 
     public FloatingActionButton fab;
-    public FloatingActionButton dbButton;
-    public FloatingActionButton definitionButton;
+    public ImageButton dbButton;
+    public ImageButton definitionButton;
     private MainPresenter presenter;
 
     @Override
@@ -38,7 +39,7 @@ public class MainActivity extends Activity {
         });
 
         //db-Button initialisieren
-        dbButton = (FloatingActionButton) findViewById(R.id.dbButton);
+        dbButton = (ImageButton) findViewById(R.id.dbButton);
         dbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +48,7 @@ public class MainActivity extends Activity {
         });
 
         //definition-Button initialisieren
-        definitionButton = (FloatingActionButton) findViewById(R.id.definitionButton);
+        definitionButton = (ImageButton) findViewById(R.id.definitionButton);
         definitionButton.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {

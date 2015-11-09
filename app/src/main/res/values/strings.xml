@@ -16,4 +16,16 @@
     <string name="Antwort2dummy">Antwort 2</string>
     <string name="Antwort3dummy">Antwort 3</string>
     <string name="Antwort4dummy">Antwort 4</string>
+
+
+    <string name="learning_mode">Lernmodus</string>
+    <string name="time_mode">Zeitmodus</string>
+
+    <string name="definitionDescription">Vokabelheft</string>
+    <string name="dbDescription">Datenbank</string>
+
+    <string name="learning_mode_description">In Ruhe neue Inhalte lernen</string>
+
+    <string name="pointsDummy">6 Punkte</string>
+    <string name="roundsDummy">2/10</string>
 </resources>
