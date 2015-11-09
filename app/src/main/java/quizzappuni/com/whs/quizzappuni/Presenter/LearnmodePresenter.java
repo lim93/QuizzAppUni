@@ -78,18 +78,28 @@ public class LearnmodePresenter {
         }
     }
 
-    //Auf die BestÃ¤tigung nach der Antwort-Auswahl reagieren
+    //Auf die Bestaetigung nach der Antwort-Auswahl reagieren
     public void confirmChoice(){
         thisRound++;
-        //Die View-Anzeige und View-Elemente neu laden, um Anzeigeprobleme zu beheben
-        if(thisRound < roundLength) {
-            view.setContentView(R.layout.activity_learn_multiplechoice);
-            view.loadElements();
-        }
-
+        //TODO:Problembehebung (s. folgendes Kommentarfeld) löschen, wenn nicht mehr benötigt
+        /**
+         * //Die View-Anzeige und View-Elemente neu laden, um Anzeigeprobleme zu beheben
+         * //Problembehebung sollte nun überflüssig sein
+         * if(thisRound < roundLength) {
+         *  view.setContentView(R.layout.activity_learn_multiplechoice);
+         *  view.loadElements();
+         * }
+         *  */
+        uncheckButtons();
         //TODO: Antwort auswerten + in Runde setzen
 
         loadQuestion();
+    }
+    public void uncheckButtons(){
+        view.Antwort1.setChecked(false);
+        view.Antwort2.setChecked(false);
+        view.Antwort3.setChecked(false);
+        view.Antwort4.setChecked(false);
     }
 
     public void check(){
