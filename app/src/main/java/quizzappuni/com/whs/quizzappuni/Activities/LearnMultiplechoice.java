@@ -3,6 +3,7 @@ package quizzappuni.com.whs.quizzappuni.Activities;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -16,13 +17,14 @@ import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 public class LearnMultiplechoice extends AppCompatActivity {
 
     private LearnmodePresenter presenter;
-    public FloatingActionButton fabSend;
-    public ProgressBar progressBar;
     public ToggleButton Antwort1;
     public ToggleButton Antwort2;
     public ToggleButton Antwort3;
     public ToggleButton Antwort4;
     public TextView question;
+    public ProgressBar progressBar;
+    public CardView statusCard;
+    public FloatingActionButton fabSend;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,18 +62,23 @@ public class LearnMultiplechoice extends AppCompatActivity {
         Antwort3.setOnCheckedChangeListener(changeChecker);
         Antwort4.setOnCheckedChangeListener(changeChecker);
 
+        statusCard = (CardView) findViewById(R.id.statusCard);
+
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(10);
+        progressBar.setProgress(2);
+
         fabSend = (FloatingActionButton) findViewById(R.id.fabSend);
+        fabSend.hide();
         fabSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.confirmChoice();
             }
         });
-        fabSend.hide();
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setMax(10);
-        progressBar.setProgress(2);
+
+
     }
 
     CompoundButton.OnCheckedChangeListener changeChecker = new CompoundButton.OnCheckedChangeListener() {
