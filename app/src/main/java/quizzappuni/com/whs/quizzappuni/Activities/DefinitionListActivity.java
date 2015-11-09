@@ -28,6 +28,31 @@ public class DefinitionListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        loadAndShowDefinitionList();
+
+    }
+
+    @Override
+    public void onStop() {
+
+        if (null != quizzDBHelper) {
+            quizzDBHelper.close();
+        }
+
+        super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+
+        loadAndShowDefinitionList();
+
+    }
+
+
+    private void loadAndShowDefinitionList() {
         setContentView(R.layout.activity_definition);
 
         // Erstellen der Toolbar
@@ -50,12 +75,6 @@ public class DefinitionListActivity extends AppCompatActivity {
         for (int i = 0; i < definitionList.size(); i++) {
             values[i] = definitionList.get(i).getTerm();
         }
-
-        // Define a new Adapter
-        // First parameter - Context
-        // Second parameter - Layout for the row
-        // Third parameter - ID of the TextView to which the data is written
-        // Forth - the Array of data
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
