@@ -5,6 +5,7 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_learn_multiplechoice">LearnMultiplechoice</string>
     <string name="title_activity_db">DB</string>
+    <string name="title_activity_result">Ergebnis</string>
     <string name="doktorhutContentDescription">Symbol Doktorhut</string>
 
     <string name="baustelle">Hallo Besucher, hier entsteht eine App. Die App wird gerade vervollständigt. Bald ist diese App ein Augenschmaus mit tollen Funktionen. Bitte gedulden Sie sich noch ein wenig..</string>
@@ -28,4 +29,6 @@
 
     <string name="pointsDummy">6 Punkte</string>
     <string name="roundsDummy">2/10</string>
+    <string name="timeDummy">30 Sekunden</string>
+
 </resources>

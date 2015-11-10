@@ -4,25 +4,23 @@ import android.content.Intent;
 
 import java.io.IOException;
 
-import quizzappuni.com.whs.quizzappuni.Activities.DB;
-import quizzappuni.com.whs.quizzappuni.Activities.DefinitionListActivity;
 import quizzappuni.com.whs.quizzappuni.Activities.LearnMultiplechoiceActivity;
-import quizzappuni.com.whs.quizzappuni.Activities.MainActivity;
+import quizzappuni.com.whs.quizzappuni.Activities.ResultActivity;
 import quizzappuni.com.whs.quizzappuni.Utils.QuizzDBHelper;
 import quizzappuni.com.whs.quizzappuni.Utils.UserDBHelper;
 
 /**
- * Created by M on 31.10.2015.
+ * Created by Marc on 10.11.2015.
  */
-public class MainPresenter {
+public class ResultPresenter {
 
-    private MainActivity view;
+    private ResultActivity view;
     //private Throwable error;
 
     QuizzDBHelper qHelper;
     UserDBHelper uHelper;
 
-    public MainPresenter(){
+    public ResultPresenter(){
     }
 
     public void createDB(){
@@ -51,18 +49,7 @@ public class MainPresenter {
         view.startActivity(learnmode);
     }
 
-    public void dBmodeStarten(){
-        Intent db = new Intent(view, DB.class);
-        view.startActivity(db);
-    }
-
-    public void definitionListStarten(){
-        Intent definitionList = new Intent(view, DefinitionListActivity.class);
-        view.startActivity(definitionList);
-    }
-
-
-    public void onTakeView(MainActivity view) {
+    public void onTakeView(ResultActivity view) {
         this.view = view;
     }
 

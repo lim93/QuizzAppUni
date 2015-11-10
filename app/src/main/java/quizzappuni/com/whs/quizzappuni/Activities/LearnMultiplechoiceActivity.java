@@ -14,7 +14,7 @@ import android.widget.ToggleButton;
 import quizzappuni.com.whs.quizzappuni.Presenter.LearnmodePresenter;
 import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 
-public class LearnMultiplechoice extends AppCompatActivity {
+public class LearnMultiplechoiceActivity extends AppCompatActivity {
 
     private LearnmodePresenter presenter;
     public ToggleButton Antwort1;

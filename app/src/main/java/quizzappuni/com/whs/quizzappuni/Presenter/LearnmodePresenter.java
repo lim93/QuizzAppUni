@@ -1,27 +1,25 @@
 package quizzappuni.com.whs.quizzappuni.Presenter;
 
-import android.widget.TextView;
+import android.content.Intent;
 import android.widget.ToggleButton;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import quizzappuni.com.whs.quizzappuni.Activities.LearnMultiplechoiceActivity;
+import quizzappuni.com.whs.quizzappuni.Activities.ResultActivity;
 import quizzappuni.com.whs.quizzappuni.Model.Question;
 import quizzappuni.com.whs.quizzappuni.Model.QuestionAnswer;
 import quizzappuni.com.whs.quizzappuni.Model.Round;
-import quizzappuni.com.whs.quizzappuni.Model.RoundQuestion;
 import quizzappuni.com.whs.quizzappuni.Utils.QuizzDBHelper;
-import quizzappuni.com.whs.quizzappuni.Utils.UserDBHelper;
-import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
-import quizzappuni.com.whs.quizzappuni.Activities.LearnMultiplechoice;
 
 /**
  * Created by M on 31.10.2015.
  */
 public class LearnmodePresenter {
 
-    private LearnMultiplechoice view;
+    private LearnMultiplechoiceActivity view;
+
     QuizzDBHelper qHelper;
     //TODO:RundenlÃ¤nge dynamisch laden
     private int roundLength = 5;
@@ -37,7 +35,7 @@ public class LearnmodePresenter {
 
     }
 
-    public void onTakeView(LearnMultiplechoice view) {
+    public void onTakeView(LearnMultiplechoiceActivity view) {
         this.view = view;
     }
 
@@ -72,9 +70,8 @@ public class LearnmodePresenter {
         }
         else {
             //TODO: In DB schreiben
-
-            //TODO:Anstatt zu beenden eine Auswertung anzeigen
-            this.end();
+            Intent result = new Intent(view, ResultActivity.class);
+            view.startActivity(result);
         }
     }
 
