@@ -38,7 +38,7 @@
             android:layout_marginLeft="16dp"
             android:textColor="@android:color/white"
             android:fontFamily="sans-serif-light"
-            android:textSize="36dp"
+            android:textSize="36sp"
             android:text="@string/pointsDummy"/>
 
 
@@ -65,7 +65,7 @@
             android:layout_marginLeft="14dp"
             android:textColor="@android:color/white"
             android:fontFamily="sans-serif-light"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:text="@string/timeDummy"/>
 
 

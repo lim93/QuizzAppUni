@@ -2,6 +2,7 @@ package quizzappuni.com.whs.quizzappuni.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,13 +16,11 @@ import quizzappuni.com.whs.quizzappuni.Model.Definition;
 import quizzappuni.com.whs.quizzappuni.Utils.QuizzDBHelper;
 import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 
-/**
- * Created by krispin on 07.11.15.
- */
-public class DefinitionListActivity extends AppCompatActivity {
+public class DefinitionDetailActivity extends AppCompatActivity {
 
-    ListView definitionListView;
-    QuizzDBHelper quizzDBHelper;
+    private ListView definitionListView;
+    private QuizzDBHelper quizzDBHelper;
+    public CardView definitionCard;
 
 
     @Override
@@ -62,6 +61,9 @@ public class DefinitionListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
         definitionListView = (ListView) findViewById(R.id.definitionList);
+
+        definitionCard = (CardView) findViewById(R.id.definitionCard);
+
 
         //QuizzDBHelper initialisieren
         quizzDBHelper = new QuizzDBHelper(this.getApplicationContext());
@@ -108,6 +110,7 @@ public class DefinitionListActivity extends AppCompatActivity {
     }
 
 }
+
 
 
 

@@ -42,6 +42,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="quizzappuni.com.whs.quizzappuni.Activities.MainActivity" />
         </activity>
+        <activity
+            android:name="quizzappuni.com.whs.quizzappuni.Activities.DefinitionDetailActivity"
+            android:label="@string/title_activity_definition_detail"
+            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.DefinitionListActivity"
+            android:theme="@style/AppTheme" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="quizzappuni.com.whs.quizzappuni.Activities.DefinitionListActivity" />
+        </activity>
     </application>
 
 </manifest>
