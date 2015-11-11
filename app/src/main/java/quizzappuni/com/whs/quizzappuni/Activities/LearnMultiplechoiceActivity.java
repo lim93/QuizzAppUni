@@ -68,8 +68,13 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
         progressBar.setMax(10);
         progressBar.setProgress(2);
 
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
         fabSend = (FloatingActionButton) findViewById(R.id.fabSend);
-        fabSend.hide();
         fabSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,8 +82,7 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
             }
         });
 
-
-
+        fabSend.hide();
     }
 
     CompoundButton.OnCheckedChangeListener changeChecker = new CompoundButton.OnCheckedChangeListener() {

@@ -8,6 +8,7 @@ import quizzappuni.com.whs.quizzappuni.Activities.DB;
 import quizzappuni.com.whs.quizzappuni.Activities.DefinitionListActivity;
 import quizzappuni.com.whs.quizzappuni.Activities.LearnMultiplechoiceActivity;
 import quizzappuni.com.whs.quizzappuni.Activities.MainActivity;
+import quizzappuni.com.whs.quizzappuni.Activities.ResultListActivity;
 import quizzappuni.com.whs.quizzappuni.Utils.QuizzDBHelper;
 import quizzappuni.com.whs.quizzappuni.Utils.UserDBHelper;
 
@@ -54,6 +55,11 @@ public class MainPresenter {
     public void dBmodeStarten(){
         Intent db = new Intent(view, DB.class);
         view.startActivity(db);
+    }
+
+    public void resultListStarten(){
+        Intent resultList = new Intent(view, ResultListActivity.class);
+        view.startActivity(resultList);
     }
 
     public void definitionListStarten(){

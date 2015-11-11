@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
         dbButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.dBmodeStarten();
+                presenter.resultListStarten();
             }
         });
 

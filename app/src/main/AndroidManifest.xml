@@ -37,7 +37,8 @@
             android:name="quizzappuni.com.whs.quizzappuni.Activities.ResultActivity"
             android:label="@string/title_activity_result"
             android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="quizzappuni.com.whs.quizzappuni.Activities.MainActivity" />
@@ -46,10 +47,21 @@
             android:name="quizzappuni.com.whs.quizzappuni.Activities.DefinitionDetailActivity"
             android:label="@string/title_activity_definition_detail"
             android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.DefinitionListActivity"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="quizzappuni.com.whs.quizzappuni.Activities.DefinitionListActivity" />
+        </activity>
+        <activity
+            android:name="quizzappuni.com.whs.quizzappuni.Activities.ResultListActivity"
+            android:label="@string/title_activity_result_list"
+            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="quizzappuni.com.whs.quizzappuni.Activities.MainActivity" />
         </activity>
     </application>
 

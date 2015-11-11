@@ -32,7 +32,12 @@ public class ResultActivity extends AppCompatActivity {
         //Datenbank erstellen
         presenter.createDB();
 
-        //fab-Button initialisieren
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +45,7 @@ public class ResultActivity extends AppCompatActivity {
                 presenter.learnmodeStarten();
             }
         });
+
     }
 }
 
