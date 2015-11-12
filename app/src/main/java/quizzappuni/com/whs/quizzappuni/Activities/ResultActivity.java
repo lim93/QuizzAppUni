@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import quizzappuni.com.whs.quizzappuni.Presenter.ResultPresenter;
+import quizzappuni.com.whs.quizzappuni.Utils.Utils;
 import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 
 public class ResultActivity extends AppCompatActivity {
@@ -32,12 +33,6 @@ public class ResultActivity extends AppCompatActivity {
         //Datenbank erstellen
         presenter.createDB();
 
-    }
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +40,7 @@ public class ResultActivity extends AppCompatActivity {
                 presenter.learnmodeStarten();
             }
         });
+        Utils.showFabWithAnimation(fab, 500);
 
     }
 }

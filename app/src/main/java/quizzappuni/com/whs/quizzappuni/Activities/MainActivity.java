@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import quizzappuni.com.whs.quizzappuni.Presenter.MainPresenter;
+import quizzappuni.com.whs.quizzappuni.Utils.Utils;
 import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
 
 public class MainActivity extends Activity {
@@ -38,6 +39,7 @@ public class MainActivity extends Activity {
             }
         });
 
+
         //db-Button initialisieren
         dbButton = (ImageButton) findViewById(R.id.dbButton);
         dbButton.setOnClickListener(new View.OnClickListener() {
@@ -58,5 +60,10 @@ public class MainActivity extends Activity {
 
 
         );
+    }
+
+    protected void onResume() {
+        super.onResume();
+        Utils.showFabWithAnimation(fab, 500);
     }
 }

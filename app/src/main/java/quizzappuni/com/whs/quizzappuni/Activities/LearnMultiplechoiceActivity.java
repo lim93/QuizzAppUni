@@ -13,6 +13,7 @@ import android.widget.ToggleButton;
 
 import quizzappuni.com.whs.quizzappuni.Presenter.LearnmodePresenter;
 import quizzappuni.com.whs.quizzappuni.quizzappuni.R;
+import quizzappuni.com.whs.quizzappuni.Utils.Utils;
 
 public class LearnMultiplechoiceActivity extends AppCompatActivity {
 
@@ -41,7 +42,7 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
 
     }
 
-    public void loadElements(){
+    public void loadElements() {
 
         // Erstellen der Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
@@ -68,12 +69,6 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
         progressBar.setMax(10);
         progressBar.setProgress(2);
 
-    }
-
-    @Override
-    protected void onResume()
-    {
-        super.onResume();
         fabSend = (FloatingActionButton) findViewById(R.id.fabSend);
         fabSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,12 +80,20 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
         fabSend.hide();
     }
 
+//    @Override
+//    protected void onResume()
+//    {
+//        super.onResume();
+//
+//    }
+
+
     CompoundButton.OnCheckedChangeListener changeChecker = new CompoundButton.OnCheckedChangeListener() {
 
         //      Nur ein Button kann selected sein.
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked){
+            if (isChecked) {
                 if (buttonView == Antwort1) {
                     Antwort2.setChecked(false);
                     Antwort3.setChecked(false);
@@ -113,11 +116,11 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
                 }
 
 //                FAB an
-                fabSend.show();
-            }   else {
+                Utils.showFabWithAnimation(fabSend, 50);
+            } else {
 
 //                FAB aus
-                if(!Antwort1.isChecked()
+                if (!Antwort1.isChecked()
                         && !Antwort2.isChecked()
                         && !Antwort3.isChecked()
                         && !Antwort4.isChecked()) {
