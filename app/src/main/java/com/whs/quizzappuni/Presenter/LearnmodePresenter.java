@@ -24,14 +24,14 @@ public class LearnmodePresenter {
 
     QuizzDBHelper qHelper;
     //TODO:RundenlÃ¤nge dynamisch laden
-    private int roundLength = 5;
+    private int roundLength = 3;
     private int thisRound = 0;
     Round round = new Round();
+    List<ToggleButton> buttons = new ArrayList<ToggleButton>();
+    List<Question> randomQuestions;
     //private Throwable error;
     //QuizzDBHelper qHelper = new QuizzDBHelper(view.getApplicationContext());
     //UserDBHelper uHelper = new UserDBHelper(view.getApplicationContext());
-
-
 
     public LearnmodePresenter(){
 
@@ -47,18 +47,24 @@ public class LearnmodePresenter {
     }
 
     public void loadQuestion(){
-        openDB();
-        List<ToggleButton> buttons = new ArrayList<ToggleButton>();
-        buttons.add(view.Antwort1);
-        buttons.add(view.Antwort2);
-        buttons.add(view.Antwort3);
-        buttons.add(view.Antwort4);
-        List<Question> randomQuestions = qHelper.getRandomQuestions(1);
+        //Beim ersten Starten die DB öffnen, Buttons zur ButtonList hinzufügen und zufällige Fragen laden
+        if(thisRound == 0) {
+            openDB();
+            buttons.add(view.Antwort1);
+            buttons.add(view.Antwort2);
+            buttons.add(view.Antwort3);
+            buttons.add(view.Antwort4);
+            randomQuestions = qHelper.getRandomQuestions(roundLength);
+        }
 
+        //Rundendurchlauf
         if(thisRound < roundLength) {
-            for (Question question : randomQuestions) {
+            //Fragen in einer Runde behandeln
+            Question question = randomQuestions.get(thisRound);
                 view.question.setText(question.getQuestionText());
                 QuestionAnswer[] questionAnswers = question.getAnswers();
+
+                //Behandlung der verschiedenen Fragetypen, um die View entsprechend des jeweiligen Fragetyps anzupassen
                 if (question instanceof MultipleChoice){
                     view.Antwort1.setVisibility(View.VISIBLE);
                     view.Antwort2.setVisibility(View.VISIBLE);
@@ -72,6 +78,7 @@ public class LearnmodePresenter {
                     view.Antwort4.setVisibility(View.GONE);
                 }
 
+                //Durchlaufen der Antworten zur Frage
                 for (int i = 0; i < questionAnswers.length; i++) {
                     QuestionAnswer answer = questionAnswers[i];
 
@@ -80,7 +87,6 @@ public class LearnmodePresenter {
                     buttons.get(i).setTextOff(answer.getAnswerText());
 
                 }
-            }
         }
         else {
             //TODO: In DB schreiben
