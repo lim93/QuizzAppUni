@@ -1,4 +1,4 @@
-package quizzappuni.com.whs.quizzappuni.quizzappuni;
+package com.whs.quizzappuni.quizzappuni.quizzappuni;
 
 import org.junit.Test;
 

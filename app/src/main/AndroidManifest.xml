@@ -1,67 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="quizzappuni.com.whs.quizzappuni.quizzappuni" >
+    package="com.whs.quizzappuni">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icon_launch"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:label="@string/app_name">
         <activity
-            android:name="quizzappuni.com.whs.quizzappuni.Activities.MainActivity"
+            android:name="com.whs.quizzappuni.Activities.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name="quizzappuni.com.whs.quizzappuni.Activities.LearnMultiplechoiceActivity"
-            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity"
+            android:name="com.whs.quizzappuni.Activities.LearnMultiplechoiceActivity"
+            android:parentActivityName="com.whs.quizzappuni.Activities.MainActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="quizzappuni.com.whs.quizzappuni.Activities.DB"
+            android:name="com.whs.quizzappuni.Activities.DB"
             android:label="@string/title_activity_db"
-            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity"
+            android:parentActivityName="com.whs.quizzappuni.Activities.MainActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="quizzappuni.com.whs.quizzappuni.Activities.DefinitionListActivity"
-            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity"
+            android:name="com.whs.quizzappuni.Activities.DefinitionListActivity"
+            android:parentActivityName="com.whs.quizzappuni.Activities.MainActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name="quizzappuni.com.whs.quizzappuni.Activities.ResultActivity"
+            android:name="com.whs.quizzappuni.Activities.ResultActivity"
             android:label="@string/title_activity_result"
-            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity"
+            android:parentActivityName="com.whs.quizzappuni.Activities.MainActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="quizzappuni.com.whs.quizzappuni.Activities.MainActivity" />
+                android:value="com.whs.quizzappuni.Activities.MainActivity" />
         </activity>
         <activity
-            android:name="quizzappuni.com.whs.quizzappuni.Activities.DefinitionDetailActivity"
+            android:name="com.whs.quizzappuni.Activities.DefinitionDetailActivity"
             android:label="@string/title_activity_definition_detail"
-            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.DefinitionListActivity"
+            android:parentActivityName="com.whs.quizzappuni.Activities.DefinitionListActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="quizzappuni.com.whs.quizzappuni.Activities.DefinitionListActivity" />
+                android:value="com.whs.quizzappuni.Activities.DefinitionListActivity" />
         </activity>
         <activity
-            android:name="quizzappuni.com.whs.quizzappuni.Activities.ResultListActivity"
+            android:name="com.whs.quizzappuni.Activities.ResultListActivity"
             android:label="@string/title_activity_result_list"
-            android:parentActivityName="quizzappuni.com.whs.quizzappuni.Activities.MainActivity"
+            android:parentActivityName="com.whs.quizzappuni.Activities.MainActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="quizzappuni.com.whs.quizzappuni.Activities.MainActivity" />
+                android:value="com.whs.quizzappuni.Activities.MainActivity" />
         </activity>
     </application>
 

@@ -4,7 +4,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                tools:context="quizzappuni.com.whs.quizzappuni.Activities.Main"
+                tools:context="com.whs.com.Activities.Main"
                 android:background="@color/lightgreen">
 
     <android.support.v7.widget.Toolbar

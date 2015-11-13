@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "quizzappuni.com.whs.quizzappuni"
+        applicationId "com.whs.quizzappuni"
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
