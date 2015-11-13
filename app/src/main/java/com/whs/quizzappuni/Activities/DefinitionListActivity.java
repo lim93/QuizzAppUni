@@ -6,14 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.whs.quizzappuni.Model.Definition;
 import com.whs.quizzappuni.R;
+import com.whs.quizzappuni.Utils.DefinitionAdapter;
 import com.whs.quizzappuni.Utils.QuizzDBHelper;
 
 import java.util.List;
+
+
 
 /**
  * Created by krispin on 07.11.15.
@@ -70,14 +72,7 @@ public class DefinitionListActivity extends AppCompatActivity {
         //Definitionen laden
         List<Definition> definitionList = quizzDBHelper.loadDefinitionList();
 
-        String[] values = new String[definitionList.size()];
-
-        for (int i = 0; i < definitionList.size(); i++) {
-            values[i] = definitionList.get(i).getTerm();
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+        DefinitionAdapter adapter = new DefinitionAdapter(this,0, definitionList);
 
 
         // Assign adapter to ListView
@@ -90,43 +85,19 @@ public class DefinitionListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Intent newActivity = new Intent(parent.getContext(), DefinitionDetailActivity.class);
-                Definition definition = quizzDBHelper.loadDefinitionById(position+1);
-                String definitionText = definition.getDefinitionText();
-                String term = definition.getTerm();
-                newActivity.putExtra("term", term);
-                newActivity.putExtra("definitionText",definitionText);
-                startActivity(newActivity,null);
+                Definition definition = (Definition) parent.getItemAtPosition(position);
+
+                newActivity.putExtra("term", definition.getTerm());
+                newActivity.putExtra("definitionText", definition.getDefinitionText());
+                startActivity(newActivity, null);
 
             }
         });
-
-
-        /*
-        definitionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-
-                // ListView Clicked item index
-                int itemPosition = position;
-
-                Definition definition = quizzDBHelper.loadDefinitionById(position+1);
-
-
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        definition.getDefinitionText(), Toast.LENGTH_LONG)
-                        .show();
-
-            }
-
-        });
-        */
+        
     }
 
 }
+
 
 
 
