@@ -1,6 +1,7 @@
 package com.whs.quizzappuni.Presenter;
 
 import android.content.Intent;
+import android.view.View;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import com.whs.quizzappuni.Activities.LearnMultiplechoiceActivity;
 import com.whs.quizzappuni.Activities.ResultActivity;
+import com.whs.quizzappuni.Model.MultipleChoice;
 import com.whs.quizzappuni.Model.Question;
 import com.whs.quizzappuni.Model.QuestionAnswer;
 import com.whs.quizzappuni.Model.Round;
@@ -57,6 +59,18 @@ public class LearnmodePresenter {
             for (Question question : randomQuestions) {
                 view.question.setText(question.getQuestionText());
                 QuestionAnswer[] questionAnswers = question.getAnswers();
+                if (question instanceof MultipleChoice){
+                    view.Antwort1.setVisibility(View.VISIBLE);
+                    view.Antwort2.setVisibility(View.VISIBLE);
+                    view.Antwort3.setVisibility(View.VISIBLE);
+                    view.Antwort4.setVisibility(View.VISIBLE);
+                }
+                else{
+                    view.Antwort1.setVisibility(View.VISIBLE);
+                    view.Antwort2.setVisibility(View.VISIBLE);
+                    view.Antwort3.setVisibility(View.GONE);
+                    view.Antwort4.setVisibility(View.GONE);
+                }
 
                 for (int i = 0; i < questionAnswers.length; i++) {
                     QuestionAnswer answer = questionAnswers[i];
