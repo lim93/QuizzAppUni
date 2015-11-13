@@ -171,7 +171,7 @@ public class QuizzDBHelper extends DBHelper {
 
         List<Definition> definitionList = new ArrayList<Definition>();
 
-        Cursor resultSet = db.rawQuery("Select * from definition;", null);
+        Cursor resultSet = db.rawQuery("Select * from definition ORDER by term ASC;", null);
         resultSet.moveToFirst();
 
 
