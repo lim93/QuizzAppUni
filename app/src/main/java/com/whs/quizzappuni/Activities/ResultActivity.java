@@ -1,10 +1,12 @@
 package com.whs.quizzappuni.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.whs.quizzappuni.Presenter.ResultPresenter;
 import com.whs.quizzappuni.Utils.Utils;
@@ -14,6 +16,7 @@ public class ResultActivity extends AppCompatActivity {
 
     public FloatingActionButton fab;
     private ResultPresenter presenter;
+    private TextView points;
 
 
     @Override
@@ -32,6 +35,12 @@ public class ResultActivity extends AppCompatActivity {
 
         //Datenbank erstellen
         presenter.createDB();
+
+        //Lade übergebene Werte
+        Bundle bundle = getIntent().getExtras();
+        //Befülle die Endergebnis-Anzeige dieser Runde mit den übergebenen Punktwerten aus der Runde
+        points = (TextView) findViewById(R.id.result_points);
+        points.setText(String.format("%d Punkte", bundle.getInt("points")));
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

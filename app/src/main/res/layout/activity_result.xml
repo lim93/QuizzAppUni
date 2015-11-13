@@ -32,6 +32,7 @@
             android:src="@drawable/ic_trophy_variant_white_48dp"/>
 
         <TextView
+            android:id="@+id/result_points"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|end"
