@@ -1,5 +1,6 @@
 package quizzappuni.com.whs.quizzappuni.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -89,6 +90,24 @@ public class DefinitionListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                Intent newActivity = new Intent(parent.getContext(), DefinitionDetailActivity.class);
+                Definition definition = quizzDBHelper.loadDefinitionById(position+1);
+                String definitionText = definition.getDefinitionText();
+                String term = definition.getTerm();
+                newActivity.putExtra("term", term);
+                newActivity.putExtra("definitionText",definitionText);
+                startActivity(newActivity,null);
+
+            }
+        });
+
+
+        /*
+        definitionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
 
 
                 // ListView Clicked item index
@@ -105,6 +124,7 @@ public class DefinitionListActivity extends AppCompatActivity {
             }
 
         });
+        */
     }
 
 }
