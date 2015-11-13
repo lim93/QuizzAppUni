@@ -3,12 +3,12 @@ package com.whs.quizzappuni.Utils;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.whs.quizzappuni.Model.Round;
+import com.whs.quizzappuni.Model.RoundQuestion;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.whs.quizzappuni.Model.Round;
-import com.whs.quizzappuni.Model.RoundQuestion;
 
 /**
  * Created by krispin on 24.10.15.
@@ -45,6 +45,37 @@ public class UserDBHelper extends DBHelper {
 
     }
 
+
+    public List<Round> loadRoundList() {
+
+
+        List<Round> resultList = new ArrayList<Round>();
+
+        Cursor resultSet = db.rawQuery("Select * from round ORDER by rId DESC;", null);
+        resultSet.moveToFirst();
+
+
+        while (!resultSet.isAfterLast()) {
+
+            int rId = resultSet.getInt(0);
+            int rDuration = resultSet.getInt(1);
+            int rScore = resultSet.getInt(2);
+            //TODO: Category
+
+            List<RoundQuestion> roundQuestions = loadRoundQuestionsById(rId);
+
+            resultList.add(new Round(rId, rDuration, rScore, roundQuestions));
+
+            resultSet.moveToNext();
+
+        }
+
+        resultSet.close();
+
+        return resultList;
+
+
+    }
 
     private List<RoundQuestion> loadRoundQuestionsById(int roundId) {
 
