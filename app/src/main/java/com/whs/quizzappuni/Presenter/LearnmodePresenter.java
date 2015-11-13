@@ -1,6 +1,8 @@
 package com.whs.quizzappuni.Presenter;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.ToggleButton;
 
@@ -13,6 +15,7 @@ import com.whs.quizzappuni.Model.MultipleChoice;
 import com.whs.quizzappuni.Model.Question;
 import com.whs.quizzappuni.Model.QuestionAnswer;
 import com.whs.quizzappuni.Model.Round;
+import com.whs.quizzappuni.R;
 import com.whs.quizzappuni.Utils.QuizzDBHelper;
 
 /**
@@ -24,11 +27,13 @@ public class LearnmodePresenter {
 
     QuizzDBHelper qHelper;
     //TODO:RundenlÃ¤nge dynamisch laden
-    private int roundLength = 3;
+    private int roundLength = 5;
     private int thisRound = 0;
     Round round = new Round();
     List<ToggleButton> buttons = new ArrayList<ToggleButton>();
     List<Question> randomQuestions;
+    Question question;
+    CharSequence answer;
     //private Throwable error;
     //QuizzDBHelper qHelper = new QuizzDBHelper(view.getApplicationContext());
     //UserDBHelper uHelper = new UserDBHelper(view.getApplicationContext());
@@ -60,7 +65,7 @@ public class LearnmodePresenter {
         //Rundendurchlauf
         if(thisRound < roundLength) {
             //Fragen in einer Runde behandeln
-            Question question = randomQuestions.get(thisRound);
+            question = randomQuestions.get(thisRound);
                 view.question.setText(question.getQuestionText());
                 QuestionAnswer[] questionAnswers = question.getAnswers();
 
@@ -85,7 +90,6 @@ public class LearnmodePresenter {
                     buttons.get(i).setText(answer.getAnswerText());
                     buttons.get(i).setTextOn(answer.getAnswerText());
                     buttons.get(i).setTextOff(answer.getAnswerText());
-
                 }
         }
         else {
@@ -97,20 +101,40 @@ public class LearnmodePresenter {
 
     //Auf die Bestaetigung nach der Antwort-Auswahl reagieren
     public void confirmChoice(){
-        thisRound++;
-        //TODO:Problembehebung (s. folgendes Kommentarfeld) löschen, wenn nicht mehr benötigt
-        /**
-         * //Die View-Anzeige und View-Elemente neu laden, um Anzeigeprobleme zu beheben
-         * //Problembehebung sollte nun überflüssig sein
-         * if(thisRound < roundLength) {
-         *  view.setContentView(R.layout.activity_learn_multiplechoice);
-         *  view.loadElements();
-         * }
-         *  */
-        uncheckButtons();
         //TODO: Antwort auswerten + in Runde setzen
 
-        loadQuestion();
+        question = randomQuestions.get(thisRound);
+        QuestionAnswer[] questionAnswers = question.getAnswers();
+        QuestionAnswer answer = questionAnswers[view.answer];
+         if (answer.isCorrectAnswer()){
+             view.statusCard.setBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.rightAnswer));
+
+         }
+        else{
+             view.statusCard.setBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.wrongAnswer));
+         }
+/**
+ *if(view.Antwort1.isChecked())
+ *view.Antwort1.setBackgroundColor(view.getResources().getColor(R.color.wrongAnswer));
+ *if(view.Antwort2.isChecked())
+ *view.Antwort2.getTextOn();
+ *if(view.Antwort3.isChecked())
+ *view.Antwort3.getTextOn();
+ *if(view.Antwort4.isChecked())
+ *view.Antwort4.getTextOn();
+ */
+
+        //Warte für 3 Sekunden
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // Actions to do after 3 seconds
+                //TODO:FAB-Button ausblenden
+                uncheckButtons();
+                thisRound++;
+                loadQuestion();
+            }
+        }, 3000);
     }
     public void uncheckButtons(){
         view.Antwort1.setChecked(false);

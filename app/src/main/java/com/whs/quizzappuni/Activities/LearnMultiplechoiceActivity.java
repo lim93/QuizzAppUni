@@ -26,6 +26,7 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
     public ProgressBar progressBar;
     public CardView statusCard;
     public FloatingActionButton fabSend;
+    public int answer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
         Antwort4 = (ToggleButton) findViewById(R.id.Antwort4);
         question = (TextView) findViewById(R.id.question);
 
-//        Listener fuer Button Aenderung.
+        //Listener fuer Button Aenderung.
         Antwort1.setOnCheckedChangeListener(changeChecker);
         Antwort2.setOnCheckedChangeListener(changeChecker);
         Antwort3.setOnCheckedChangeListener(changeChecker);
@@ -87,7 +88,6 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
 //
 //    }
 
-
     CompoundButton.OnCheckedChangeListener changeChecker = new CompoundButton.OnCheckedChangeListener() {
 
         //      Nur ein Button kann selected sein.
@@ -98,21 +98,25 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
                     Antwort2.setChecked(false);
                     Antwort3.setChecked(false);
                     Antwort4.setChecked(false);
+                    answer = 0;
                 }
                 if (buttonView == Antwort2) {
                     Antwort1.setChecked(false);
                     Antwort3.setChecked(false);
                     Antwort4.setChecked(false);
+                    answer = 1;
                 }
                 if (buttonView == Antwort3) {
                     Antwort2.setChecked(false);
                     Antwort1.setChecked(false);
                     Antwort4.setChecked(false);
+                    answer = 2;
                 }
                 if (buttonView == Antwort4) {
                     Antwort2.setChecked(false);
                     Antwort3.setChecked(false);
                     Antwort1.setChecked(false);
+                    answer = 3;
                 }
 
 //                FAB an
