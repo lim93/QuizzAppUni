@@ -30,15 +30,15 @@ public class ResultAdapter extends ArrayAdapter<Round> {
         if (view == null) {
             LayoutInflater layoutInflater;
             layoutInflater = LayoutInflater.from(getContext());
-            view = layoutInflater.inflate(R.layout.activity_result_list, null);
+            view = layoutInflater.inflate(R.layout.result_row, null);
         }
 
         Round rounds = getItem(position);
 
         if (rounds != null) {
             TextView datetime = (TextView) view.findViewById(R.id.datetime);
-            TextView points = (TextView) view.findViewById(R.id.points);
-            TextView time = (TextView) view.findViewById(R.id.time);
+            TextView points = (TextView) view.findViewById(R.id.result_points);
+            TextView time = (TextView) view.findViewById(R.id.result_time);
 
             if (datetime != null) {
                 datetime.setText("DUMMY");
@@ -46,12 +46,12 @@ public class ResultAdapter extends ArrayAdapter<Round> {
 
 
             if (points != null) {
-                points.setText(rounds.getScore());
+                points.setText(toString().valueOf(rounds.getScore()) + " Punkte");
             }
 
 
             if (time != null) {
-                time.setText(rounds.getDurationSeconds());
+                time.setText(toString().valueOf(rounds.getDurationSeconds()) + " Sekunden");
             }
 
         }

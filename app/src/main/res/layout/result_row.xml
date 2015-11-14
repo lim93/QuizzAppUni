@@ -36,11 +36,11 @@
                 android:src="@drawable/ic_trophy_variant_grey600_24dp"/>
 
             <TextView
-                android:id="@+id/points"
+                android:id="@+id/result_points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
-                android:layout_marginLeft="14dp"
+                android:layout_marginLeft="8dp"
                 android:textColor="@android:color/black"
                 android:alpha="0.6"
                 android:fontFamily="sans-serif"
@@ -55,11 +55,11 @@
                 android:layout_marginLeft="8dp"/>
 
             <TextView
-                android:id="@+id/time"
+                android:id="@+id/result_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
-                android:layout_marginLeft="14dp"
+                android:layout_marginLeft="8dp"
                 android:textColor="@android:color/black"
                 android:alpha="0.6"
                 android:fontFamily="sans-serif"

@@ -49,11 +49,10 @@ public class UserDBHelper extends DBHelper {
     public List<Round> loadRoundList() {
 
 
-        List<Round> resultList = new ArrayList<Round>();
+        List<Round> resultList = new ArrayList<>();
 
-        Cursor resultSet = db.rawQuery("Select * from round ORDER by rId DESC;", null);
+        Cursor resultSet = db.rawQuery("Select * from round;", null);
         resultSet.moveToFirst();
-
 
         while (!resultSet.isAfterLast()) {
 
@@ -66,10 +65,12 @@ public class UserDBHelper extends DBHelper {
 
             resultList.add(new Round(rId, rDuration, rScore, roundQuestions));
 
+            int position = resultSet.getPosition();
             resultSet.moveToNext();
 
         }
 
+        int position = resultSet.getPosition();
         resultSet.close();
 
         return resultList;

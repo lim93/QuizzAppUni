@@ -24,6 +24,8 @@ public class ResultListPresenter {
     UserDBHelper uHelper;
 
     public ResultListPresenter(){
+
+
     }
 
     public void createDB(){
