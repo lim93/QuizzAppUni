@@ -12,7 +12,6 @@ import com.whs.quizzappuni.R;
 import com.whs.quizzappuni.Utils.QuizzDBHelper;
 import com.whs.quizzappuni.Utils.UserDBHelper;
 
-import java.io.IOException;
 import java.util.List;
 
 public class DB extends Activity implements View.OnClickListener {
@@ -42,22 +41,12 @@ public class DB extends Activity implements View.OnClickListener {
         uHelper = new UserDBHelper(this.getApplicationContext());
 
         //Todo: In activity_main ausführen
-        try {
-            qHelper.createAndOpenDatabase();
-        } catch (IOException ioe) {
-            throw new Error("Unable to create QuizzDB");
-        }
 
+        qHelper.createDatabase();
+        dbCreate.setText("QuizzDB created");
 
-        dbCreate.setText("QuizzDB created and opened");
-
-        try {
-            uHelper.createAndOpenDatabase();
-        } catch (IOException ioe) {
-            throw new Error("Unable to create UserDB");
-        }
-
-        dbOpen.setText("UserDB created and opened");
+        uHelper.createDatabase();
+        dbOpen.setText("UserDB created");
 
     }
 

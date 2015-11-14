@@ -30,8 +30,8 @@ public class ResultListActivity extends AppCompatActivity {
             presenter = new ResultListPresenter();
         presenter.onTakeView(this);
 
-        //Datenbank erstellen
-        presenter.createDB();
+        //Rundendaten laden und anzeigen
+        presenter.displayResults();
 
 
     }

@@ -35,16 +35,6 @@ public class DefinitionListActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onStop() {
-
-        if (null != quizzDBHelper) {
-            quizzDBHelper.close();
-        }
-
-        super.onStop();
-    }
-
-    @Override
     public void onResume() {
 
         super.onResume();
@@ -67,7 +57,6 @@ public class DefinitionListActivity extends AppCompatActivity {
 
         //QuizzDBHelper initialisieren
         quizzDBHelper = new QuizzDBHelper(this.getApplicationContext());
-        quizzDBHelper.openDataBase();
 
         //Definitionen laden
         List<Definition> definitionList = quizzDBHelper.loadDefinitionList();

@@ -1,6 +1,5 @@
 package com.whs.quizzappuni.Activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.whs.quizzappuni.Presenter.ResultPresenter;
-import com.whs.quizzappuni.Utils.Utils;
 import com.whs.quizzappuni.R;
+import com.whs.quizzappuni.Utils.Utils;
 
 public class ResultActivity extends AppCompatActivity {
 
@@ -32,9 +31,6 @@ public class ResultActivity extends AppCompatActivity {
         if (presenter == null)
             presenter = new ResultPresenter();
         presenter.onTakeView(this);
-
-        //Datenbank erstellen
-        presenter.createDB();
 
         //Lade übergebene Werte
         Bundle bundle = getIntent().getExtras();

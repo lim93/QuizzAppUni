@@ -2,8 +2,6 @@ package com.whs.quizzappuni.Presenter;
 
 import android.content.Intent;
 
-import java.io.IOException;
-
 import com.whs.quizzappuni.Activities.DB;
 import com.whs.quizzappuni.Activities.DefinitionListActivity;
 import com.whs.quizzappuni.Activities.LearnMultiplechoiceActivity;
@@ -26,25 +24,18 @@ public class MainPresenter {
     public MainPresenter(){
     }
 
-    public void createDB(){
+    public void createDBs(){
 
         qHelper = new QuizzDBHelper(view.getApplicationContext());
         uHelper = new UserDBHelper(view.getApplicationContext());
 
-        //Todo: In activity_main ausführen
-        //QuizzDB erstellen und öffnen
-        try {
-            qHelper.createAndOpenDatabase();
-        } catch (IOException ioe) {
-            throw new Error("Unable to create QuizzDB");
-        }
+        //QuizzDB erstellen (Bei jedem Start der App)
+        qHelper.createDatabase();
 
-        //UserDB erstellen und öffnen
-        try {
-            uHelper.createAndOpenDatabase();
-        } catch (IOException ioe) {
-            throw new Error("Unable to create UserDB");
-        }
+        //UserDB erstellen (einmalig)
+        uHelper.createDatabase();
+
+        //TODO: Hier eventuell die Exception abfangen und dem User anzeigen, dass es ein generelles Problem mit der App gibt
     }
 
     public void learnmodeStarten(){
@@ -53,6 +44,7 @@ public class MainPresenter {
     }
 
     public void dBmodeStarten(){
+        //TODO: Löschen wenn nicht mehr benötigt
         Intent db = new Intent(view, DB.class);
         view.startActivity(db);
     }

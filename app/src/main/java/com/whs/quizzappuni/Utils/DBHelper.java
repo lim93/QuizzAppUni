@@ -36,10 +36,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Leere DB erzeugen und mit DB aus dem Assets-Ordner überschreiben.
-     *
-     * @throws IOException
      */
-    protected void forceCreateDataBase() throws IOException {
+    protected void forceCreateDataBase() {
 
         //Leere DB erzeugen
         this.getReadableDatabase();
@@ -47,16 +45,14 @@ public class DBHelper extends SQLiteOpenHelper {
         try {
             copyDataBase();
         } catch (IOException e) {
-            throw new Error("Error copying " + dbName);
+            throw new RuntimeException("Fehler beim Kopieren der db " + dbName + ": " + e.getMessage());
         }
     }
 
     /**
      * Falls DB noch nicht existiert: Leere DB erzeugen und mit DB aus dem Assets-Ordner überschreiben.
-     *
-     * @throws IOException
      */
-    protected void createDataBase() throws IOException {
+    protected void createDataBase() {
 
         boolean dbExists = checkDataBase();
 
@@ -70,7 +66,7 @@ public class DBHelper extends SQLiteOpenHelper {
             try {
                 copyDataBase();
             } catch (IOException e) {
-                throw new Error("Error copying " + dbName);
+                throw new RuntimeException("Fehler beim Kopieren der db " + dbName + ": " + e.getMessage());
             }
         }
 
@@ -127,20 +123,42 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public void openDataBase() throws SQLException {
+    protected synchronized void openReadOnly() throws SQLException {
 
-        String myPath = DB_PATH + dbName;
-        db = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+        if (db != null && db.isOpen()) {
+
+            //Nothing to do
+            return;
+
+        } else {
+            String fullPath = DB_PATH + dbName;
+            db = SQLiteDatabase.openDatabase(fullPath, null, SQLiteDatabase.OPEN_READONLY);
+        }
 
     }
 
+    protected synchronized void openReadWrite() throws SQLException {
+
+        if (null != db && db.isOpen() && !db.isReadOnly()) {
+
+            //Nothing to do
+            return;
+
+        } else {
+            String fullPath = DB_PATH + dbName;
+            db = SQLiteDatabase.openDatabase(fullPath, null, SQLiteDatabase.OPEN_READWRITE);
+        }
+
+
+    }
 
 
     @Override
     public synchronized void close() {
 
-        if (db != null)
+        if (db != null && db.isOpen()) {
             db.close();
+        }
 
         super.close();
 

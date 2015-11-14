@@ -2,19 +2,19 @@ package com.whs.quizzappuni.Utils;
 
 import android.content.Context;
 import android.database.Cursor;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
+import android.database.SQLException;
 
 import com.whs.quizzappuni.Model.Definition;
 import com.whs.quizzappuni.Model.MultipleChoice;
 import com.whs.quizzappuni.Model.Question;
 import com.whs.quizzappuni.Model.QuestionAnswer;
 import com.whs.quizzappuni.Model.TrueFalse;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by krispin on 30.10.15.
@@ -28,9 +28,10 @@ public class QuizzDBHelper extends DBHelper {
     }
 
 
-    public void createAndOpenDatabase() throws IOException {
+    public void createDatabase() {
+
         forceCreateDataBase();
-        openDataBase();
+
     }
 
 
@@ -38,32 +39,43 @@ public class QuizzDBHelper extends DBHelper {
 
         Question question;
 
-        Cursor resultSet = db.rawQuery("Select * from question where _id = " + questionId + ";", null);
-        resultSet.moveToFirst();
+        try {
+            openReadOnly();
 
-        int qId = resultSet.getInt(0);
-        String questionText = resultSet.getString(1);
-        int questionType = resultSet.getInt(2);
-        //TODO: Definition und Category
+            Cursor resultSet = db.rawQuery("Select * from question where _id = " + questionId + ";", null);
+            resultSet.moveToFirst();
 
-        QuestionAnswer[] questionAnswers = loadQuestionAnswersById(qId);
+            int qId = resultSet.getInt(0);
+            String questionText = resultSet.getString(1);
+            int questionType = resultSet.getInt(2);
+            //TODO: Definition und Category
 
-        switch (questionType) {
-            case 1:
-                question = new MultipleChoice(questionAnswers);
-                break;
-            case 2:
-                question = new TrueFalse(questionAnswers);
-                break;
-            default:
-                throw new IllegalStateException("Illegal Question Type.");
+            QuestionAnswer[] questionAnswers = loadQuestionAnswersById(qId);
+
+            switch (questionType) {
+                case 1:
+                    question = new MultipleChoice(questionAnswers);
+                    break;
+                case 2:
+                    question = new TrueFalse(questionAnswers);
+                    break;
+                default:
+                    throw new IllegalStateException("Illegal Question Type.");
+            }
+
+            question.setId(qId);
+            question.setQuestionText(questionText);
+
+            resultSet.close();
+
+            return question;
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Fehler beim öffnen oder abfragen der Datenbank: " + e.getMessage());
+        } finally {
+            close();
         }
 
-        question.setId(qId);
-        question.setQuestionText(questionText);
-
-        resultSet.close();
-        return question;
 
     }
 
@@ -101,6 +113,7 @@ public class QuizzDBHelper extends DBHelper {
         qaArray = questionAnswers.toArray(qaArray);
         return qaArray;
 
+
     }
 
     public List<Question> getRandomQuestions(int count) {
@@ -109,90 +122,86 @@ public class QuizzDBHelper extends DBHelper {
         Set<Integer> randomQuestionIDs = new HashSet<Integer>();
         List<Question> returnQuestions = new ArrayList<Question>();
 
-        Cursor resultSet = db.rawQuery("Select _id from question;", null);
+        try {
+            openReadOnly();
 
-        resultSet.moveToFirst();
+            Cursor resultSet = db.rawQuery("Select _id from question;", null);
 
-        while (!resultSet.isAfterLast()) {
+            resultSet.moveToFirst();
 
-            int id = resultSet.getInt(0);
-            questionIds.add(id);
-            resultSet.moveToNext();
+            while (!resultSet.isAfterLast()) {
 
+                int id = resultSet.getInt(0);
+                questionIds.add(id);
+                resultSet.moveToNext();
+
+            }
+
+            resultSet.close();
+
+            if (questionIds.size() < count) {
+                throw new IllegalArgumentException("In der DB existieren nicht genug Fragen: " +
+                        "Vorhanden " + questionIds.size() +
+                        ", Abgefragt " + count);
+            }
+
+            while (randomQuestionIDs.size() < count) {
+
+                int id = ThreadLocalRandom.current().nextInt(1, questionIds.size() + 1);
+                randomQuestionIDs.add(id);
+
+            }
+
+            for (Integer id : randomQuestionIDs) {
+                returnQuestions.add(loadQuestionById(id));
+            }
+
+            return returnQuestions;
+        } catch (SQLException e) {
+            throw new RuntimeException("Fehler beim öffnen oder abfragen der Datenbank: " + e.getMessage());
+        } finally {
+            close();
         }
-
-        resultSet.close();
-
-        if (questionIds.size() < count) {
-            throw new IllegalArgumentException("In der DB existieren nicht genug Fragen: " +
-                    "Vorhanden " + questionIds.size() +
-                    ", Abgefragt " + count);
-        }
-
-        while (randomQuestionIDs.size() < count) {
-
-            int id = ThreadLocalRandom.current().nextInt(1, questionIds.size() + 1);
-            randomQuestionIDs.add(id);
-
-        }
-
-        for (Integer id : randomQuestionIDs) {
-            returnQuestions.add(loadQuestionById(id));
-        }
-
-        return returnQuestions;
 
 
     }
 
-
-    public Definition loadDefinitionById(int id) {
-
-        Cursor resultSet = db.rawQuery("Select * from definition where _id =  " + id + ";", null);
-        resultSet.moveToFirst();
-
-        int definitionId = resultSet.getInt(0);
-        String term = resultSet.getString(1);
-        String definition_text = resultSet.getString(2);
-        int category_id = resultSet.getInt(3);
-        String source = resultSet.getString(4);
-        //TODO: Category
-
-        Definition definition = new Definition(definitionId, term, definition_text, null, source);
-
-
-        return definition;
-
-
-    }
 
     public List<Definition> loadDefinitionList() {
 
 
         List<Definition> definitionList = new ArrayList<Definition>();
 
-        Cursor resultSet = db.rawQuery("Select * from definition ORDER by term ASC;", null);
-        resultSet.moveToFirst();
+        try {
+            openReadOnly();
+
+            Cursor resultSet = db.rawQuery("Select * from definition ORDER by term ASC;", null);
+            resultSet.moveToFirst();
 
 
-        while (!resultSet.isAfterLast()) {
+            while (!resultSet.isAfterLast()) {
 
-            int definitionId = resultSet.getInt(0);
-            String term = resultSet.getString(1);
-            String definition_text = resultSet.getString(2);
-            int category_id = resultSet.getInt(3);
-            String source = resultSet.getString(4);
-            //TODO: Category
+                int definitionId = resultSet.getInt(0);
+                String term = resultSet.getString(1);
+                String definition_text = resultSet.getString(2);
+                int category_id = resultSet.getInt(3);
+                String source = resultSet.getString(4);
+                //TODO: Category
 
-            definitionList.add(new Definition(definitionId, term, definition_text, null, source));
+                definitionList.add(new Definition(definitionId, term, definition_text, null, source));
 
-            resultSet.moveToNext();
+                resultSet.moveToNext();
 
+            }
+
+            resultSet.close();
+
+            return definitionList;
+        } catch (SQLException e) {
+            throw new RuntimeException("Fehler beim öffnen oder abfragen der Datenbank: " + e.getMessage());
+        } finally {
+            close();
         }
-
-        resultSet.close();
-
-        return definitionList;
 
 
     }

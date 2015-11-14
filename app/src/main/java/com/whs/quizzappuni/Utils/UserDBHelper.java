@@ -2,11 +2,11 @@ package com.whs.quizzappuni.Utils;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 
 import com.whs.quizzappuni.Model.Round;
 import com.whs.quizzappuni.Model.RoundQuestion;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,27 +21,35 @@ public class UserDBHelper extends DBHelper {
         super(context, DB_NAME);
     }
 
-    public void createAndOpenDatabase() throws IOException {
+    public void createDatabase() {
+
         createDataBase();
-        openDataBase();
     }
 
     public Round loadRoundById(int roundId) {
 
-        Cursor resultSet = db.rawQuery("Select * from round where _id = " + roundId + ";", null);
-        resultSet.moveToFirst();
+        try {
+            openReadOnly();
 
-        int rId = resultSet.getInt(0);
-        int rDuration = resultSet.getInt(1);
-        int rScore = resultSet.getInt(2);
+            Cursor resultSet = db.rawQuery("Select * from round where _id = " + roundId + ";", null);
+            resultSet.moveToFirst();
+
+            int rId = resultSet.getInt(0);
+            int rDuration = resultSet.getInt(1);
+            int rScore = resultSet.getInt(2);
 
 
-        List<RoundQuestion> roundQuestions = loadRoundQuestionsById(rId);
+            List<RoundQuestion> roundQuestions = loadRoundQuestionsById(rId);
 
-        Round round = new Round(rId, rDuration, rScore, roundQuestions);
+            Round round = new Round(rId, rDuration, rScore, roundQuestions);
 
-        resultSet.close();
-        return round;
+            resultSet.close();
+            return round;
+        } catch (SQLException e) {
+            throw new RuntimeException("Fehler beim öffnen oder abfragen der Datenbank: " + e.getMessage());
+        } finally {
+            close();
+        }
 
     }
 
@@ -51,29 +59,37 @@ public class UserDBHelper extends DBHelper {
 
         List<Round> resultList = new ArrayList<>();
 
-        Cursor resultSet = db.rawQuery("Select * from round;", null);
-        resultSet.moveToFirst();
+        try {
+            openReadOnly();
 
-        while (!resultSet.isAfterLast()) {
+            Cursor resultSet = db.rawQuery("Select * from round;", null);
+            resultSet.moveToFirst();
 
-            int rId = resultSet.getInt(0);
-            int rDuration = resultSet.getInt(1);
-            int rScore = resultSet.getInt(2);
-            //TODO: Category
+            while (!resultSet.isAfterLast()) {
 
-            List<RoundQuestion> roundQuestions = loadRoundQuestionsById(rId);
+                int rId = resultSet.getInt(0);
+                int rDuration = resultSet.getInt(1);
+                int rScore = resultSet.getInt(2);
+                //TODO: Category
 
-            resultList.add(new Round(rId, rDuration, rScore, roundQuestions));
+                List<RoundQuestion> roundQuestions = loadRoundQuestionsById(rId);
+
+                resultList.add(new Round(rId, rDuration, rScore, roundQuestions));
+
+                int position = resultSet.getPosition();
+                resultSet.moveToNext();
+
+            }
 
             int position = resultSet.getPosition();
-            resultSet.moveToNext();
+            resultSet.close();
 
+            return resultList;
+        } catch (SQLException e) {
+            throw new RuntimeException("Fehler beim öffnen oder abfragen der Datenbank: " + e.getMessage());
+        } finally {
+            close();
         }
-
-        int position = resultSet.getPosition();
-        resultSet.close();
-
-        return resultList;
 
 
     }
