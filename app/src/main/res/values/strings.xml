@@ -26,9 +26,9 @@
     <string name="dbDescription">Datenbank</string>
     <string name="learning_mode_description">In Ruhe neue Inhalte lernen</string>
 
-    <string name="pointsDummy">6 Punkte</string>
-    <string name="roundsDummy">2/10</string>
-    <string name="timeDummy">30 Sekunden</string>
+    <string name="pointsDummy">0 Punkte</string>
+    <string name="roundsDummy">0/10</string>
+    <string name="timeDummy">0 Sekunden</string>
     <string name="dateTimeDummy">25.10.2015 15:31</string>
 
     <string name="definitionTitleDummy">WLAN</string>

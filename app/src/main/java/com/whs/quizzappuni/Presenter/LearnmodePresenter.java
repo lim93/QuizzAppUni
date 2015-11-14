@@ -1,6 +1,7 @@
 package com.whs.quizzappuni.Presenter;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -26,14 +27,14 @@ public class LearnmodePresenter {
     private LearnMultiplechoiceActivity view;
 
     QuizzDBHelper qHelper;
-    //TODO:RundenlÃ¤nge dynamisch laden
+    //TODO:RundenlÃ¤nge dynamisch laden?
     private int roundLength = 5;
     private int thisRound = 0;
     Round round = new Round();
     List<ToggleButton> buttons = new ArrayList<ToggleButton>();
     List<Question> randomQuestions;
     Question question;
-    CharSequence answer;
+    int score;
     //private Throwable error;
     //QuizzDBHelper qHelper = new QuizzDBHelper(view.getApplicationContext());
     //UserDBHelper uHelper = new UserDBHelper(view.getApplicationContext());
@@ -60,7 +61,13 @@ public class LearnmodePresenter {
             buttons.add(view.Antwort3);
             buttons.add(view.Antwort4);
             randomQuestions = qHelper.getRandomQuestions(roundLength);
+            view.progressBar.setMax(roundLength);
         }
+
+        //Rundeninformationen in der View anpassen
+        view.progressBar.setProgress(thisRound);
+        view.round_status.setText(String.format("%d/%d", thisRound, roundLength));
+        view.points.setText(String.format("%d", score));
 
         //Rundendurchlauf
         if(thisRound < roundLength) {
@@ -94,7 +101,13 @@ public class LearnmodePresenter {
         }
         else {
             //TODO: In DB schreiben
+            round.setScore(score);
+
+            //Punkte der Runde an die Result-Activity übergeben und diese Activity schließlich starten
+            Bundle bundle = new Bundle();
+            bundle.putInt("points", score);
             Intent result = new Intent(view, ResultActivity.class);
+            result.putExtras(bundle);
             view.startActivity(result);
         }
     }
@@ -102,13 +115,12 @@ public class LearnmodePresenter {
     //Auf die Bestaetigung nach der Antwort-Auswahl reagieren
     public void confirmChoice(){
         //TODO: Antwort auswerten + in Runde setzen
-
         question = randomQuestions.get(thisRound);
         QuestionAnswer[] questionAnswers = question.getAnswers();
         QuestionAnswer answer = questionAnswers[view.answer];
          if (answer.isCorrectAnswer()){
              view.statusCard.setBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.rightAnswer));
-
+             score += 6;
          }
         else{
              view.statusCard.setBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.wrongAnswer));
@@ -124,17 +136,18 @@ public class LearnmodePresenter {
  *view.Antwort4.getTextOn();
  */
 
-        //Warte für 3 Sekunden
+        //Warte für 1 Sekunden
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                // Actions to do after 3 seconds
+                // Actions to do after 1 seconds
                 //TODO:FAB-Button ausblenden
                 uncheckButtons();
+                view.statusCard.setBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
                 thisRound++;
                 loadQuestion();
             }
-        }, 3000);
+        }, 1000);
     }
     public void uncheckButtons(){
         view.Antwort1.setChecked(false);

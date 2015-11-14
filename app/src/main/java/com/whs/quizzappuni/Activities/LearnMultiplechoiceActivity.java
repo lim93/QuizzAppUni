@@ -23,6 +23,8 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
     public ToggleButton Antwort3;
     public ToggleButton Antwort4;
     public TextView question;
+    public TextView round_status;
+    public TextView points;
     public ProgressBar progressBar;
     public CardView statusCard;
     public FloatingActionButton fabSend;
@@ -70,10 +72,14 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
         progressBar.setMax(10);
         progressBar.setProgress(2);
 
+        round_status = (TextView) findViewById(R.id.round_status);
+        points = (TextView) findViewById(R.id.points);
+
         fabSend = (FloatingActionButton) findViewById(R.id.fabSend);
         fabSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fabSend.hide();
                 presenter.confirmChoice();
             }
         });
