@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.whs.quizzappuni.Model.Round;
 import com.whs.quizzappuni.R;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -33,25 +35,27 @@ public class ResultAdapter extends ArrayAdapter<Round> {
             view = layoutInflater.inflate(R.layout.result_row, null);
         }
 
-        Round rounds = getItem(position);
+        Round round = getItem(position);
 
-        if (rounds != null) {
+        if (round != null) {
             TextView datetime = (TextView) view.findViewById(R.id.datetime);
             TextView points = (TextView) view.findViewById(R.id.result_points);
             TextView time = (TextView) view.findViewById(R.id.result_time);
 
+            Format format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+
             if (datetime != null) {
-                datetime.setText("DUMMY");
+                datetime.setText(format.format(round.getStartDate()));
             }
 
 
             if (points != null) {
-                points.setText(toString().valueOf(rounds.getScore()) + " Punkte");
+                points.setText(toString().valueOf(round.getScore()) + " Punkte");
             }
 
 
             if (time != null) {
-                time.setText(toString().valueOf(rounds.getDurationSeconds()) + " Sekunden");
+                time.setText(toString().valueOf(round.getDurationSeconds()) + " Sekunden");
             }
 
         }

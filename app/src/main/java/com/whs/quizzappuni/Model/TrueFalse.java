@@ -6,7 +6,7 @@ package com.whs.quizzappuni.Model;
 public class TrueFalse extends Question {
 
     private static final int ANSWER_COUNT = 2;
-    private static final int POINTS = 1;
+
 
     public TrueFalse(QuestionAnswer[] answers) {
         super();
@@ -22,8 +22,5 @@ public class TrueFalse extends Question {
         return ANSWER_COUNT;
     }
 
-    public static int getPOINTS() {
-        return POINTS;
-    }
 
 }

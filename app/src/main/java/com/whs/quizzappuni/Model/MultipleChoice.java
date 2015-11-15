@@ -6,7 +6,6 @@ package com.whs.quizzappuni.Model;
 public class MultipleChoice extends Question {
 
     private static final int ANSWER_COUNT = 4;
-    private static final int POINTS = 2;
 
     public MultipleChoice(QuestionAnswer[] answers) {
         super();
@@ -22,9 +21,6 @@ public class MultipleChoice extends Question {
         return ANSWER_COUNT;
     }
 
-    public static int getPOINTS() {
-        return POINTS;
-    }
 
 
 }

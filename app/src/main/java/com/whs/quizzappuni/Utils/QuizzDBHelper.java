@@ -49,6 +49,7 @@ public class QuizzDBHelper extends DBHelper {
             String questionText = resultSet.getString(1);
             int questionType = resultSet.getInt(2);
             //TODO: Definition und Category
+            int points = resultSet.getInt(5);
 
             QuestionAnswer[] questionAnswers = loadQuestionAnswersById(qId);
 
@@ -65,6 +66,7 @@ public class QuizzDBHelper extends DBHelper {
 
             question.setId(qId);
             question.setQuestionText(questionText);
+            question.setPoints(points);
 
             resultSet.close();
 

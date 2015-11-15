@@ -9,8 +9,8 @@ public abstract class Question {
     private String questionText;
     private Definition definition;
     private Category category;
+    private int points;
     protected QuestionAnswer[] answers;
-
 
     public int getId() {
         return id;
@@ -43,8 +43,20 @@ public abstract class Question {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     public QuestionAnswer[] getAnswers() {
         return answers;
     }
 
+    public void setAnswers(QuestionAnswer[] answers) {
+        this.answers = answers;
+    }
 }

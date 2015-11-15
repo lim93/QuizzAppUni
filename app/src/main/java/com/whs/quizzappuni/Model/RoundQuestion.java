@@ -8,14 +8,22 @@ public class RoundQuestion {
     private int id;
     private int questionId;
     private int roundId;
+    private int points;
     private boolean correct;
 
 
-    public RoundQuestion(int id, int questionId, int roundId, boolean correct) {
+    public RoundQuestion(int id, int questionId, int roundId, int points, boolean correct) {
 
         this.id = id;
         this.questionId = questionId;
         this.roundId = roundId;
+        this.points = points;
+        this.correct = correct;
+    }
+
+    public RoundQuestion(int questionId, int points, boolean correct) {
+        this.questionId = questionId;
+        this.points = points;
         this.correct = correct;
     }
 
@@ -43,6 +51,14 @@ public class RoundQuestion {
         this.roundId = roundId;
     }
 
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     public boolean isCorrect() {
         return correct;
     }
@@ -50,6 +66,4 @@ public class RoundQuestion {
     public void setCorrect(boolean correct) {
         this.correct = correct;
     }
-
-
 }

@@ -1,5 +1,6 @@
 package com.whs.quizzappuni.Utils;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -26,34 +27,6 @@ public class UserDBHelper extends DBHelper {
         createDataBase();
     }
 
-    public Round loadRoundById(int roundId) {
-
-        try {
-            openReadOnly();
-
-            Cursor resultSet = db.rawQuery("Select * from round where _id = " + roundId + ";", null);
-            resultSet.moveToFirst();
-
-            int rId = resultSet.getInt(0);
-            int rDuration = resultSet.getInt(1);
-            int rScore = resultSet.getInt(2);
-
-
-            List<RoundQuestion> roundQuestions = loadRoundQuestionsById(rId);
-
-            Round round = new Round(rId, rDuration, rScore, roundQuestions);
-
-            resultSet.close();
-            return round;
-        } catch (SQLException e) {
-            throw new RuntimeException("Fehler beim öffnen oder abfragen der Datenbank: " + e.getMessage());
-        } finally {
-            close();
-        }
-
-    }
-
-
     public List<Round> loadRoundList() {
 
 
@@ -68,20 +41,18 @@ public class UserDBHelper extends DBHelper {
             while (!resultSet.isAfterLast()) {
 
                 int rId = resultSet.getInt(0);
-                int rDuration = resultSet.getInt(1);
-                int rScore = resultSet.getInt(2);
-                //TODO: Category
+                long rStartDate = resultSet.getLong(1);
+                int rDuration = resultSet.getInt(2);
+                int rScore = resultSet.getInt(3);
 
                 List<RoundQuestion> roundQuestions = loadRoundQuestionsById(rId);
 
-                resultList.add(new Round(rId, rDuration, rScore, roundQuestions));
+                resultList.add(new Round(rId, rStartDate, rDuration, rScore, roundQuestions));
 
-                int position = resultSet.getPosition();
                 resultSet.moveToNext();
 
             }
 
-            int position = resultSet.getPosition();
             resultSet.close();
 
             return resultList;
@@ -96,7 +67,7 @@ public class UserDBHelper extends DBHelper {
 
     private List<RoundQuestion> loadRoundQuestionsById(int roundId) {
 
-        Cursor resultSet = db.rawQuery("Select _id, round_id, question_id, correct from round_question " +
+        Cursor resultSet = db.rawQuery("Select * from round_question " +
                 "where round_id = " + roundId + ";", null);
 
         List<RoundQuestion> roundQuestions = new ArrayList<RoundQuestion>();
@@ -109,9 +80,10 @@ public class UserDBHelper extends DBHelper {
             int id = resultSet.getInt(0);
             int rId = resultSet.getInt(1);
             int qId = resultSet.getInt(2);
-            boolean correct = resultSet.getInt(3) != 0;
+            int points = resultSet.getInt(3);
+            boolean correct = resultSet.getInt(4) != 0;
 
-            RoundQuestion roundQuestion = new RoundQuestion(id, qId, rId, correct);
+            RoundQuestion roundQuestion = new RoundQuestion(id, qId, rId, points, correct);
 
             roundQuestions.add(roundQuestion);
             resultSet.moveToNext();
@@ -121,6 +93,48 @@ public class UserDBHelper extends DBHelper {
         resultSet.close();
 
         return roundQuestions;
+
+    }
+
+
+    public int writeRound(Round round) {
+
+        try {
+            openReadWrite();
+
+            ContentValues values = new ContentValues();
+            values.put("start_date", round.getStartDate());
+            values.put("duration_sec", round.getDurationSeconds());
+            values.put("score", round.getScore());
+
+            int roundId = (int) db.insert("round", null, values);
+
+            for (RoundQuestion roundQuestion : round.getRoundQuestions()) {
+                roundQuestion.setRoundId(roundId);
+
+                writeRoundQuestion(roundQuestion);
+            }
+
+            return roundId;
+        } catch (SQLException e) {
+            throw new RuntimeException("Fehler beim öffnen der Datenbank oder schreiben der Daten: " + e.getMessage());
+        } finally {
+            close();
+        }
+
+    }
+
+    private int writeRoundQuestion(RoundQuestion roundQuestion) {
+
+        ContentValues values = new ContentValues();
+        values.put("round_id", roundQuestion.getRoundId());
+        values.put("question_id", roundQuestion.getQuestionId());
+        values.put("points", roundQuestion.getPoints());
+        values.put("correct", roundQuestion.isCorrect());
+
+        int id = (int) db.insert("round_question", null, values);
+
+        return id;
 
     }
 

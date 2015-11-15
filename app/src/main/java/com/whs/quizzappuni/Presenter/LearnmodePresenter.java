@@ -13,8 +13,10 @@ import com.whs.quizzappuni.Model.MultipleChoice;
 import com.whs.quizzappuni.Model.Question;
 import com.whs.quizzappuni.Model.QuestionAnswer;
 import com.whs.quizzappuni.Model.Round;
+import com.whs.quizzappuni.Model.TrueFalse;
 import com.whs.quizzappuni.R;
 import com.whs.quizzappuni.Utils.QuizzDBHelper;
+import com.whs.quizzappuni.Utils.UserDBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +28,7 @@ public class LearnmodePresenter {
 
     private LearnMultiplechoiceActivity view;
     private QuizzDBHelper qHelper;
+    private UserDBHelper userDBHelper;
 
     private List<ToggleButton> buttons = new ArrayList<ToggleButton>();
 
@@ -35,8 +38,7 @@ public class LearnmodePresenter {
 
     //TODO:Rundenlänge dynamisch laden?
     private int roundLength = 5;
-    private int thisRound = 0;
-    private int score;
+    private int currentQuestion = 0;
 
     public LearnmodePresenter() {
 
@@ -49,7 +51,7 @@ public class LearnmodePresenter {
 
     public void loadQuestion() {
         //Beim ersten Starten den QuizzDBHelper initialisieren, zufällige Fragen laden und Buttons zur ButtonList hinzufügen
-        if (thisRound == 0) {
+        if (currentQuestion == 0) {
             qHelper = new QuizzDBHelper(view.getApplicationContext());
             randomQuestions = qHelper.getRandomQuestions(roundLength);
 
@@ -62,14 +64,14 @@ public class LearnmodePresenter {
         }
 
         //Rundeninformationen in der View anpassen
-        view.progressBar.setProgress(thisRound);
-        view.round_status.setText(String.format("%d/%d", thisRound, roundLength));
-        view.points.setText(String.format("%d", score));
+        view.progressBar.setProgress(currentQuestion);
+        view.round_status.setText(String.format("%d/%d", currentQuestion+1, roundLength));
+        view.points.setText(String.format("%d", round.getScore()));
 
         //Rundendurchlauf
-        if (thisRound < roundLength) {
+        if (currentQuestion < roundLength) {
             //Fragen in einer Runde behandeln
-            question = randomQuestions.get(thisRound);
+            question = randomQuestions.get(currentQuestion);
             view.question.setText(question.getQuestionText());
             QuestionAnswer[] questionAnswers = question.getAnswers();
 
@@ -79,11 +81,13 @@ public class LearnmodePresenter {
                 view.Antwort2.setVisibility(View.VISIBLE);
                 view.Antwort3.setVisibility(View.VISIBLE);
                 view.Antwort4.setVisibility(View.VISIBLE);
-            } else {
+            } else if (question instanceof TrueFalse) {
                 view.Antwort1.setVisibility(View.VISIBLE);
                 view.Antwort2.setVisibility(View.VISIBLE);
                 view.Antwort3.setVisibility(View.GONE);
                 view.Antwort4.setVisibility(View.GONE);
+            } else {
+                throw new IllegalStateException("Der Fragetyp " + question.getClass() + " wird noch nicht unterstützt!");
             }
 
             //Durchlaufen der Antworten zur Frage
@@ -95,12 +99,12 @@ public class LearnmodePresenter {
                 buttons.get(i).setTextOff(answer.getAnswerText());
             }
         } else {
-            //TODO: In DB schreiben
-            round.setScore(score);
+            userDBHelper = new UserDBHelper(view.getApplicationContext());
+            userDBHelper.writeRound(round);
 
             //Punkte der Runde an die Result-Activity übergeben und diese Activity schließlich starten
             Bundle bundle = new Bundle();
-            bundle.putInt("points", score);
+            bundle.putInt("points", round.getScore());
             Intent result = new Intent(view, ResultActivity.class);
             result.putExtras(bundle);
             view.startActivity(result);
@@ -109,16 +113,19 @@ public class LearnmodePresenter {
 
     //Auf die Bestaetigung nach der Antwort-Auswahl reagieren
     public void confirmChoice() {
-        //TODO: Antwort auswerten + in Runde setzen
-        question = randomQuestions.get(thisRound);
+
+        question = randomQuestions.get(currentQuestion);
         QuestionAnswer[] questionAnswers = question.getAnswers();
-        QuestionAnswer answer = questionAnswers[view.answer];
-        if (answer.isCorrectAnswer()) {
+        QuestionAnswer selectedAnswer = questionAnswers[view.answer];
+
+        if (selectedAnswer.isCorrectAnswer()) {
             view.statusCard.setBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.rightAnswer));
-            score += 6;
         } else {
             view.statusCard.setBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.wrongAnswer));
         }
+
+        round.addRoundQuestion(question.getId(), question.getPoints(), selectedAnswer.isCorrectAnswer());
+
 /**
  *if(view.Antwort1.isChecked())
  *view.Antwort1.setBackgroundColor(view.getResources().getColor(R.color.wrongAnswer));
@@ -138,7 +145,7 @@ public class LearnmodePresenter {
                 //TODO:FAB-Button ausblenden
                 uncheckButtons();
                 view.statusCard.setBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
-                thisRound++;
+                currentQuestion++;
                 loadQuestion();
             }
         }, 1000);
