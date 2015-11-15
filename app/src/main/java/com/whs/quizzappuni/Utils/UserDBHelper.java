@@ -35,7 +35,7 @@ public class UserDBHelper extends DBHelper {
         try {
             openReadOnly();
 
-            Cursor resultSet = db.rawQuery("Select * from round;", null);
+            Cursor resultSet = db.rawQuery("Select * from round ORDER BY _id DESC;", null);
             resultSet.moveToFirst();
 
             while (!resultSet.isAfterLast()) {

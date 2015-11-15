@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.whs.quizzappuni.Model.Round;
@@ -19,6 +20,9 @@ import java.util.List;
  * Created by Marc on 13.11.15.
  */
 public class ResultAdapter extends ArrayAdapter<Round> {
+
+    private ImageView timer_image;
+    private TextView result_time;
 
     public ResultAdapter(Context context, int resource, List<Round> rounds) {
         super(context, resource, rounds);
@@ -54,8 +58,17 @@ public class ResultAdapter extends ArrayAdapter<Round> {
             }
 
 
-            if (time != null) {
-                time.setText(toString().valueOf(round.getDurationSeconds()) + " Sekunden");
+
+
+            if(round.getDurationSeconds() == 0) {
+                timer_image = (ImageView) view.findViewById(R.id.timer_image);
+                timer_image.setVisibility(View.GONE);
+                result_time = (TextView) view.findViewById(R.id.result_time);
+                result_time.setVisibility(View.GONE);
+            } else {
+                if (time != null) {
+                    time.setText(toString().valueOf(round.getDurationSeconds()) + " Sekunden");
+                }
             }
 
         }

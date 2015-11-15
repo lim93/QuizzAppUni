@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.whs.quizzappuni.Presenter.ResultPresenter;
@@ -16,7 +17,7 @@ public class ResultActivity extends AppCompatActivity {
     public FloatingActionButton fab;
     private ResultPresenter presenter;
     private TextView points;
-
+    private LinearLayout container_time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,12 @@ public class ResultActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         //Befülle die Endergebnis-Anzeige dieser Runde mit den übergebenen Punktwerten aus der Runde
         points = (TextView) findViewById(R.id.result_points);
-        points.setText(String.format("%d Punkte", bundle.getInt("points")));
+        points.setText(String.format("%d %s", bundle.getInt("points"), getResources().getString(R.string.points)));
+
+        if(bundle.getInt("time") == 0) {
+           container_time = (LinearLayout) findViewById(R.id.container_time);
+           container_time.setVisibility(View.GONE);
+        }
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

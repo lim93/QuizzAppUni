@@ -66,7 +66,7 @@ public class LearnmodePresenter {
         //Rundeninformationen in der View anpassen
         view.progressBar.setProgress(currentQuestion);
         view.round_status.setText(String.format("%d/%d", currentQuestion+1, roundLength));
-        view.points.setText(String.format("%d", round.getScore()));
+        view.points.setText(String.format("%d %s", round.getScore(), view.getResources().getString(R.string.points)));
 
         //Rundendurchlauf
         if (currentQuestion < roundLength) {

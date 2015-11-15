@@ -69,8 +69,6 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
         statusCard = (CardView) findViewById(R.id.statusCard);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setMax(10);
-        progressBar.setProgress(2);
 
         round_status = (TextView) findViewById(R.id.round_status);
         points = (TextView) findViewById(R.id.points);

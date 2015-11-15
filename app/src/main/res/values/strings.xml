@@ -31,6 +31,8 @@
     <string name="timeDummy">0 Sekunden</string>
     <string name="dateTimeDummy">25.10.2015 15:31</string>
 
+    <string name="points">Punkte</string>
+
     <string name="definitionTitleDummy">WLAN</string>
     <string name="definitionContentDummy">Wireless Local Area Network [ˈwaɪəlɪs ləʊkl ˈɛəɹɪə ˈnɛtwɜːk] (deutsch wörtlich „drahtloses lokales Netzwerk“ – Wireless LAN, WLAN) bezeichnet ein lokales Funknetz, wobei meistens ein Standard der IEEE-802.11-Familie gemeint ist. Für diese engere Bedeutung wird in manchen Ländern (z. B. USA, Großbritannien, Kanada, Niederlande, Spanien, Frankreich, Italien) weitläufig beziehungsweise auch synonym der Begriff Wi-Fiverwendet. Der Begriff wird häufig auch irreführend als Synonym für WLAN-Hotspots bzw. kabellosen Internetzugriff verwendet.</string>
 

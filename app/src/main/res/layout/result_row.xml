@@ -48,6 +48,7 @@
                 android:text="@string/pointsDummy"/>
 
             <ImageView
+                android:id="@+id/timer_image"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_timer_black_24dp"
