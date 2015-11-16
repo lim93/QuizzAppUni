@@ -32,7 +32,7 @@ public class LearnmodePresenter {
 
     private List<ToggleButton> buttons = new ArrayList<ToggleButton>();
 
-    private Round round = new Round();
+    private Round round;
     private Question question;
     private List<Question> randomQuestions;
 
@@ -52,6 +52,7 @@ public class LearnmodePresenter {
     public void loadQuestion() {
         //Beim ersten Starten den QuizzDBHelper initialisieren, zufällige Fragen laden und Buttons zur ButtonList hinzufügen
         if (currentQuestion == 0) {
+            round = new Round();
             qHelper = new QuizzDBHelper(view.getApplicationContext());
             randomQuestions = qHelper.getRandomQuestions(roundLength);
 
@@ -61,6 +62,9 @@ public class LearnmodePresenter {
             buttons.add(view.Antwort4);
 
             view.progressBar.setMax(roundLength);
+
+            //Runde starten, Sekunden zählen?
+            round.start(true);
         }
 
         //Rundeninformationen in der View anpassen
@@ -99,12 +103,15 @@ public class LearnmodePresenter {
                 buttons.get(i).setTextOff(answer.getAnswerText());
             }
         } else {
+            //Runde stoppen
+            round.stop();
             userDBHelper = new UserDBHelper(view.getApplicationContext());
             userDBHelper.writeRound(round);
 
             //Punkte der Runde an die Result-Activity übergeben und diese Activity schließlich starten
             Bundle bundle = new Bundle();
             bundle.putInt("points", round.getScore());
+            bundle.putLong("seconds", round.getDurationSeconds());
             Intent result = new Intent(view, ResultActivity.class);
             result.putExtras(bundle);
             view.startActivity(result);

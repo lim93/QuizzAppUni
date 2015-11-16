@@ -17,6 +17,7 @@ public class ResultActivity extends AppCompatActivity {
     public FloatingActionButton fab;
     private ResultPresenter presenter;
     private TextView points;
+    private TextView time;
     private LinearLayout container_time;
 
     @Override
@@ -39,9 +40,14 @@ public class ResultActivity extends AppCompatActivity {
         points = (TextView) findViewById(R.id.result_points);
         points.setText(String.format("%d %s", bundle.getInt("points"), getResources().getString(R.string.points)));
 
-        if(bundle.getInt("time") == 0) {
-           container_time = (LinearLayout) findViewById(R.id.container_time);
-           container_time.setVisibility(View.GONE);
+        container_time = (LinearLayout) findViewById(R.id.container_time);
+        time = (TextView) findViewById(R.id.time);
+
+        if (bundle.getLong("seconds") == 0) {
+            container_time.setVisibility(View.GONE);
+        } else {
+            container_time.setVisibility(View.VISIBLE);
+            time.setText(String.format("%d %s", bundle.getLong("seconds"), getResources().getString(R.string.seconds)));
         }
 
         fab = (FloatingActionButton) findViewById(R.id.fab);

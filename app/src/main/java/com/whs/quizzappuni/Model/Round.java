@@ -1,5 +1,7 @@
 package com.whs.quizzappuni.Model;
 
+import org.joda.time.Duration;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -11,19 +13,18 @@ public class Round {
 
     private int id;
     private long startDate;
-    private int durationSeconds;
+    private long endDate;
+    private long durationSeconds;
     private int score;
     private List<RoundQuestion> roundQuestions;
 
-    public Round() {
+    private boolean countTime;
 
-        this.startDate = Calendar.getInstance().getTimeInMillis();
-        this.score = 0;
-        this.durationSeconds = 0;
+    public Round() {
         this.roundQuestions = new ArrayList<>();
     }
 
-    public Round(int id, long startDate, int durationSeconds, int score, List<RoundQuestion> roundQuestions) {
+    public Round(int id, long startDate, long durationSeconds, int score, List<RoundQuestion> roundQuestions) {
         this.id = id;
         this.startDate = startDate;
         this.durationSeconds = durationSeconds;
@@ -43,16 +44,12 @@ public class Round {
         return startDate;
     }
 
-    public void setStartDate(long startDate) {
-        this.startDate = startDate;
+    public long getEndDate() {
+        return endDate;
     }
 
-    public int getDurationSeconds() {
+    public long getDurationSeconds() {
         return durationSeconds;
-    }
-
-    public void setDurationSeconds(int durationSeconds) {
-        this.durationSeconds = durationSeconds;
     }
 
     public int getScore() {
@@ -66,6 +63,27 @@ public class Round {
     public void setRoundQuestions(List<RoundQuestion> roundQuestions) {
         this.roundQuestions = roundQuestions;
     }
+
+
+    public void start(boolean countTime) {
+        this.score = 0;
+        this.durationSeconds = 0l;
+        this.countTime = countTime;
+        this.startDate = Calendar.getInstance().getTimeInMillis();
+    }
+
+    public void stop() {
+
+        if (countTime) {
+            this.endDate = Calendar.getInstance().getTimeInMillis();
+            Duration duration = new Duration(startDate, endDate);
+            this.durationSeconds = duration.getStandardSeconds();
+        }
+
+        updateScore();
+
+    }
+
 
     public void addRoundQuestion(int questionId, int points, boolean correct) {
 

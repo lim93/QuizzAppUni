@@ -42,7 +42,7 @@ public class UserDBHelper extends DBHelper {
 
                 int rId = resultSet.getInt(0);
                 long rStartDate = resultSet.getLong(1);
-                int rDuration = resultSet.getInt(2);
+                long rDuration = resultSet.getLong(2);
                 int rScore = resultSet.getInt(3);
 
                 List<RoundQuestion> roundQuestions = loadRoundQuestionsById(rId);

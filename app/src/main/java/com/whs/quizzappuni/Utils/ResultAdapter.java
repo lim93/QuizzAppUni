@@ -58,15 +58,16 @@ public class ResultAdapter extends ArrayAdapter<Round> {
             }
 
 
+            timer_image = (ImageView) view.findViewById(R.id.timer_image);
+            result_time = (TextView) view.findViewById(R.id.result_time);
 
-
-            if(round.getDurationSeconds() == 0) {
-                timer_image = (ImageView) view.findViewById(R.id.timer_image);
+            if(round.getDurationSeconds() == 0l) {
                 timer_image.setVisibility(View.GONE);
-                result_time = (TextView) view.findViewById(R.id.result_time);
                 result_time.setVisibility(View.GONE);
             } else {
                 if (time != null) {
+                    timer_image.setVisibility(View.VISIBLE);
+                    result_time.setVisibility(View.VISIBLE);
                     time.setText(toString().valueOf(round.getDurationSeconds()) + " Sekunden");
                 }
             }
