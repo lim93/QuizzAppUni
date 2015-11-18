@@ -60,5 +60,10 @@ public class ResultActivity extends AppCompatActivity {
         Utils.showFabWithAnimation(fab, 500);
 
     }
+
+    @Override
+    public void onBackPressed() {
+        presenter.startMain();
+    }
 }
 
