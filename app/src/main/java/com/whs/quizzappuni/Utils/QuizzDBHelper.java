@@ -13,8 +13,8 @@ import com.whs.quizzappuni.Model.TrueFalse;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by krispin on 30.10.15.
@@ -48,8 +48,11 @@ public class QuizzDBHelper extends DBHelper {
             int qId = resultSet.getInt(0);
             String questionText = resultSet.getString(1);
             int questionType = resultSet.getInt(2);
-            //TODO: Definition und Category
+            int definitionId = resultSet.getInt(3);
             int points = resultSet.getInt(5);
+
+            Definition definition = loadDefinitionById(definitionId);
+            //TODO: Category
 
             QuestionAnswer[] questionAnswers = loadQuestionAnswersById(qId);
 
@@ -66,6 +69,7 @@ public class QuizzDBHelper extends DBHelper {
 
             question.setId(qId);
             question.setQuestionText(questionText);
+            question.setDefinition(definition);
             question.setPoints(points);
 
             resultSet.close();
@@ -149,7 +153,12 @@ public class QuizzDBHelper extends DBHelper {
 
             while (randomQuestionIDs.size() < count) {
 
-                int id = ThreadLocalRandom.current().nextInt(1, questionIds.size() + 1);
+                Random rand = new Random();
+
+                // nextInt is normally exclusive of the top value,
+                // so add 1 to make it inclusive
+                int id = rand.nextInt((questionIds.size() - 1) + 1) + 1;
+
                 randomQuestionIDs.add(id);
 
             }
@@ -165,6 +174,27 @@ public class QuizzDBHelper extends DBHelper {
             close();
         }
 
+
+    }
+
+    private Definition loadDefinitionById(int definitionId) {
+
+        Definition definition;
+
+        Cursor resultSet = db.rawQuery("Select * from definition where _id = " + definitionId + ";", null);
+        resultSet.moveToFirst();
+
+        int id = resultSet.getInt(0);
+        String term = resultSet.getString(1);
+        String definition_text = resultSet.getString(2);
+        int category_id = resultSet.getInt(3);
+        String source = resultSet.getString(4);
+        //TODO: Category
+
+        definition = new Definition(id, term, definition_text, null, source);
+
+        resultSet.close();
+        return definition;
 
     }
 
