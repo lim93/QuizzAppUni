@@ -38,6 +38,7 @@ public class QuizzDBHelper extends DBHelper {
     public Question loadQuestionById(int questionId) {
 
         Question question;
+        Definition definition;
 
         try {
             openReadOnly();
@@ -49,9 +50,16 @@ public class QuizzDBHelper extends DBHelper {
             String questionText = resultSet.getString(1);
             int questionType = resultSet.getInt(2);
             int definitionId = resultSet.getInt(3);
+
+            if (definitionId == 0) {
+                throw new IllegalStateException("Die Definitions-Id darf nicht '0' sein, Frage " + questionId + "!");
+            } else {
+                definition = loadDefinitionById(definitionId);
+            }
+
             int points = resultSet.getInt(5);
 
-            Definition definition = loadDefinitionById(definitionId);
+
             //TODO: Category
 
             QuestionAnswer[] questionAnswers = loadQuestionAnswersById(qId);
