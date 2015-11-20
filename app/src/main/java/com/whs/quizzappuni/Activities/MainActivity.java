@@ -164,8 +164,6 @@ public class MainActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.exitAlert_yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         moveTaskToBack(true);
-                        android.os.Process.killProcess(android.os.Process.myPid());
-                        System.exit(1);
                     }
                 })
                 .setNegativeButton(R.string.exitAlert_no, new DialogInterface.OnClickListener() {
