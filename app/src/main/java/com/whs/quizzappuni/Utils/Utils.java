@@ -4,6 +4,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
+import com.whs.quizzappuni.Model.QuestionAnswer;
+
+import java.util.Random;
+
 /**
  * Created by marc on 12.11.15.
  */
@@ -27,5 +31,17 @@ public class Utils {
                 return true;
             }
         });
+    }
+
+
+    public static void shuffleQuestionAnswers(QuestionAnswer[] questionAnswers) {
+        Random rnd = new Random();
+        for (int i = questionAnswers.length - 1; i > 0; i--) {
+            int index = rnd.nextInt(i + 1);
+            // Simple swap
+            QuestionAnswer questionAnswer = questionAnswers[index];
+            questionAnswers[index] = questionAnswers[i];
+            questionAnswers[i] = questionAnswer;
+        }
     }
 }

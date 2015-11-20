@@ -25,6 +25,7 @@
     <string name="definitionDescription">Vokabelheft</string>
     <string name="dbDescription">Datenbank</string>
     <string name="learning_mode_description">In Ruhe neue Inhalte lernen</string>
+    <string name="time_mode_description">Prüfe dein Wissen in einer Klausursimulation</string>
 
     <string name="pointsDummy">0 Punkte</string>
     <string name="roundsDummy">0/10</string>
@@ -41,6 +42,11 @@
     <string name="quitAlert.Content">Dein Rundenfortschritt wird nicht gespeichert.</string>
     <string name="quitAlert.yes">Ja</string>
     <string name="quitAlert.no">Nein</string>
+
+    <string name="exitAlert.Title">Wirklich beenden?</string>
+    <string name="exitAlert.Content">Damit verlässt du eVoc.</string>
+    <string name="exitAlert.yes">Ja</string>
+    <string name="exitAlert.no">Nein</string>
 
 
 </resources>

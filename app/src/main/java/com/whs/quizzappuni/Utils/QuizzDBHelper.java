@@ -63,6 +63,7 @@ public class QuizzDBHelper extends DBHelper {
             //TODO: Category
 
             QuestionAnswer[] questionAnswers = loadQuestionAnswersById(qId);
+            Utils.shuffleQuestionAnswers(questionAnswers);
 
             switch (questionType) {
                 case 1:
