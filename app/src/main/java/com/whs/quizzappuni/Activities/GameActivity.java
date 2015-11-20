@@ -15,13 +15,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.whs.quizzappuni.Presenter.LearnmodePresenter;
+import com.whs.quizzappuni.Presenter.GamePresenter;
 import com.whs.quizzappuni.R;
 import com.whs.quizzappuni.Utils.Utils;
 
-public class LearnMultiplechoiceActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
 
-    private LearnmodePresenter presenter;
+    private GamePresenter presenter;
     public ToggleButton Antwort1;
     public ToggleButton Antwort2;
     public ToggleButton Antwort3;
@@ -38,11 +38,11 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_learn_multiplechoice);
+        setContentView(R.layout.activity_game);
 
         //Sicherstellen, dass ein Presenter existiert
         if (presenter == null)
-            presenter = new LearnmodePresenter();
+            presenter = new GamePresenter();
         presenter.onTakeView(this);
 
         this.loadElements();
@@ -90,6 +90,8 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
 
         fabSend.hide();
     }
+
+
 
     CompoundButton.OnCheckedChangeListener changeChecker = new CompoundButton.OnCheckedChangeListener() {
 
@@ -162,11 +164,9 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, close
                         // current activity
-                        LearnMultiplechoiceActivity.this.finish();
+                        GameActivity.this.finish();
                         presenter.MainStarten();
-
-                    }
-                })
+                }})
                 .setNegativeButton(R.string.quitAlert_no, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, just close

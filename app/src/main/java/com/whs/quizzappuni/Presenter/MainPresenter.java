@@ -4,7 +4,7 @@ import android.content.Intent;
 
 import com.whs.quizzappuni.Activities.DB;
 import com.whs.quizzappuni.Activities.DefinitionListActivity;
-import com.whs.quizzappuni.Activities.LearnMultiplechoiceActivity;
+import com.whs.quizzappuni.Activities.GameActivity;
 import com.whs.quizzappuni.Activities.MainActivity;
 import com.whs.quizzappuni.Activities.ResultListActivity;
 import com.whs.quizzappuni.Utils.QuizzDBHelper;
@@ -39,7 +39,7 @@ public class MainPresenter {
     }
 
     public void learnmodeStarten(){
-        Intent learnmode = new Intent(view, LearnMultiplechoiceActivity.class);
+        Intent learnmode = new Intent(view, GameActivity.class);
         view.startActivity(learnmode);
     }
 

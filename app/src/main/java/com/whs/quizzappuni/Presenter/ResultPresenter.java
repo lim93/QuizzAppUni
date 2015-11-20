@@ -2,7 +2,7 @@ package com.whs.quizzappuni.Presenter;
 
 import android.content.Intent;
 
-import com.whs.quizzappuni.Activities.LearnMultiplechoiceActivity;
+import com.whs.quizzappuni.Activities.GameActivity;
 import com.whs.quizzappuni.Activities.ResultActivity;
 import com.whs.quizzappuni.Activities.MainActivity;
 
@@ -18,7 +18,7 @@ public class ResultPresenter {
 
 
     public void learnmodeStarten() {
-        Intent learnmode = new Intent(view, LearnMultiplechoiceActivity.class);
+        Intent learnmode = new Intent(view, GameActivity.class);
         view.startActivity(learnmode);
     }
 

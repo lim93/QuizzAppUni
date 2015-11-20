@@ -19,7 +19,7 @@
         </activity>
 
         <activity
-            android:name="com.whs.quizzappuni.Activities.LearnMultiplechoiceActivity"
+            android:name=".Activities.GameActivity"
             android:parentActivityName="com.whs.quizzappuni.Activities.MainActivity"
             android:screenOrientation="portrait" >
         </activity>
