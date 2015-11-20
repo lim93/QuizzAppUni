@@ -1,21 +1,33 @@
 package com.whs.quizzappuni.Activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.whs.quizzappuni.Presenter.MainPresenter;
-import com.whs.quizzappuni.Utils.Utils;
 import com.whs.quizzappuni.R;
+import com.whs.quizzappuni.Utils.Utils;
 
 public class MainActivity extends Activity {
 
     public FloatingActionButton fab;
     public ImageButton dbButton;
     public ImageButton definitionButton;
+    public CardView statusCard;
     private MainPresenter presenter;
+    final Context context = this;
+    public ImageButton backButton;
+    public ImageButton forwardButton;
+    public TextView playModeTitle;
+    public TextView playModeDescription;
+    public boolean timeMode = false;
+    public View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +47,11 @@ public class MainActivity extends Activity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.learnmodeStarten();
+                if(timeMode) {
+
+                } else {
+                    presenter.learnmodeStarten();
+                }
             }
         });
 
@@ -57,9 +73,73 @@ public class MainActivity extends Activity {
                                                     presenter.definitionListStarten();
                                                 }
                                             }
-
-
         );
+
+        backButton = (ImageButton) findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    if(timeMode) {
+                        showLearnMode();
+                    } else {
+                        showTimeMode();
+                    }
+                }
+        });
+
+        forwardButton = (ImageButton) findViewById(R.id.forwardButton);
+        forwardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(timeMode) {
+                    showLearnMode();
+                } else {
+                    showTimeMode();
+                }
+            }
+        });
+    }
+
+    protected void showTimeMode() {
+        playModeTitle = (TextView) findViewById(R.id.play_mode);
+        playModeTitle.setText(R.string.time_mode);
+
+        playModeDescription = (TextView) findViewById(R.id.play_mode_description);
+        playModeDescription.setText(R.string.time_mode_description);
+
+        fab.hide();
+
+        fab.postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_timer_white_24dp));
+                    }
+                }, 300);
+        Utils.showFabWithAnimation(fab, 500);
+
+        timeMode = true;
+    }
+
+    protected void showLearnMode() {
+        playModeTitle = (TextView) findViewById(R.id.play_mode);
+        playModeTitle.setText(R.string.learning_mode);
+
+        playModeDescription = (TextView) findViewById(R.id.play_mode_description);
+        playModeDescription.setText(R.string.learning_mode_description);
+
+        fab.hide();
+
+        fab.postDelayed(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        fab.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ic_play_arrow_white_24dp));
+                    }
+                }, 300);
+        Utils.showFabWithAnimation(fab, 500);
+
+        timeMode = false;
     }
 
     protected void onResume() {

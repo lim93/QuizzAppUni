@@ -25,6 +25,7 @@
     <string name="definitionDescription">Vokabelheft</string>
     <string name="dbDescription">Datenbank</string>
     <string name="learning_mode_description">In Ruhe neue Inhalte lernen</string>
+    <string name="time_mode_description">Prüfe dein Wissen in einer Klausursimulation</string>
 
     <string name="pointsDummy">0 Punkte</string>
     <string name="roundsDummy">0/10</string>

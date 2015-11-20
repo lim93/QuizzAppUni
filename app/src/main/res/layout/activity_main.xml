@@ -121,6 +121,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <ImageButton
+                    android:id="@+id/backButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="fitCenter"
+                    />
+
                 <TextView
                     android:id="@+id/play_mode"
                     android:layout_width="wrap_content"
@@ -130,7 +142,8 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:layout_marginLeft="56dp"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginStart="56dp"
+                    android:layout_marginTop="14dp"
                     android:textColor="@color/cardview_dark_background"/>
 
                 <TextView
@@ -141,9 +154,22 @@
                     android:gravity="left"
                     android:textSize="12sp"
                     android:layout_marginLeft="56dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="4dp"
                     android:fontFamily="sans-serif-light"
                     android:layout_below="@+id/play_mode"/>
+
+                <ImageButton
+                    android:id="@+id/forwardButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:scaleType="fitCenter"
+                    />
 
             </RelativeLayout>
         </android.support.v7.widget.CardView>
