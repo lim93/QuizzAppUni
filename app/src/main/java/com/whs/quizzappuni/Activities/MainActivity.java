@@ -1,10 +1,11 @@
 package com.whs.quizzappuni.Activities;
 
 
-import android.content.DialogInterface;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.whs.quizzappuni.Presenter.MainPresenter;
 import com.whs.quizzappuni.R;
+import com.whs.quizzappuni.Utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
 
