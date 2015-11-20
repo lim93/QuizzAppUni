@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(timeMode) {
-
+                    presenter.timemodeStarten();
                 } else {
                     presenter.learnmodeStarten();
                 }
