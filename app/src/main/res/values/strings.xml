@@ -43,5 +43,10 @@
     <string name="quitAlert.yes">Ja</string>
     <string name="quitAlert.no">Nein</string>
 
+    <string name="exitAlert.Title">Wirklich beenden?</string>
+    <string name="exitAlert.Content">Damit verlässt du eVoc.</string>
+    <string name="exitAlert.yes">Ja</string>
+    <string name="exitAlert.no">Nein</string>
+
 
 </resources>

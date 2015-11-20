@@ -1,25 +1,24 @@
 package com.whs.quizzappuni.Activities;
 
-import android.app.Activity;
+
+import android.content.DialogInterface;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.whs.quizzappuni.Presenter.MainPresenter;
 import com.whs.quizzappuni.R;
-import com.whs.quizzappuni.Utils.Utils;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     public FloatingActionButton fab;
     public ImageButton dbButton;
     public ImageButton definitionButton;
-    public CardView statusCard;
     private MainPresenter presenter;
     final Context context = this;
     public ImageButton backButton;
@@ -145,5 +144,40 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         Utils.showFabWithAnimation(fab, 500);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set title
+        alertDialogBuilder.setTitle(R.string.exitAlert_Title);
+
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(R.string.exitAlert_Content)
+                .setCancelable(true)
+                .setPositiveButton(R.string.exitAlert_yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        moveTaskToBack(true);
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        System.exit(1);
+                    }
+                })
+                .setNegativeButton(R.string.exitAlert_no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
     }
 }
