@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ToggleButton;
 
 import com.whs.quizzappuni.Activities.LearnMultiplechoiceActivity;
+import com.whs.quizzappuni.Activities.MainActivity;
 import com.whs.quizzappuni.Activities.ResultActivity;
 import com.whs.quizzappuni.Model.MultipleChoice;
 import com.whs.quizzappuni.Model.Question;
@@ -163,6 +164,11 @@ public class LearnmodePresenter {
         view.Antwort2.setChecked(false);
         view.Antwort3.setChecked(false);
         view.Antwort4.setChecked(false);
+    }
+
+    public void MainStarten(){
+        Intent main = new Intent(view, MainActivity.class);
+        view.startActivity(main);
     }
 
     public void check() {

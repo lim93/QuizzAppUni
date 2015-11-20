@@ -91,13 +91,6 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
         fabSend.hide();
     }
 
-//    @Override
-//    protected void onResume()
-//    {
-//        super.onResume();
-//
-//    }
-
     CompoundButton.OnCheckedChangeListener changeChecker = new CompoundButton.OnCheckedChangeListener() {
 
         //      Nur ein Button kann selected sein.
@@ -170,6 +163,8 @@ public class LearnMultiplechoiceActivity extends AppCompatActivity {
                         // if this button is clicked, close
                         // current activity
                         LearnMultiplechoiceActivity.this.finish();
+                        presenter.MainStarten();
+
                     }
                 })
                 .setNegativeButton(R.string.quitAlert_no, new DialogInterface.OnClickListener() {
