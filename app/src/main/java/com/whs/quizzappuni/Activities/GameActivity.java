@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.whs.quizzappuni.Presenter.GamePresenter;
+import com.whs.quizzappuni.Presenter.LearnModePresenter;
+import com.whs.quizzappuni.Presenter.TimeModePresenter;
 import com.whs.quizzappuni.R;
 import com.whs.quizzappuni.Utils.Utils;
 
@@ -32,7 +34,9 @@ public class GameActivity extends AppCompatActivity {
     public ProgressBar progressBar;
     public CardView statusCard;
     public FloatingActionButton fabSend;
+    public boolean fabSendAlreadyClicked = false;
     public int answer;
+    public String gamemode;
     final Context context = this;
 
     @Override
@@ -40,9 +44,15 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        //Sicherstellen, dass ein Presenter existiert
-        if (presenter == null)
-            presenter = new GamePresenter();
+        //Laden der Informationen aus der Modusauswahl
+        Bundle bundle = getIntent().getExtras();
+        gamemode = bundle.getString("mode");
+
+        //Den richtigen Presenter anhand des übergebenen Moduswertes erstellen
+        if (gamemode.equals("learn"))
+            presenter = new LearnModePresenter();
+        if (gamemode.equals("time"))
+            presenter = new TimeModePresenter();
         presenter.onTakeView(this);
 
         this.loadElements();
@@ -51,8 +61,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void loadElements() {
-
-        // Erstellen der Toolbar
+        //Erstellen der Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         assert getSupportActionBar() != null;
@@ -84,7 +93,11 @@ public class GameActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 fabSend.hide();
-                presenter.confirmChoice();
+                //Verhindern, dass bei schneller mehrfacher Betägigung des Buttons hintereinander, Fragen "übersprungen" werden
+                if(fabSendAlreadyClicked == false) {
+                    presenter.confirmChoice();
+                }
+                fabSendAlreadyClicked = true;
             }
         });
 
