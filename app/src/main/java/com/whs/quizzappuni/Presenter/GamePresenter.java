@@ -49,7 +49,6 @@ public class GamePresenter {
         this.view = view;
     }
 
-
     public void loadQuestion() {
         //Beim ersten Starten den QuizzDBHelper initialisieren, zufällige Fragen laden und Buttons zur ButtonList hinzufügen
         if (currentQuestion == 0) {
@@ -115,6 +114,7 @@ public class GamePresenter {
             Bundle bundle = new Bundle();
             bundle.putInt("points", round.getScore());
             bundle.putLong("seconds", round.getDurationSeconds());
+            bundle.putString("mode", view.gamemode);
             Intent result = new Intent(view, ResultActivity.class);
             result.putExtras(bundle);
             view.startActivity(result);
@@ -147,17 +147,19 @@ public class GamePresenter {
  *view.Antwort4.getTextOn();
  */
 
-        //Warte für 1 Sekunden
+        //Informationen über die beantwortete Frage (Ergebnis war richtig oder falsch, etc.) werden für eine bestimmte "Wartezeit" lang angezeigt, bevor die nächste Frage geladen wird
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                // Actions to do after 1 seconds
+                //Auszuführende nach der Wartezeit
                 //TODO:FAB-Button ausblenden
                 uncheckButtons();
                 view.statusCard.setBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
+                view.fabSendAlreadyClicked = false;
                 currentQuestion++;
                 loadQuestion();
             }
+            //Folgend: Angabe der Wartezeit
         }, 1000);
     }
 

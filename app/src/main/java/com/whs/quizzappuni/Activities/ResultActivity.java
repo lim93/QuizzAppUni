@@ -19,6 +19,7 @@ public class ResultActivity extends AppCompatActivity {
     private TextView points;
     private TextView time;
     private LinearLayout container_time;
+    private String gamemode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class ResultActivity extends AppCompatActivity {
         //Lade übergebene Werte
         Bundle bundle = getIntent().getExtras();
         //Befülle die Endergebnis-Anzeige dieser Runde mit den übergebenen Punktwerten aus der Runde
+        gamemode = bundle.getString("mode");
         points = (TextView) findViewById(R.id.result_points);
         points.setText(String.format("%d %s", bundle.getInt("points"), getResources().getString(R.string.points)));
 
@@ -54,7 +56,10 @@ public class ResultActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.learnmodeStarten();
+                if (gamemode.equals("learn"))
+                    presenter.startLearnmode();
+                if (gamemode.equals("time"))
+                    presenter.startTimemode();
             }
         });
         Utils.showFabWithAnimation(fab, 500);

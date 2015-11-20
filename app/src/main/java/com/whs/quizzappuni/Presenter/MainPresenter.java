@@ -1,6 +1,7 @@
 package com.whs.quizzappuni.Presenter;
 
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.whs.quizzappuni.Activities.DB;
 import com.whs.quizzappuni.Activities.DefinitionListActivity;
@@ -37,10 +38,21 @@ public class MainPresenter {
 
         //TODO: Hier eventuell die Exception abfangen und dem User anzeigen, dass es ein generelles Problem mit der App gibt
     }
+    public void timemodeStarten(){
+        Bundle bundle = new Bundle();
+        bundle.putString("mode", "time");
+        Intent game = new Intent(view, GameActivity.class);
+        game.putExtras(bundle);
+        view.startActivity(game);
+    }
+
 
     public void learnmodeStarten(){
-        Intent learnmode = new Intent(view, GameActivity.class);
-        view.startActivity(learnmode);
+        Bundle bundle = new Bundle();
+        bundle.putString("mode", "learn");
+        Intent game = new Intent(view, GameActivity.class);
+        game.putExtras(bundle);
+        view.startActivity(game);
     }
 
     public void dBmodeStarten(){

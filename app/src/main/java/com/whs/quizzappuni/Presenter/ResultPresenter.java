@@ -1,6 +1,7 @@
 package com.whs.quizzappuni.Presenter;
 
 import android.content.Intent;
+import android.os.Bundle;
 
 import com.whs.quizzappuni.Activities.GameActivity;
 import com.whs.quizzappuni.Activities.ResultActivity;
@@ -16,10 +17,20 @@ public class ResultPresenter {
     public ResultPresenter() {
     }
 
+    public void startLearnmode() {
+        Bundle bundle = new Bundle();
+        bundle.putString("mode", "learn");
+        Intent game = new Intent(view, GameActivity.class);
+        game.putExtras(bundle);
+        view.startActivity(game);
+    }
 
-    public void learnmodeStarten() {
-        Intent learnmode = new Intent(view, GameActivity.class);
-        view.startActivity(learnmode);
+    public void startTimemode() {
+        Bundle bundle = new Bundle();
+        bundle.putString("mode", "time");
+        Intent game = new Intent(view, GameActivity.class);
+        game.putExtras(bundle);
+        view.startActivity(game);
     }
 
     public void startMain() {
