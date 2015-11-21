@@ -99,6 +99,31 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+//        final GestureDetectorCompat gestureDetector = new GestureDetectorCompat(context,
+//                new GestureDetector.SimpleOnGestureListener() {
+//                    int penis = 1;
+//
+//                    @Override
+//                    public boolean onScroll(MotionEvent start, MotionEvent event, float distanceX, float distanceY) {
+//                        statusCard.setTranslationX(event.getX() - start.getX());
+//                        return true;
+//                    }
+//
+//                    @Override
+//                    public boolean onDown(MotionEvent e) {
+//                        return true;
+//                    }
+//
+//                });
+//
+//        statusCard.setOnTouchListener(new View.OnTouchListener() {
+//        @Override
+//            public boolean onTouch(View view, MotionEvent event) {
+//                gestureDetector.onTouchEvent(event);  // here we pass events to detector above
+//                return true;
+//            }
+//        });
     }
 
     protected void showTimeMode() {
