@@ -6,8 +6,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -27,8 +31,11 @@ public class MainActivity extends AppCompatActivity {
     public ImageButton forwardButton;
     public TextView playModeTitle;
     public TextView playModeDescription;
+    public CardView statusCard;
     public boolean timeMode = false;
     public View view;
+    private static final int SWIPE_THRESHOLD = 100;
+    private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,37 +107,51 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        final GestureDetectorCompat gestureDetector = new GestureDetectorCompat(context,
-//                new GestureDetector.SimpleOnGestureListener() {
-//                    int penis = 1;
-//
-//                    @Override
-//                    public boolean onScroll(MotionEvent start, MotionEvent event, float distanceX, float distanceY) {
-//                        statusCard.setTranslationX(event.getX() - start.getX());
-//                        return true;
-//                    }
-//
-//                    @Override
-//                    public boolean onDown(MotionEvent e) {
-//                        return true;
-//                    }
-//
-//                });
-//
-//        statusCard.setOnTouchListener(new View.OnTouchListener() {
-//        @Override
-//            public boolean onTouch(View view, MotionEvent event) {
-//                gestureDetector.onTouchEvent(event);  // here we pass events to detector above
-//                return true;
-//            }
-//        });
+        playModeTitle = (TextView) findViewById(R.id.play_mode);
+        playModeDescription = (TextView) findViewById(R.id.play_mode_description);
+
+
+
+        statusCard = (CardView) findViewById(R.id.status_card);
+
+        final GestureDetectorCompat gestureDetector = new GestureDetectorCompat(context,
+                new GestureDetector.SimpleOnGestureListener() {
+
+                @Override
+                public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                    boolean result = false;
+                    try {
+                        if(timeMode) {
+                            showLearnMode();
+                        } else {
+                            showTimeMode();
+                        }
+                        result = true;
+
+                    } catch (Exception exception) {
+                        exception.printStackTrace();
+                    }
+                    return result;
+                }
+
+                    @Override
+                    public boolean onDown(MotionEvent e) {
+                        return true;
+                    }
+
+                });
+
+        statusCard.setOnTouchListener(new View.OnTouchListener() {
+        @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                gestureDetector.onTouchEvent(event);  // here we pass events to detector above
+                return true;
+            }
+        });
     }
 
     protected void showTimeMode() {
-        playModeTitle = (TextView) findViewById(R.id.play_mode);
         playModeTitle.setText(R.string.time_mode);
-
-        playModeDescription = (TextView) findViewById(R.id.play_mode_description);
         playModeDescription.setText(R.string.time_mode_description);
 
         fab.hide();
@@ -148,10 +169,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void showLearnMode() {
-        playModeTitle = (TextView) findViewById(R.id.play_mode);
         playModeTitle.setText(R.string.learning_mode);
-
-        playModeDescription = (TextView) findViewById(R.id.play_mode_description);
         playModeDescription.setText(R.string.learning_mode_description);
 
         fab.hide();
