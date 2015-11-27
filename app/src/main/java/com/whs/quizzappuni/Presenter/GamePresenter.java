@@ -129,16 +129,16 @@ public class GamePresenter {
         QuestionAnswer selectedAnswer = questionAnswers[view.answer];
 
         if (selectedAnswer.isCorrectAnswer()) {
-            view.statusCard.setBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.rightAnswer));
+            view.statusCard.setCardBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.rightAnswer));
         } else {
-            view.statusCard.setBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.wrongAnswer));
+            view.statusCard.setCardBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.wrongAnswer));
         }
 
         round.addRoundQuestion(question.getId(), question.getPoints(), selectedAnswer.isCorrectAnswer());
 
 /**
  *if(view.Antwort1.isChecked())
- *view.Antwort1.setBackgroundColor(view.getResources().getColor(R.color.wrongAnswer));
+ *view.Antwort1.setCardBackgroundColor(view.getResources().getColor(R.color.wrongAnswer));
  *if(view.Antwort2.isChecked())
  *view.Antwort2.getTextOn();
  *if(view.Antwort3.isChecked())
@@ -154,7 +154,7 @@ public class GamePresenter {
                 //Auszuführende nach der Wartezeit
                 //TODO:FAB-Button ausblenden
                 uncheckButtons();
-                view.statusCard.setBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
+                view.statusCard.setCardBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
                 view.fabSendAlreadyClicked = false;
                 currentQuestion++;
                 loadQuestion();

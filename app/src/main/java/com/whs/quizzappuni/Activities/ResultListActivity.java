@@ -1,9 +1,9 @@
 package com.whs.quizzappuni.Activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
 
 import com.whs.quizzappuni.Presenter.ResultListPresenter;
 import com.whs.quizzappuni.R;
@@ -15,6 +15,7 @@ public class ResultListActivity extends AppCompatActivity {
 
 
     private ResultListPresenter presenter;
+    final Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,8 @@ public class ResultListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
 
         //Sicherstellen, dass ein Presenter existiert
         if (presenter == null)
@@ -35,7 +38,6 @@ public class ResultListActivity extends AppCompatActivity {
 
 
     }
-
 }
 
 
