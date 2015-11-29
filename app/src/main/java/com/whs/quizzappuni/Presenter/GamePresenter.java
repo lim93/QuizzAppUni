@@ -28,18 +28,18 @@ import java.util.List;
 public class GamePresenter {
 
     public GameActivity view;
-    private QuizzDBHelper qHelper;
-    private UserDBHelper userDBHelper;
+    public QuizzDBHelper qHelper;
+    public UserDBHelper userDBHelper;
 
-    private List<ToggleButton> buttons = new ArrayList<ToggleButton>();
+    public List<ToggleButton> buttons = new ArrayList<ToggleButton>();
 
-    private Round round;
-    private Question question;
-    private List<Question> randomQuestions;
+    public Round round;
+    public Question question;
+    public List<Question> randomQuestions;
 
-    //TODO:Rundenlänge dynamisch laden?
-    private int roundLength = 5;
-    private int currentQuestion = 0;
+    //TODO:Rundenlänge hochsetzen auf 10 Fragen?
+    public int roundLength = 5;
+    public int currentQuestion = 0;
 
     public GamePresenter() {
 
@@ -121,44 +121,52 @@ public class GamePresenter {
 
     //Auf die Bestaetigung nach der Antwort-Auswahl reagieren
     public void confirmChoice() {
-
         question = randomQuestions.get(currentQuestion);
         QuestionAnswer[] questionAnswers = question.getAnswers();
         QuestionAnswer selectedAnswer = questionAnswers[view.answer];
 
         if (selectedAnswer.isCorrectAnswer()) {
             view.statusCard.setCardBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.rightAnswer));
-        } else {
+        }
+
+        else {
+            //StatusCard und den ausgewählten Button mit rot markieren
             view.statusCard.setCardBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.wrongAnswer));
+            //TODO: hier müsste der gewählte  Button ggf. auf rot gesetzt werden; Dies funktioniert mit der aktuellen Einstellung der ToggleButtons nicht
+
+            //richtige Antwort finden und den entsprechenden Button auf checked setzen um anzuzeigen, welches die richtige Antwort gewesen wäre
+            if (question instanceof MultipleChoice) {
+                if (questionAnswers[0].isCorrectAnswer())
+                    view.Antwort1.setChecked(true);
+                if (questionAnswers[1].isCorrectAnswer())
+                    view.Antwort2.setChecked(true);
+                if (questionAnswers[2].isCorrectAnswer())
+                    view.Antwort3.setChecked(true);
+                if (questionAnswers[3].isCorrectAnswer())
+                    view.Antwort4.setChecked(true);
+            } else if (question instanceof TrueFalse) {
+                if (questionAnswers[0].isCorrectAnswer())
+                    view.Antwort1.setChecked(true);
+                if (questionAnswers[1].isCorrectAnswer())
+                    view.Antwort2.setChecked(true);
+            }
         }
 
         round.addRoundQuestion(question.getId(), question.getPoints(), selectedAnswer.isCorrectAnswer());
-
-/**
- *if(view.Antwort1.isChecked())
- *view.Antwort1.setCardBackgroundColor(view.getResources().getColor(R.color.wrongAnswer));
- *if(view.Antwort2.isChecked())
- *view.Antwort2.getTextOn();
- *if(view.Antwort3.isChecked())
- *view.Antwort3.getTextOn();
- *if(view.Antwort4.isChecked())
- *view.Antwort4.getTextOn();
- */
 
         //Informationen über die beantwortete Frage (Ergebnis war richtig oder falsch, etc.) werden für eine bestimmte "Wartezeit" lang angezeigt, bevor die nächste Frage geladen wird
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                //Auszuführende nach der Wartezeit
-                //TODO:FAB-Button ausblenden
+                //Auszuführendes nach der Wartezeit
                 uncheckButtons();
-                view.statusCard.setCardBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
+                resetCardColor();
                 view.fabSendAlreadyClicked = false;
                 currentQuestion++;
                 loadQuestion();
             }
-            //Folgend: Angabe der Wartezeit
-        }, 1000);
+            //Folgend: Angabe der Wartezeit in Millisekunden
+        }, 1500);
     }
 
     public void uncheckButtons() {
@@ -181,6 +189,10 @@ public class GamePresenter {
     public void MainStarten() {
         Intent main = new Intent(view, MainActivity.class);
         view.startActivity(main);
+    }
+
+    public void resetCardColor(){
+        view.statusCard.setCardBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
     }
 
     public void check() {
