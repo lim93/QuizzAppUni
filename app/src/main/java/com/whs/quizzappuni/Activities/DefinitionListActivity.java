@@ -78,6 +78,7 @@ public class DefinitionListActivity extends AppCompatActivity {
 
                 newActivity.putExtra("term", definition.getTerm());
                 newActivity.putExtra("definitionText", definition.getDefinitionText());
+                newActivity.putExtra("source", definition.getSource());
                 startActivity(newActivity, null);
 
             }
