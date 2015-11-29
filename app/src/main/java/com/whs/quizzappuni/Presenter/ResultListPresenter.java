@@ -1,7 +1,9 @@
 package com.whs.quizzappuni.Presenter;
 
+import android.content.Intent;
 import android.widget.ListView;
 
+import com.whs.quizzappuni.Activities.MainActivity;
 import com.whs.quizzappuni.Activities.ResultListActivity;
 import com.whs.quizzappuni.Model.Round;
 import com.whs.quizzappuni.R;
@@ -36,6 +38,11 @@ public class ResultListPresenter {
         ResultAdapter adapter = new ResultAdapter(view,0, resultList);
         resultListView = (ListView) view.findViewById(R.id.resultList);
         resultListView.setAdapter(adapter);
+    }
+
+    public void mainStarten(){
+        Intent main = new Intent(view, MainActivity.class);
+        view.startActivity(main);
     }
 
 

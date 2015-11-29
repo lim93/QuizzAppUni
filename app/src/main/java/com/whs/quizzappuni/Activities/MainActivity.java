@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
                                             }
         );
 
+        //Back-Button initialisieren
         backButton = (ImageButton) findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 }
         });
 
+        //forward-Button initialisieren
         forwardButton = (ImageButton) findViewById(R.id.forwardButton);
         forwardButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        //Swipe Area unten hinzufügen
         statusCard = (CardView) findViewById(R.id.status_card);
 
         final GestureDetectorCompat gestureDetector = new GestureDetectorCompat(context,
@@ -149,6 +152,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    //Methoden zum Ein- und Ausblenden von verschiedenen Spielmodi.
 
     protected void showTimeMode() {
         playModeTitle.setText(R.string.time_mode);
@@ -192,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //Verhindern, dass das Spiel versehentlich abgebrochen wird mit Alert Dialog.
     @Override
     public void onBackPressed() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(

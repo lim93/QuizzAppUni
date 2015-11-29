@@ -67,6 +67,7 @@ public class GameActivity extends AppCompatActivity {
         assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         //Antwort-Buttons initialisieren
         Antwort1 = (ToggleButton) findViewById(R.id.Antwort1);

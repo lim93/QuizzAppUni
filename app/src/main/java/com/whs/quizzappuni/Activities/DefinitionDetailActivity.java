@@ -1,9 +1,12 @@
 package com.whs.quizzappuni.Activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.whs.quizzappuni.R;
@@ -12,6 +15,7 @@ public class DefinitionDetailActivity extends AppCompatActivity {
 
     public TextView definitionContentCard;
     public TextView definitionTitleCard;
+    public Button definitionLink;
 
 
     @Override
@@ -35,6 +39,15 @@ public class DefinitionDetailActivity extends AppCompatActivity {
         definitionTitleCard.setText(bundle.getString("term"));
         definitionContentCard = (TextView) findViewById(R.id.definitionContentCard);
         definitionContentCard.setText(bundle.getString("definitionText"));
+
+        definitionLink = (Button) findViewById(R.id.definitionLink);
+        definitionLink.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO Add Real URL from DB
+                startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://www.wikipedia.org")));
+            }
+        });
 
     }
 }
