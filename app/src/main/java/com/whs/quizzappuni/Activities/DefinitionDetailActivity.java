@@ -31,7 +31,7 @@ public class DefinitionDetailActivity extends AppCompatActivity {
 
         //Load Definition Text
         Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
+        final Bundle bundle = intent.getExtras();
 
 
 
@@ -44,8 +44,7 @@ public class DefinitionDetailActivity extends AppCompatActivity {
         definitionLink.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO Add Real URL from DB
-                startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://www.wikipedia.org")));
+                startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse(bundle.getString("source"))));
             }
         });
 
