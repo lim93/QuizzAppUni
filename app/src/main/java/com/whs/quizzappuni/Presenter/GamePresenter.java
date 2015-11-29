@@ -27,7 +27,7 @@ import java.util.List;
  */
 public class GamePresenter {
 
-    private GameActivity view;
+    public GameActivity view;
     private QuizzDBHelper qHelper;
     private UserDBHelper userDBHelper;
 
@@ -61,15 +61,13 @@ public class GamePresenter {
             buttons.add(view.Antwort3);
             buttons.add(view.Antwort4);
 
-            view.progressBar.setMax(roundLength);
+            setMaxRoundInformation();
 
             //Runde starten, Sekunden zählen?
             round.start(true);
         }
 
-        //Rundeninformationen in der View anpassen
-        view.progressBar.setProgress(currentQuestion);
-        view.points.setText(String.format("%d %s", round.getScore(), view.getResources().getString(R.string.points)));
+        setRoundInformations();
 
         //Rundendurchlauf
         if (currentQuestion < roundLength) {
@@ -168,6 +166,16 @@ public class GamePresenter {
         view.Antwort2.setChecked(false);
         view.Antwort3.setChecked(false);
         view.Antwort4.setChecked(false);
+    }
+
+    public void setRoundInformations(){
+        //Rundeninformationen in der View anpassen
+        view.progressBar.setProgress(currentQuestion);
+        view.points.setText(String.format("%d %s", round.getScore(), view.getResources().getString(R.string.points)));
+    }
+
+    public void setMaxRoundInformation(){
+        view.progressBar.setMax(roundLength);
     }
 
     public void MainStarten() {
