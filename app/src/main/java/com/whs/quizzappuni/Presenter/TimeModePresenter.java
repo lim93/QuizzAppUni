@@ -69,6 +69,7 @@ public class TimeModePresenter extends GamePresenter {
         int actualTime = (int) actTime;
         view.progressBar.setProgress(actualTime);
         view.points.setText(String.format("%d %s", round.getScore(), view.getResources().getString(R.string.points)));
+        view.playMode.setText(view.getResources().getString(R.string.time_mode));
 
     }
 
@@ -161,11 +162,22 @@ public class TimeModePresenter extends GamePresenter {
 
         if (selectedAnswer.isCorrectAnswer()) {
             view.statusCard.setCardBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.rightAnswer));
+            view.playMode.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
+            view.points.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
+            view.playMode.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
+            view.round_status.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
+            view.progressBar.setVisibility(View.GONE);
         }
 
         else {
             //StatusCard und den ausgewählten Button mit rot markieren
             view.statusCard.setCardBackgroundColor(ContextCompat.getColor(view.getApplicationContext(), R.color.wrongAnswer));
+
+            view.playMode.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
+            view.points.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
+            view.playMode.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
+            view.round_status.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
+            view.progressBar.setVisibility(View.GONE);
             //TODO: hier müsste der gewählte  Button ggf. auf rot gesetzt werden; Dies funktioniert mit der aktuellen Einstellung der ToggleButtons nicht
 
             //richtige Antwort finden und den entsprechenden Button auf checked setzen um anzuzeigen, welches die richtige Antwort gewesen wäre

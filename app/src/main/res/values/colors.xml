@@ -13,4 +13,7 @@
     <color name="rightAnswer">#76b236</color>
     <color name="wrongAnswer">#E8352B</color>
     <color name="wrongAnswerDefinitionButton">#FFD300</color>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
 </resources>

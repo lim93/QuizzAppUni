@@ -33,6 +33,7 @@ public class GameActivity extends AppCompatActivity {
     public TextView points;
     public ProgressBar progressBar;
     public CardView statusCard;
+    public TextView playMode;
     public FloatingActionButton fabSend;
     public boolean fabSendAlreadyClicked = false;
     public int answer;
@@ -88,6 +89,8 @@ public class GameActivity extends AppCompatActivity {
 
         round_status = (TextView) findViewById(R.id.round_status);
         points = (TextView) findViewById(R.id.points);
+
+        playMode = (TextView) findViewById(R.id.play_mode);
 
         fabSend = (FloatingActionButton) findViewById(R.id.fabSend);
         fabSend.setOnClickListener(new View.OnClickListener() {
