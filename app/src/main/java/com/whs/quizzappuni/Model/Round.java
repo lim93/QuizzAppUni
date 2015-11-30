@@ -1,10 +1,11 @@
 package com.whs.quizzappuni.Model;
 
-import org.joda.time.Duration;
+
+import com.whs.quizzappuni.Presenter.GamePresenter;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by krispin on 25.10.15.
@@ -69,15 +70,15 @@ public class Round {
         this.score = 0;
         this.durationSeconds = 0l;
         this.countTime = countTime;
-        this.startDate = Calendar.getInstance().getTimeInMillis();
+        this.startDate = System.nanoTime();
     }
 
     public void stop() {
-
         if (countTime) {
-            this.endDate = Calendar.getInstance().getTimeInMillis();
-            Duration duration = new Duration(startDate, endDate);
-            this.durationSeconds = duration.getStandardSeconds();
+            this.endDate = System.nanoTime();
+            GamePresenter present = new GamePresenter();
+            long duration = endDate - TimeUnit.MILLISECONDS.toNanos(present.getWaitedTime()) - startDate;
+            this.durationSeconds = TimeUnit.NANOSECONDS.toSeconds(duration);
         }
 
         updateScore();

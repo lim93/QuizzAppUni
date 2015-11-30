@@ -22,10 +22,11 @@ import java.util.concurrent.TimeUnit;
  * Created by krispin on 20.11.15.
  */
 public class TimeModePresenter extends GamePresenter {
-    private long maxTime = 10;
+    private int maxTime = 10000;
     public long actTime;
-    public final Counter timer = new Counter(10000, 1000);
-    //timer: 10 Sekunden maxTime , 1 Sekunde Zählintervall (in Millisekunden angegeben)
+    public final Counter timer = new Counter(10000, 10);
+
+    //timer: 10 Sekunden maxTime (in Millisekunden angegeben) , 10 Millisekunden Zählintervall
 
     //innere COUNTER-Klasse
     public class Counter extends CountDownTimer{
@@ -36,16 +37,18 @@ public class TimeModePresenter extends GamePresenter {
 
         @Override
         public void onTick(long millisUntilFinished){
-
             long millis = millisUntilFinished;
-            actTime = TimeUnit.MILLISECONDS.toSeconds(millis);
-            setRoundInformations();
+            actTime = millis;
+            setActualTimeInformations();
         }
 
         @Override
         public void onFinish(){
             //verhindern, dass nach Ablauf der Zeit noch schnell eine andere Antwort gesetzt wird
             view.fabSendAlreadyClicked = true;
+
+            //Runde stoppen
+            timer.cancel();
 
             //Wenn keine Antwort innerhalb der Zeit ausgewählt wurde, dann soll eine richtige Antwort vermieden werden
             if (!view.Antwort1.isChecked() && !view.Antwort2.isChecked() && !view.Antwort3.isChecked() && !view.Antwort4.isChecked()) {
@@ -63,11 +66,14 @@ public class TimeModePresenter extends GamePresenter {
 
     }
 
+    public void setActualTimeInformations(){
+        int actualTime = (int) actTime;
+        view.progressBar.setProgress(actualTime);
+    }
+
     @Override
     public void setRoundInformations(){
         //Rundeninformationen in der View anpassen
-        int actualTime = (int) actTime;
-        view.progressBar.setProgress(actualTime);
         view.points.setText(String.format("%d %s", round.getScore(), view.getResources().getString(R.string.points)));
         view.playMode.setText(view.getResources().getString(R.string.time_mode));
 
@@ -75,8 +81,8 @@ public class TimeModePresenter extends GamePresenter {
 
     @Override
     public void setMaxRoundInformation(){
-        int maximalTime = (int) maxTime;
-        view.progressBar.setMax(maximalTime);
+        //int maximalTime = (int) maxTime;
+        view.progressBar.setMax(maxTime);
     }
 
     @Override
@@ -98,8 +104,9 @@ public class TimeModePresenter extends GamePresenter {
             round.start(true);
         }
 
-        //Den COUNTER starten (anstatt wie im Lernmodus die aktuelle Runde zu setzen, wird hier der Count-Down-Timer gestartet und die Fragerunde so zeitlich begrenzt)
+        //Zusätlich hier: Den COUNTER starten (hier wird der Count-Down-Timer gestartet und die Fragerunde so zeitlich begrenzt)
         timer.start();
+        setRoundInformations();
 
         //Rundendurchlauf
         if (currentQuestion < roundLength) {
@@ -135,15 +142,16 @@ public class TimeModePresenter extends GamePresenter {
                 buttons.get(i).setTextOff(answer.getAnswerText());
             }
         } else {
-            //Runde stoppen
-            timer.cancel();
             round.stop();
+            timer.cancel();
             userDBHelper = new UserDBHelper(view.getApplicationContext());
             userDBHelper.writeRound(round);
 
             //Punkte der Runde an die Result-Activity übergeben und diese Activity schließlich starten
             Bundle bundle = new Bundle();
             bundle.putInt("points", round.getScore());
+            //Achtung: Hier sind die Punkte pro Frage fest eingetragen (6Punkte pro richtige Frage)
+            bundle.putInt("maxPoints", roundLength * 6);
             bundle.putLong("seconds", round.getDurationSeconds());
             bundle.putString("mode", view.gamemode);
             Intent result = new Intent(view, ResultActivity.class);
@@ -156,6 +164,7 @@ public class TimeModePresenter extends GamePresenter {
     public void confirmChoice() {
         //Nach Bestätigung muss hier zusätzlich der Timer gestoppt werden
         timer.cancel();
+
         question = randomQuestions.get(currentQuestion);
         QuestionAnswer[] questionAnswers = question.getAnswers();
         QuestionAnswer selectedAnswer = questionAnswers[view.answer];
@@ -212,7 +221,7 @@ public class TimeModePresenter extends GamePresenter {
                 loadQuestion();
             }
             //Folgend: Angabe der Wartezeit in Millisekunden
-        }, 1500);
+        }, waitingTimePerQuestionRound);
     }
 
 }
