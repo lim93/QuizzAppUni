@@ -36,6 +36,8 @@ public class GameActivity extends AppCompatActivity {
     public TextView playMode;
     public FloatingActionButton fabSend;
     public boolean fabSendAlreadyClicked = false;
+    public boolean answerButtonClicked = false;
+    public boolean timerIsFinished = false;
     public int answer;
     public String gamemode;
     final Context context = this;
@@ -98,10 +100,11 @@ public class GameActivity extends AppCompatActivity {
             public void onClick(View v) {
                 fabSend.hide();
                 //Verhindern, dass bei schneller mehrfacher Betägigung des Buttons hintereinander, Fragen "übersprungen" werden
-                if(fabSendAlreadyClicked == false) {
+                if(!fabSendAlreadyClicked) {
                     presenter.confirmChoice();
                 }
                 fabSendAlreadyClicked = true;
+                answerButtonClicked = true;
             }
         });
 
@@ -112,48 +115,83 @@ public class GameActivity extends AppCompatActivity {
 
     CompoundButton.OnCheckedChangeListener changeChecker = new CompoundButton.OnCheckedChangeListener() {
 
-        //      Nur ein Button kann selected sein.
-        @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (isChecked) {
-                if (buttonView == Antwort1) {
-                    Antwort2.setChecked(false);
-                    Antwort3.setChecked(false);
-                    Antwort4.setChecked(false);
-                    answer = 0;
-                }
-                if (buttonView == Antwort2) {
-                    Antwort1.setChecked(false);
-                    Antwort3.setChecked(false);
-                    Antwort4.setChecked(false);
-                    answer = 1;
-                }
-                if (buttonView == Antwort3) {
-                    Antwort2.setChecked(false);
-                    Antwort1.setChecked(false);
-                    Antwort4.setChecked(false);
-                    answer = 2;
-                }
-                if (buttonView == Antwort4) {
-                    Antwort2.setChecked(false);
-                    Antwort3.setChecked(false);
-                    Antwort1.setChecked(false);
-                    answer = 3;
-                }
+                    //      Nur ein Button kann selected sein.
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-//                FAB an
-                Utils.showFabWithAnimation(fabSend, 50);
-            } else {
+                        //überprüfen, ob schon ein Antwort-Button gedrückt wurde; Dieser Wert wird aktuell nur im Zeitmodus geändert, da hier direkt nach drücken eines Buttons das Ergebnis gezeigt wird
+                        if(!answerButtonClicked)
+                        {
+                            if (timerIsFinished) {
+                                Antwort1.setChecked(false);
+                                Antwort2.setChecked(false);
+                                Antwort3.setChecked(false);
+                                Antwort4.setChecked(false);
+                            }
+                            else {
+                                if (isChecked) {
+                                    if (buttonView == Antwort1) {
+                                        Antwort2.setChecked(false);
+                                        Antwort3.setChecked(false);
+                                        Antwort4.setChecked(false);
+                                        answer = 0;
+                                    }
+                                    if (buttonView == Antwort2) {
+                                        Antwort1.setChecked(false);
+                                        Antwort3.setChecked(false);
+                                        Antwort4.setChecked(false);
+                                        answer = 1;
+                                    }
+                                    if (buttonView == Antwort3) {
+                                        Antwort2.setChecked(false);
+                                        Antwort1.setChecked(false);
+                                        Antwort4.setChecked(false);
+                                        answer = 2;
+                                    }
+                                    if (buttonView == Antwort4) {
+                                        Antwort2.setChecked(false);
+                                        Antwort3.setChecked(false);
+                                        Antwort1.setChecked(false);
+                                        answer = 3;
+                                    }
 
-//                FAB aus
-                if (!Antwort1.isChecked()
-                        && !Antwort2.isChecked()
-                        && !Antwort3.isChecked()
-                        && !Antwort4.isChecked()) {
-                    fabSend.hide();
-                }
-            }
-        }
+                                    //FAB an
+                                    presenter.doWhenAnswerIsChoosed();
+                                } else {
+                                    //FAB aus
+                                    if (!Antwort1.isChecked() && !Antwort2.isChecked() && !Antwort3.isChecked() && !Antwort4.isChecked()) {
+                                        fabSend.hide();
+                                    }
+                                }
+                            }
+
+                        }
+                        else
+                        {
+                            //Verhindern, dass sich der Anzeigestatus der toggleButtons verändert, wenn schon eine Auswahl getroffen wurde
+                                if (answer == 0) {
+                                    Antwort1.setChecked(true);
+                                    Antwort2.setChecked(false);
+                                    Antwort3.setChecked(false);
+                                    Antwort4.setChecked(false);
+                                } if (answer == 1) {
+                                    Antwort1.setChecked(false);
+                                    Antwort2.setChecked(true);
+                                    Antwort3.setChecked(false);
+                                    Antwort4.setChecked(false);
+                                } if (answer == 2) {
+                                    Antwort1.setChecked(false);
+                                    Antwort2.setChecked(false);
+                                    Antwort3.setChecked(true);
+                                    Antwort4.setChecked(false);
+                                } if (answer == 3) {
+                                    Antwort1.setChecked(false);
+                                    Antwort2.setChecked(false);
+                                    Antwort3.setChecked(false);
+                                    Antwort4.setChecked(true);
+                                }
+                        }
+                    }
     };
 
     @Override
