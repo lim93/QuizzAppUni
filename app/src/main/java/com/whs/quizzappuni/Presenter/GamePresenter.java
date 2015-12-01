@@ -43,7 +43,7 @@ public class GamePresenter {
     public int roundLength = 7;
     public int currentQuestion = 0;
 
-    public int waitingTimePerQuestionRound = 2000;
+    public int waitingTimePerQuestionRound = 1500;
     public int waitedTime = waitingTimePerQuestionRound * roundLength;
 
     public GamePresenter() {

@@ -22,9 +22,6 @@ import java.util.concurrent.TimeUnit;
  * Created by krispin on 20.11.15.
  */
 public class TimeModePresenter extends GamePresenter {
-    public int waitingTimePerQuestionRound = 1500;
-    public int waitedTime = waitingTimePerQuestionRound * roundLength;
-
     private int maxTime = 12000;
     public long actTime;
     public final Counter timer = new Counter(12000, 5);
@@ -199,26 +196,8 @@ public class TimeModePresenter extends GamePresenter {
             view.playMode.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
             view.round_status.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.lightwhite));
             view.progressBar.setVisibility(View.GONE);
-            //TODO: hier müsste der gewählte  Button ggf. auf rot gesetzt werden; Dies funktioniert mit der aktuellen Einstellung der ToggleButtons nicht
 
-            /**
-            //richtige Antwort finden und den entsprechenden Button auf checked setzen um anzuzeigen, welches die richtige Antwort gewesen wäre
-            if (question instanceof MultipleChoice) {
-                if (questionAnswers[0].isCorrectAnswer())
-                    view.Antwort1.setChecked(true);
-                if (questionAnswers[1].isCorrectAnswer())
-                    view.Antwort2.setChecked(true);
-                if (questionAnswers[2].isCorrectAnswer())
-                    view.Antwort3.setChecked(true);
-                if (questionAnswers[3].isCorrectAnswer())
-                    view.Antwort4.setChecked(true);
-            } else if (question instanceof TrueFalse) {
-                if (questionAnswers[0].isCorrectAnswer())
-                    view.Antwort1.setChecked(true);
-                if (questionAnswers[1].isCorrectAnswer())
-                    view.Antwort2.setChecked(true);
-            }
-             */
+            //TODO: hier müsste der gewählte  Button ggf. auf rot gesetzt werden; Dies funktioniert mit der aktuellen Einstellung der ToggleButtons nicht
         }
 
         round.addRoundQuestion(question.getId(), question.getPoints(), selectedAnswer.isCorrectAnswer());
@@ -239,10 +218,4 @@ public class TimeModePresenter extends GamePresenter {
             //Folgend: Angabe der Wartezeit in Millisekunden
         }, waitingTimePerQuestionRound);
     }
-
-    @Override
-    public int getWaitedTime() {
-        return waitedTime;
-    }
-
 }
