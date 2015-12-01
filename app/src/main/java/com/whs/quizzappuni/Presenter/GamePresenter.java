@@ -18,6 +18,7 @@ import com.whs.quizzappuni.Model.TrueFalse;
 import com.whs.quizzappuni.R;
 import com.whs.quizzappuni.Utils.QuizzDBHelper;
 import com.whs.quizzappuni.Utils.UserDBHelper;
+import com.whs.quizzappuni.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class GamePresenter {
     public int roundLength = 7;
     public int currentQuestion = 0;
 
-    public int waitingTimePerQuestionRound = 1500;
+    public int waitingTimePerQuestionRound = 2000;
     public int waitedTime = waitingTimePerQuestionRound * roundLength;
 
     public GamePresenter() {
@@ -180,9 +181,10 @@ public class GamePresenter {
         handler.postDelayed(new Runnable() {
             public void run() {
                 //Auszuführendes nach der Wartezeit
-                uncheckButtons();
                 resetCardColor();
                 view.fabSendAlreadyClicked = false;
+                view.answerButtonClicked = false;
+                uncheckButtons();
                 currentQuestion++;
                 loadQuestion();
             }
@@ -220,6 +222,10 @@ public class GamePresenter {
         view.playMode.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.black));
         view.round_status.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.black));
         view.progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void doWhenAnswerIsChoosed() {
+        Utils.showFabWithAnimation(view.fabSend, 50);
     }
 
     public int getWaitedTime() {

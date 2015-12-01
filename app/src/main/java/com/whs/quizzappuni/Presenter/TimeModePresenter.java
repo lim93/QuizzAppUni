@@ -22,11 +22,13 @@ import java.util.concurrent.TimeUnit;
  * Created by krispin on 20.11.15.
  */
 public class TimeModePresenter extends GamePresenter {
-    private int maxTime = 10000;
-    public long actTime;
-    public final Counter timer = new Counter(10000, 10);
+    public int waitingTimePerQuestionRound = 1500;
+    public int waitedTime = waitingTimePerQuestionRound * roundLength;
 
-    //timer: 10 Sekunden maxTime (in Millisekunden angegeben) , 10 Millisekunden Zählintervall
+    private int maxTime = 12000;
+    public long actTime;
+    public final Counter timer = new Counter(12000, 5);
+    //timer: 12 Sekunden maxTime (in Millisekunden angegeben) , 5 Millisekunden Zählintervall
 
     //innere COUNTER-Klasse
     public class Counter extends CountDownTimer{
@@ -44,6 +46,7 @@ public class TimeModePresenter extends GamePresenter {
 
         @Override
         public void onFinish(){
+            view.timerIsFinished = true;
             //verhindern, dass nach Ablauf der Zeit noch schnell eine andere Antwort gesetzt wird
             view.fabSendAlreadyClicked = true;
 
@@ -161,6 +164,15 @@ public class TimeModePresenter extends GamePresenter {
     }
 
     @Override
+    public void doWhenAnswerIsChoosed(){
+        view.answerButtonClicked = true;
+        if(!view.fabSendAlreadyClicked) {
+            confirmChoice();
+        }
+        view.fabSendAlreadyClicked = true;
+    }
+
+    @Override
     public void confirmChoice() {
         //Nach Bestätigung muss hier zusätzlich der Timer gestoppt werden
         timer.cancel();
@@ -189,6 +201,7 @@ public class TimeModePresenter extends GamePresenter {
             view.progressBar.setVisibility(View.GONE);
             //TODO: hier müsste der gewählte  Button ggf. auf rot gesetzt werden; Dies funktioniert mit der aktuellen Einstellung der ToggleButtons nicht
 
+            /**
             //richtige Antwort finden und den entsprechenden Button auf checked setzen um anzuzeigen, welches die richtige Antwort gewesen wäre
             if (question instanceof MultipleChoice) {
                 if (questionAnswers[0].isCorrectAnswer())
@@ -205,6 +218,7 @@ public class TimeModePresenter extends GamePresenter {
                 if (questionAnswers[1].isCorrectAnswer())
                     view.Antwort2.setChecked(true);
             }
+             */
         }
 
         round.addRoundQuestion(question.getId(), question.getPoints(), selectedAnswer.isCorrectAnswer());
@@ -214,14 +228,21 @@ public class TimeModePresenter extends GamePresenter {
         handler.postDelayed(new Runnable() {
             public void run() {
                 //Auszuführendes nach der Wartezeit
-                uncheckButtons();
                 resetCardColor();
                 view.fabSendAlreadyClicked = false;
+                view.answerButtonClicked = false;
+                view.timerIsFinished = false;
+                uncheckButtons();
                 currentQuestion++;
                 loadQuestion();
             }
             //Folgend: Angabe der Wartezeit in Millisekunden
         }, waitingTimePerQuestionRound);
+    }
+
+    @Override
+    public int getWaitedTime() {
+        return waitedTime;
     }
 
 }
