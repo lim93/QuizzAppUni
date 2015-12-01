@@ -70,15 +70,15 @@ public class Round {
         this.score = 0;
         this.durationSeconds = 0l;
         this.countTime = countTime;
-        this.startDate = System.nanoTime();
+        this.startDate = System.currentTimeMillis();
     }
 
     public void stop() {
         if (countTime) {
-            this.endDate = System.nanoTime();
+            this.endDate = System.currentTimeMillis();
             GamePresenter present = new GamePresenter();
-            long duration = endDate - TimeUnit.MILLISECONDS.toNanos(present.getWaitedTime()) - startDate;
-            this.durationSeconds = TimeUnit.NANOSECONDS.toSeconds(duration);
+            long duration = this.endDate - present.getWaitedTime() - this.startDate;
+            this.durationSeconds = TimeUnit.MILLISECONDS.toSeconds(duration);
         }
 
         updateScore();
