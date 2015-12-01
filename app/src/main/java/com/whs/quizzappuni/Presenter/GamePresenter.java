@@ -21,6 +21,7 @@ import com.whs.quizzappuni.Utils.UserDBHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by M on 31.10.2015.
@@ -37,9 +38,12 @@ public class GamePresenter {
     public Question question;
     public List<Question> randomQuestions;
 
-    //TODO:Rundenlänge hochsetzen auf 10 Fragen?
-    public int roundLength = 5;
+    //Hier wird die Anzahl der Fragen in einer Runde bestimmt (Aktuell: 7)!
+    public int roundLength = 7;
     public int currentQuestion = 0;
+
+    public int waitingTimePerQuestionRound = 1500;
+    public int waitedTime = waitingTimePerQuestionRound * roundLength;
 
     public GamePresenter() {
 
@@ -105,12 +109,15 @@ public class GamePresenter {
         } else {
             //Runde stoppen
             round.stop();
+
             userDBHelper = new UserDBHelper(view.getApplicationContext());
             userDBHelper.writeRound(round);
 
             //Punkte der Runde an die Result-Activity übergeben und diese Activity schließlich starten
             Bundle bundle = new Bundle();
             bundle.putInt("points", round.getScore());
+            //Achtung: Hier sind die Punkte pro Frage fest eingetragen (6Punkte pro richtige Frage)
+            bundle.putInt("maxPoints", roundLength * 6);
             bundle.putLong("seconds", round.getDurationSeconds());
             bundle.putString("mode", view.gamemode);
             Intent result = new Intent(view, ResultActivity.class);
@@ -180,7 +187,7 @@ public class GamePresenter {
                 loadQuestion();
             }
             //Folgend: Angabe der Wartezeit in Millisekunden
-        }, 1500);
+        }, waitingTimePerQuestionRound);
     }
 
     public void uncheckButtons() {
@@ -213,6 +220,10 @@ public class GamePresenter {
         view.playMode.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.black));
         view.round_status.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.black));
         view.progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public int getWaitedTime() {
+        return waitedTime;
     }
 
     public void check() {

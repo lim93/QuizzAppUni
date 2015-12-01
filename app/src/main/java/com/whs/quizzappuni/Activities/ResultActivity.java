@@ -47,7 +47,7 @@ public class ResultActivity extends AppCompatActivity {
         //Befülle die Endergebnis-Anzeige dieser Runde mit den übergebenen Punktwerten aus der Runde
         gamemode = bundle.getString("mode");
         points = (TextView) findViewById(R.id.result_points);
-        points.setText(String.format("%d %s", bundle.getInt("points"), getResources().getString(R.string.points)));
+        points.setText(String.format("%d %s %d %s", bundle.getInt("points"),"/",bundle.getInt("maxPoints"), "Punkten"));
 
         container_time = (LinearLayout) findViewById(R.id.container_time);
         time = (TextView) findViewById(R.id.time);
