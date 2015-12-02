@@ -239,9 +239,10 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+        presenter.cancelTimer();
         super.onPause();
         if (!this.isFinishing()){
-            presenter.MainStarten();
+            presenter.resultPageStarten();
         }
     }
 }

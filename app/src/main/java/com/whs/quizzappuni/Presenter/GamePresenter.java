@@ -114,17 +114,21 @@ public class GamePresenter {
             userDBHelper = new UserDBHelper(view.getApplicationContext());
             userDBHelper.writeRound(round);
 
-            //Punkte der Runde an die Result-Activity übergeben und diese Activity schließlich starten
-            Bundle bundle = new Bundle();
-            bundle.putInt("points", round.getScore());
-            //Achtung: Hier sind die Punkte pro Frage fest eingetragen (6Punkte pro richtige Frage)
-            bundle.putInt("maxPoints", roundLength * 6);
-            bundle.putLong("seconds", round.getDurationSeconds());
-            bundle.putString("mode", view.gamemode);
-            Intent result = new Intent(view, ResultActivity.class);
-            result.putExtras(bundle);
-            view.startActivity(result);
+            resultPageStarten();
         }
+    }
+
+    public void resultPageStarten(){
+        //Punkte der Runde an die Result-Activity übergeben und diese Activity schließlich starten
+        Bundle bundle = new Bundle();
+        bundle.putInt("points", round.getScore());
+        //Achtung: Hier sind die Punkte pro Frage fest eingetragen (6Punkte pro richtige Frage)
+        bundle.putInt("maxPoints", roundLength * 6);
+        bundle.putLong("seconds", round.getDurationSeconds());
+        bundle.putString("mode", view.gamemode);
+        Intent result = new Intent(view, ResultActivity.class);
+        result.putExtras(bundle);
+        view.startActivity(result);
     }
 
     //Auf die Bestaetigung nach der Antwort-Auswahl reagieren
@@ -227,6 +231,8 @@ public class GamePresenter {
         view.round_status.setTextColor(ContextCompat.getColor(view.getApplicationContext(), R.color.black));
         view.progressBar.setVisibility(View.VISIBLE);
     }
+
+    public void cancelTimer(){}
 
     public void doWhenAnswerIsChoosed() {
         Utils.showFabWithAnimation(view.fabSend, 50);

@@ -148,17 +148,27 @@ public class TimeModePresenter extends GamePresenter {
             userDBHelper = new UserDBHelper(view.getApplicationContext());
             userDBHelper.writeRound(round);
 
-            //Punkte der Runde an die Result-Activity übergeben und diese Activity schließlich starten
-            Bundle bundle = new Bundle();
-            bundle.putInt("points", round.getScore());
-            //Achtung: Hier sind die Punkte pro Frage fest eingetragen (6Punkte pro richtige Frage)
-            bundle.putInt("maxPoints", roundLength * 6);
-            bundle.putLong("seconds", round.getDurationSeconds());
-            bundle.putString("mode", view.gamemode);
-            Intent result = new Intent(view, ResultActivity.class);
-            result.putExtras(bundle);
-            view.startActivity(result);
+            resultPageStarten();
         }
+    }
+
+    @Override
+    public void resultPageStarten(){
+        //Punkte der Runde an die Result-Activity übergeben und diese Activity schließlich starten
+        Bundle bundle = new Bundle();
+        bundle.putInt("points", round.getScore());
+        //Achtung: Hier sind die Punkte pro Frage fest eingetragen (6Punkte pro richtige Frage)
+        bundle.putInt("maxPoints", roundLength * 6);
+        bundle.putLong("seconds", round.getDurationSeconds());
+        bundle.putString("mode", view.gamemode);
+        Intent result = new Intent(view, ResultActivity.class);
+        result.putExtras(bundle);
+        view.startActivity(result);
+    }
+
+    @Override
+    public void cancelTimer(){
+        timer.cancel();
     }
 
     @Override
