@@ -148,15 +148,12 @@ public class TimeModePresenter extends GamePresenter {
             timer.cancel();
             userDBHelper = new UserDBHelper(view.getApplicationContext());
             userDBHelper.writeRound(round);
-
-            view.fabSendStartsResultPage = true;
-            Utils.showFabWithAnimation(view.fabSend, 50);
+            resultPageStarten();
         }
     }
 
     @Override
     public void resultPageStarten(){
-        view.fabSendStartsResultPage = false;
         //Punkte der Runde an die Result-Activity übergeben und diese Activity schließlich starten
         Bundle bundle = new Bundle();
         bundle.putInt("points", round.getScore());

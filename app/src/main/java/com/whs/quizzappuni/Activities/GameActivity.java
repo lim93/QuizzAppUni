@@ -38,7 +38,6 @@ public class GameActivity extends AppCompatActivity {
     public boolean fabSendAlreadyClicked = false;
     public boolean answerButtonClicked = false;
     public boolean timerIsFinished = false;
-    public boolean fabSendStartsResultPage = false;
     public int answer;
     public String gamemode;
     final Context context = this;
@@ -99,10 +98,6 @@ public class GameActivity extends AppCompatActivity {
         fabSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (fabSendStartsResultPage){
-                    presenter.resultPageStarten();
-                }
-                else {
                     fabSend.hide();
                     //Verhindern, dass bei schneller mehrfacher Betägigung des Buttons hintereinander, Fragen "übersprungen" werden
                     if (!fabSendAlreadyClicked) {
@@ -110,7 +105,6 @@ public class GameActivity extends AppCompatActivity {
                     }
                     fabSendAlreadyClicked = true;
                     answerButtonClicked = true;
-                }
             }
         });
 
@@ -241,5 +235,17 @@ public class GameActivity extends AppCompatActivity {
 
         // show it
         alertDialog.show();
+    }
+
+    @Override
+    public void onStop(){
+        presenter.cancelTimer();
+        super.onStop();
+    }
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        presenter.MainStarten();
     }
 }
