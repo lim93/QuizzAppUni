@@ -16,6 +16,7 @@ import com.whs.quizzappuni.Model.TrueFalse;
 import com.whs.quizzappuni.R;
 import com.whs.quizzappuni.Utils.QuizzDBHelper;
 import com.whs.quizzappuni.Utils.UserDBHelper;
+import com.whs.quizzappuni.Utils.Utils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -148,12 +149,14 @@ public class TimeModePresenter extends GamePresenter {
             userDBHelper = new UserDBHelper(view.getApplicationContext());
             userDBHelper.writeRound(round);
 
-            resultPageStarten();
+            view.fabSendStartsResultPage = true;
+            Utils.showFabWithAnimation(view.fabSend, 50);
         }
     }
 
     @Override
     public void resultPageStarten(){
+        view.fabSendStartsResultPage = false;
         //Punkte der Runde an die Result-Activity übergeben und diese Activity schließlich starten
         Bundle bundle = new Bundle();
         bundle.putInt("points", round.getScore());
