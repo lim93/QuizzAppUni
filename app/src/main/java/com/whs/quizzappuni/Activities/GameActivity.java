@@ -236,4 +236,12 @@ public class GameActivity extends AppCompatActivity {
         // show it
         alertDialog.show();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (!this.isFinishing()){
+            presenter.MainStarten();
+        }
+    }
 }

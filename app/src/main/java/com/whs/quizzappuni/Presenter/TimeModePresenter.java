@@ -210,6 +210,11 @@ public class TimeModePresenter extends GamePresenter {
 
         round.addRoundQuestion(question.getId(), question.getPoints(), selectedAnswer.isCorrectAnswer());
 
+        startNextQuestion();
+    }
+
+    @Override
+    public void startNextQuestion(){
         //Informationen über die beantwortete Frage (Ergebnis war richtig oder falsch, etc.) werden für eine bestimmte "Wartezeit" lang angezeigt, bevor die nächste Frage geladen wird
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

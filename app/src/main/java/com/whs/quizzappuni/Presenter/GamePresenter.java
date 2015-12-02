@@ -176,6 +176,10 @@ public class GamePresenter {
 
         round.addRoundQuestion(question.getId(), question.getPoints(), selectedAnswer.isCorrectAnswer());
 
+        startNextQuestion();
+    }
+
+    public void startNextQuestion(){
         //Informationen über die beantwortete Frage (Ergebnis war richtig oder falsch, etc.) werden für eine bestimmte "Wartezeit" lang angezeigt, bevor die nächste Frage geladen wird
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -239,6 +243,4 @@ public class GamePresenter {
     public void end() {
         view.finish();
     }
-
-
 }
