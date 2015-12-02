@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
+import com.whs.quizzappuni.Activities.MainActivity;
 import com.whs.quizzappuni.Activities.ResultActivity;
 import com.whs.quizzappuni.Model.MultipleChoice;
 import com.whs.quizzappuni.Model.QuestionAnswer;
@@ -158,6 +159,13 @@ public class TimeModePresenter extends GamePresenter {
             result.putExtras(bundle);
             view.startActivity(result);
         }
+    }
+
+    @Override
+    public void MainStarten() {
+        timer.cancel();
+        Intent main = new Intent(view, MainActivity.class);
+        view.startActivity(main);
     }
 
     @Override
